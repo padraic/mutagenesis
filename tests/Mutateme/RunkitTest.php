@@ -23,7 +23,7 @@ class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(class_exists('Require1', false));
     }
 
-    public function testShouldApplyGivenMutationsUsingRunkitToReplaceEffectedMethods()
+    /*public function testShouldApplyGivenMutationsUsingRunkitToReplaceEffectedMethods()
     {
         $file = new Mutateme_MutableFile($this->root . '/runkit/Math1.php');
         $file->generateMutations();
@@ -31,7 +31,7 @@ class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
         $runkit = new Mutateme_Runkit;
         var_dump(array_shift($mutations)); exit;
         $runkit->applyMutation(array_shift($mutations));
-    }
+    }*/
 }
 
 class StubMutatemeMutation1 extends Mutateme_Mutation
