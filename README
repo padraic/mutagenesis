@@ -1,0 +1,3 @@
+This is not yet a functional framework - it's a work in progress
+
+To check the tests, please install Text_Diff from PEAR (otherwise PHPUnit will silently fail). It's a PHP4 library I need to locate a PHP5 alternative for. Suggestions are welcome!
