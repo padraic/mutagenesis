@@ -16,21 +16,40 @@ class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
         $this->root = dirname(__FILE__) . '/_files';
     }
 
-    public function testShouldRequireAnyFileHoldingClassesOnWhichMutationsWillBeApplied()
-    {
-        $runkit = new Mutateme_Runkit;
-        $runkit->applyMutation(new StubMutatemeMutation1($this->root.'/requires/require1.php'));
-        $this->assertTrue(class_exists('Require1', false));
-    }
-
     public function testShouldApplyGivenMutationsUsingRunkitToReplaceEffectedMethods()
     {
-        $file = new Mutateme_MutableFile($this->root . '/runkit/Math1.php');
-        $file->generateMutations();
-        $mutations = $file->getMutations();
+        $mutation = array(
+            'file' => $this->root . '/runkit/Math1.php',
+            'class' => 'RunkitTest_Math1',
+            'method' => 'add',
+            'args' => '$op1,$op2',
+            'tokens' => array(array(335,'return',7), array(309,'$op1',7), '+', array(309,'$op2',7), ';'),
+            'index' => 2,
+            'mutation' => new Mutateme_Mutation_OperatorAddition($this->root . '/runkit/Math1.php')
+        );
         $runkit = new Mutateme_Runkit;
-        var_dump(array_shift($mutations)); exit;
-        $runkit->applyMutation(array_shift($mutations));
+        $runkit->applyMutation($mutation);
+        $math = new RunkitTest_Math1;
+        $this->assertEquals(0, $math->add(1,1));
+        $runkit->reverseMutation($mutation);
+    }
+
+    public function testShouldRevertToOriginalMethodBodyWhenRequested()
+    {
+        $mutation = array(
+            'file' => $this->root . '/runkit/Math1.php',
+            'class' => 'RunkitTest_Math1',
+            'method' => 'add',
+            'args' => '$op1,$op2',
+            'tokens' => array(array(335,'return',7), array(309,'$op1',7), '+', array(309,'$op2',7), ';'),
+            'index' => 2,
+            'mutation' => new Mutateme_Mutation_OperatorAddition($this->root . '/runkit/Math1.php')
+        );
+        $runkit = new Mutateme_Runkit;
+        $runkit->applyMutation($mutation);
+        $math = new RunkitTest_Math1;
+        $runkit->reverseMutation($mutation);
+        $this->assertEquals(2, $math->add(1,1));
     }
 }
 

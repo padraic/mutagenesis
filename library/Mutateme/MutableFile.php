@@ -233,7 +233,7 @@ class Mutateme_MutableFile
                 } elseif ($roundcount >= 1) {
                     $argTokens[] = $token;
                 } elseif ($roundcount == 0 && count($argTokens) > 0) {
-                    $mutable['args'] = $argTokens;
+                    $mutable['args'] = $this->_reconstructFromTokens($argTokens);
                     $argTokens = array();
                     $inarg = false;
                 }
@@ -262,6 +262,19 @@ class Mutateme_MutableFile
             }
         }
         return $methods;
+    }
+
+    protected function _reconstructFromTokens(array $tokens)
+    {
+        $str = '';
+        foreach ($tokens as $token) {
+            if (is_string($token)) {
+                $str .= $token;
+            } else {
+                $str .= $token[1];
+            }
+        }
+        return $str;
     }
 
 }

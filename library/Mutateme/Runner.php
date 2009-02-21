@@ -33,9 +33,9 @@ class Mutateme_Runner
         foreach ($mutables as $mutable) {
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
-                $this->getRunkit()->apply($mutation);
+                $this->getRunkit()->applyMutation($mutation);
                 // do testing and process results using an adapter
-                $this->getRunkit()->reverse($mutation);
+                $this->getRunkit()->reverseMutation($mutation);
             }
         }
     }
