@@ -54,3 +54,6 @@ Mutateme_Runkit
  [x] Should apply given mutations using runkit to replace effected methods
  [x] Should revert to original method body when requested
 
+Mutateme_AdapterPhpunit
+ [x] Should execute phpunit alltests file by default
+
