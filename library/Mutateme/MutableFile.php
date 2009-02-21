@@ -103,10 +103,7 @@ class Mutateme_MutableFile
                     $mutation = $this->_parseToken($token, $index);
                 }
                 if (!is_null($mutation)) {
-                    $this->_mutations[] = array(
-                        'file' => $method['file'],
-                        'class' => $method['class'],
-                        'method' => $method['method'],
+                    $this->_mutations[] = $method + array(
                         'index' => $index,
                         'mutation' => $mutation
                     );

@@ -18,9 +18,9 @@ abstract class Mutateme_Mutation
         $this->_fileName = $filename;
     }
 
-    public function mutate($mutable, $index) {
-        $this->_tokensOriginal = $mutable;
-        $this->_tokensMutated = $this->applyMutation($this->_tokensOriginal, $index);
+    public function mutate($tokens, $index) {
+        $this->_tokensOriginal = $tokens;
+        $this->_tokensMutated = $this->getMutation($this->_tokensOriginal, $index);
         return $this->_reconstructFromTokens($this->_tokensMutated);
     }
 

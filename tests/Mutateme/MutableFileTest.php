@@ -81,7 +81,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/math1.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertEquals(array('file','class','method','index','mutation'),array_keys($return[0]));
+        $this->assertEquals(array('file','class','method','args','tokens','index','mutation'),array_keys($return[0]));
     }
 
     public function testShouldReturnMutationsAsMutantObjectWrappers()
