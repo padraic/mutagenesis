@@ -92,23 +92,24 @@ class Mutateme_MutableFile
      */
     protected function _parseTokensToMutations(array $mutables)
     {
-        foreach ($mutables as $className=>$methods) {
-            foreach ($methods as $methodName=>$method) {
-                if (!isset($method['tokens']) || empty($method['tokens'])) {
-                    continue;
+        foreach ($mutables as $method) {
+            if (!isset($method['tokens']) || empty($method['tokens'])) {
+                continue;
+            }
+            foreach ($method['tokens'] as $index=>$token) {
+                if (is_string($token)) {
+                    $mutation = $this->_parseStringToken($token, $index);
+                } else {
+                    $mutation = $this->_parseToken($token, $index);
                 }
-                foreach ($method['tokens'] as $index=>$token) {
-                    if (is_string($token)) {
-                        $mutation = $this->_parseStringToken($token, $index);
-                    } else {
-                        $mutation = $this->_parseToken($token, $index);
-                    }
-                    if (!is_null($mutation)) {
-                        $this->_mutations[$className][$methodName][] = array(
-                            'index' => $index,
-                            'mutation' => $mutation
-                        );
-                    }
+                if (!is_null($mutation)) {
+                    $this->_mutations[] = array(
+                        'file' => $method['file'],
+                        'class' => $method['class'],
+                        'method' => $method['method'],
+                        'index' => $index,
+                        'mutation' => $mutation
+                    );
                 }
             }
         }
@@ -187,9 +188,9 @@ class Mutateme_MutableFile
     }
 
     /**
-     * Parse the given file into an array composed of Class and Method name
-     * keys, which stores a list of the PHP tokens for each method's
-     * parameter list and code body.
+     * Parse the given file into an array of method metainformation including
+     * class name, method name, file name, method arguments, and method body
+     * tokens.
      *
      * @return array
      */
@@ -205,6 +206,7 @@ class Mutateme_MutableFile
         $blockTokens = array();
         $argTokens = array();
         $methods = array();
+        $mutable = array();
         foreach ($tokens as $index=>$token) {
             // get class name
             if (is_array($token) && $token[0] == T_CLASS) {
@@ -216,6 +218,11 @@ class Mutateme_MutableFile
                 // notify loop we are in a new method
                 $inblock = true;
                 $inarg = true;
+                $mutable = array(
+                    'file' => $this->getFilename(),
+                    'class' => $className,
+                    'method' => $methodName
+                );
             }
             // Get the method's parameter string
             if ($inarg) {
@@ -229,7 +236,7 @@ class Mutateme_MutableFile
                 } elseif ($roundcount >= 1) {
                     $argTokens[] = $token;
                 } elseif ($roundcount == 0 && count($argTokens) > 0) {
-                    $methods[$className][$methodName]['args'] = $argTokens;
+                    $mutable['args'] = $argTokens;
                     $argTokens = array();
                     $inarg = false;
                 }
@@ -249,7 +256,9 @@ class Mutateme_MutableFile
                     }
                     $blockTokens[] = $token;
                 } elseif ($curlycount == 0 && count($blockTokens) > 0) {
-                    $methods[$className][$methodName]['tokens'] = $blockTokens;
+                    $mutable['tokens'] = $blockTokens;
+                    $methods[] = $mutable;
+                    $mutable = array();
                     $blockTokens = array();
                     $inblock = false;
                 }

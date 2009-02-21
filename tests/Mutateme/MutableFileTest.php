@@ -66,7 +66,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/math000.php');
         $file->generateMutations();
         $return = $file->getMutables();
-        $this->assertTrue(isset($return['Math']['add']['tokens']));
+        $this->assertEquals(array('file','class','method','tokens'),array_keys($return[0]));
     }
 
     public function testShouldNotGenerateMutationsIfMethodBodyIsNotViable()
@@ -81,7 +81,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/math1.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue(isset($return['Math']['add'][0]['index']));
+        $this->assertEquals(array('file','class','method','index','mutation'),array_keys($return[0]));
     }
 
     public function testShouldReturnMutationsAsMutantObjectWrappers()
@@ -89,7 +89,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/math1.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue($return['Math']['add'][0]['mutation'] instanceof Mutateme_Mutation);
+        $this->assertTrue($return[0]['mutation'] instanceof Mutateme_Mutation);
     }
 
     public function testShouldDetectMutablesForClassesInSameFileSeparately()
@@ -97,7 +97,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/mathx2.php');
         $file->generateMutations();
         $return = $file->getMutables();
-        $this->assertEquals(array('Math1', 'Math2'), array_keys($return));
+        $this->assertEquals('Math2', $return[1]['class']);
     }
 
     public function testShouldDetectMutationsForClassesInSameFileSeparately()
@@ -105,19 +105,19 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/mathx2.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertEquals(array('Math1', 'Math2'), array_keys($return));
+        $this->assertEquals('Math2', $return[1]['class']);
     }
 
-    /**
-     * Ensure correct class is returned as a mutation
-     */
+
+    // Ensure correct class is returned as a mutation
+
 
     public function testShouldGenerateAdditionOperatorMutationWhenPlusSignDetected()
     {
         $file = new Mutateme_MutableFile($this->root . '/math1.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue($return['Math']['add'][0]['mutation'] instanceof Mutateme_Mutation_OperatorAddition);
+        $this->assertTrue($return[0]['mutation'] instanceof Mutateme_Mutation_OperatorAddition);
     }
 
     public function testShouldGenerateSubtractionOperatorMutationWhenMinusSignDetected()
@@ -125,7 +125,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/math2.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue($return['Math']['subtract'][0]['mutation'] instanceof Mutateme_Mutation_OperatorSubtraction);
+        $this->assertTrue($return[0]['mutation'] instanceof Mutateme_Mutation_OperatorSubtraction);
     }
 
     public function testShouldGenerateIncrementOperatorMutationWhenPostIncrementDetected()
@@ -133,7 +133,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/math3.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue($return['Math']['increment'][0]['mutation'] instanceof Mutateme_Mutation_OperatorIncrement);
+        $this->assertTrue($return[0]['mutation'] instanceof Mutateme_Mutation_OperatorIncrement);
     }
 
     public function testShouldGenerateIncrementOperatorMutationWhenPreIncrementDetected()
@@ -141,7 +141,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/math4.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue($return['Math']['increment'][0]['mutation'] instanceof Mutateme_Mutation_OperatorIncrement);
+        $this->assertTrue($return[0]['mutation'] instanceof Mutateme_Mutation_OperatorIncrement);
     }
 
     public function testShouldGenerateBooleanTrueMutationWhenBoolTrueDetected()
@@ -149,7 +149,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/bool1.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue($return['Bool']['boolTrue'][0]['mutation'] instanceof Mutateme_Mutation_BooleanTrue);
+        $this->assertTrue($return[0]['mutation'] instanceof Mutateme_Mutation_BooleanTrue);
     }
 
     public function testShouldGenerateBooleanFalseMutationWhenBoolFalseDetected()
@@ -157,7 +157,7 @@ class Mutateme_MutableFileTest extends PHPUnit_Framework_TestCase
         $file = new Mutateme_MutableFile($this->root . '/bool2.php');
         $file->generateMutations();
         $return = $file->getMutations();
-        $this->assertTrue($return['Bool']['boolFalse'][0]['mutation'] instanceof Mutateme_Mutation_BooleanFalse);
+        $this->assertTrue($return[0]['mutation'] instanceof Mutateme_Mutation_BooleanFalse);
     }
 
 }
