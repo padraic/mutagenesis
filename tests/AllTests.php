@@ -10,7 +10,6 @@ require_once 'Mutateme/FrameworkTest.php';
 require_once 'Mutateme/RunnerTest.php';
 require_once 'Mutateme/MutationTest.php';
 require_once 'Mutateme/RunkitTest.php';
-//require_once 'Mutateme/AdapterPhpunitTest.php';
 
 class AllTests
 {
@@ -33,7 +32,6 @@ class AllTests
         $suite->addTestSuite('Mutateme_RunnerTest');
         $suite->addTestSuite('Mutateme_MutationTest');
         $suite->addTestSuite('Mutateme_RunkitTest');
-        //$suite->addTestSuite('Mutateme_AdapterPhpunitTest');
         $suite->addTest(new PHPUnit_Extensions_PhptTestSuite(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Mutateme'));
 
         return $suite;
