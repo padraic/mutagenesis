@@ -3,40 +3,18 @@
 abstract class Mutateme_Adapter
 {
 
-    protected $_runner = null;
-
     protected $_output = '';
 
-    protected $_command = '';
+    abstract public function execute(array $options = null);
 
-    public function __construct(Mutateme_Runner $runner = null)
+    public function setOutput($output)
     {
-        $this->_runner = $runner;
-    }
-
-    abstract public function execute();
-
-    public function getRunner()
-    {
-        return $this->_runner;
-    }
-
-    public function setOutput($shellOutput)
-    {
-        $this->_output = $shellOutput;
+        $this->_output = $output;
     }
 
     public function getOutput()
     {
         return $this->_output;
-    }
-
-    public function setCommand($command)
-    {
-        if (!preg_match("/^phpunit|phpspec/", $command)) {
-            throw new Mutateme_Exception('Unrecognised command type: Must utilise a recognised command commencing with one of "phpunit" or "phpspec"');
-        }
-        $this->_command = $command;
     }
 
 }

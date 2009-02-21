@@ -148,7 +148,7 @@ class stubMutatemeGenerator1 extends Mutateme_Generator
 
 class stubMutatemeAdapter1 extends Mutateme_Adapter
 {
-    public function execute() {}
+    public function execute(array $options = null) {}
 }
 
 class stubMutatemeRunkit1 extends Mutateme_Runkit

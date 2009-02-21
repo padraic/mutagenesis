@@ -5,24 +5,37 @@ require_once 'Mutateme/Adapter.php';
 class Mutateme_Adapter_Phpunit extends Mutateme_Adapter
 {
 
-    protected $_command = 'phpunit AllTests.php';
-
-    public function execute()
+    public function execute(array $options = null)
     {
-        require 'PHPUnit/TextUI/Command.php';
-        define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::main');
+        $old = $_SERVER['argv'];
+        $_SERVER['argv'] = array();
+        if (isset($options['test'])) {
+            $_SERVER['argv'][1] = $options['test'];
+        } else {
+            $_SERVER['argv'][1] = 'AllTests';
+        }
+        if (isset($options['testFile'])) {
+            $_SERVER['argv'][2] = $options['testFile'];
+        } else {
+            $_SERVER['argv'][2] = 'AllTests.php';
+        }
+        ob_start();
+        ob_implicit_flush(false);
+        require_once 'PHPUnit/TextUI/Command.php';
         PHPUnit_TextUI_Command::main();
+        $this->setOutput(ob_get_contents());
+        ob_end_clean();
+        $_SERVER['argv'] = $old;
+        return $this->_processOutput($this->getOutput());
     }
 
-    /**public function execute()
-    {
-        $currentCWD = getcwd();
-        chdir($this->getRunner()->getSpecDirectory());
-        $this->setOutput(shell_exec($this->_command));
-        chdir($currentCWD);
-        return $this->_processOutput($this->getOutput());
-    }*/
-
+    /**
+     * Process output to determine if the specs/tests all passed (return TRUE)
+     * or encountered a failure/error (return FALSE)
+     *
+     * @param string $output Output from the test framework being executed
+     * @return bool
+     */
     protected function _processOutput($output)
     {
         $lines = explode("\n", $output);
@@ -31,4 +44,5 @@ class Mutateme_Adapter_Phpunit extends Mutateme_Adapter
         }
         return true;
     }
+
 }
