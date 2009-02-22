@@ -7,28 +7,26 @@ class Mutateme_Adapter_Phpunit extends Mutateme_Adapter
 
     public function execute(array $options = null)
     {
-        $old = $_SERVER['argv'];
-        $_SERVER['argv'] = array();
+        $arguments = array();
         if (isset($options['test'])) {
-            $_SERVER['argv'][1] = $options['test'];
+            $arguments['test'] = $options['test'];
         } else {
-            $_SERVER['argv'][1] = 'AllTests';
+            $arguments['test'] = 'AllTests';
         }
         if (isset($options['testFile'])) {
-            $_SERVER['argv'][2] = $options['testFile'];
+            $arguments['testFile'] = $options['testFile'];
         } else {
-            $_SERVER['argv'][2] = $options['specdir'].'/AllTests.php';
+            $arguments['testFile'] = $options['specdir'].'/AllTests.php';
         }
         ob_start();
         ob_implicit_flush(false);
         if (!defined('PHPUnit_MAIN_METHOD')) {
-            define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::undefined');
+            define('PHPUnit_MAIN_METHOD', 'undefined');
         }
-        require_once 'PHPUnit/TextUI/Command.php';
-        PHPUnit_TextUI_Command::main(false);
+        require_once 'Mutateme/Adapter/Phpunit/Runner.php';
+        Mutateme_Adapter_Phpunit_Runner::main($arguments);
         $this->setOutput(ob_get_contents());
         ob_end_clean();
-        $_SERVER['argv'] = $old;
         return $this->processOutput($this->getOutput());
     }
 

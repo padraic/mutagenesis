@@ -38,20 +38,64 @@ class Mutateme_Runner
             $str .=  $this->getAdapter()->getOutput();
             return $str;
         } else {
-            $str = 'All passed!' . PHP_EOL . PHP_EOL;
-            $str .=  $this->getAdapter()->getOutput();
-            return $str;
+            $report = 'All passed!' . PHP_EOL . PHP_EOL;
+            $report .=  $this->getAdapter()->getOutput();
         }
+
+        $countMutants = 0;
+        $countMutantsKilled = 0;
+        $countMutantsEscaped = 0;
+        $diffMutantsEscaped = array();
+
         // process mutants
         $mutables = $this->getMutables();
         foreach ($mutables as $mutable) {
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
                 $this->getRunkit()->applyMutation($mutation);
-                // do testing and process results using an adapter
+                $result = $this->getAdapter()->execute($options);
                 $this->getRunkit()->reverseMutation($mutation);
+                // result collation
+                $countMutants++;
+                if ($result) { // careful - we want a FALSE result!
+                    $countMutantsKilled++;
+                } else { // tests all passing is a BAD thing :)
+                    $countMutantsEscaped++;
+                    $diffMutantsEscaped[] = $mutation['mutation']->getDiff();
+                }
+                // small progress echo
+                echo '.';
             }
         }
+
+        // reporting
+        $report .= $countMutants;
+        $report .= $countMutants == 1 ? ' Mutant' : ' Mutants';
+        $report .= ' born out of the mutagenic slime!';
+        $report .= PHP_EOL . PHP_EOL;
+        $report .= $countMutantsKilled;
+        $report .= $countMutantsKilled == 1 ? ' Mutant' : ' Mutants';
+        $report .= ' exterminated!';
+        $report .= PHP_EOL . PHP_EOL;
+        if ($countMutantsEscaped > 0) {
+            $report .= $countMutantsEscaped;
+            $report .= $countMutantsEscaped == 1 ? ' Mutant' : ' Mutants';
+            $report .= ' escaped; the integrity of your suite may be compromised by the following Mutants:';
+            $report .= PHP_EOL . PHP_EOL;
+
+            $i = 1;
+            foreach ($diffMutantsEscaped as $mutantDiff) {
+                $report .= $i . ') ' . PHP_EOL . $mutantDiff;
+                $report .= PHP_EOL . PHP_EOL;
+                $i++;
+            }
+
+            $report .= 'Happy Hunting! Remember that some Mutants may just be Ghosts (or if you want to be boring, false positives).';
+        } else {
+            $report .= 'No Mutants survived! Muahahahaha!';
+        }
+
+        return $report;
     }
 
     public function getFiles()
@@ -177,7 +221,7 @@ class Mutateme_Runner
             'specdir' => $this->getSpecDirectory(),
             'basedir' => $this->getBaseDirectory()
         );
-        $options += $this->_options;
+        $options = $options + $this->_options;
         return $options;
     }
 
@@ -207,17 +251,6 @@ class Mutateme_Runnerx
         $countMutantsKilled = 0;
         $countMutantsEscaped = 0;
         $diffMutantsEscaped = array();
-
-        // ensure all specs or tests are clean!
-        $adapterClass = 'Mutateme_Adapter_'
-            . ucfirst(strtolower($this->getAdapterName()));
-        $adapter = new $adapterClass($this);
-        $result = $adapter->execute();
-        if (!$result) {
-            $str = 'Before you face the Mutants, you first need a 100% pass rate!' . PHP_EOL;
-            $str .=  $adapter->getOutput();
-            return $str;
-        }
 
         // MUTANTS!!!
         foreach ($this->_mutables as $mutable) {
