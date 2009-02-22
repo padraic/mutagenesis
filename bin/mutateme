@@ -1,0 +1,4 @@
+#!@php_bin@
+<?php
+require_once 'Mutateme/Framework.php';
+require 'Mutateme/Console/Command.php';

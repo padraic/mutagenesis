@@ -1,4 +1,0 @@
-#!@php_bin@
-<?php
-require_once 'PHPMutagen.php';
-require 'PHPMutagen/Console/Command.php';

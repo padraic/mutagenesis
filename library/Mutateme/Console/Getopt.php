@@ -62,7 +62,7 @@ class Mutateme_Console_Getopt
             array_shift($argv);
         }
 
-        // if the first argument is not a - or -- option it should be a spec filename
+        // if the first argument is not a - or -- option it should be a filename
         if ($argv[0][0] !== '-') {
             $this->_options['File'] = $argv[0];
             array_shift($argv);
