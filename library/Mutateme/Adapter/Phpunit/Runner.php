@@ -1,11 +1,6 @@
 <?php
 
 require_once 'PHPUnit/TextUI/Command.php';
-require_once 'PHPUnit/TextUI/TestRunner.php';
-require_once 'PHPUnit/Util/Configuration.php';
-require_once 'PHPUnit/Util/Fileloader.php';
-require_once 'PHPUnit/Util/Filter.php';
-require_once 'PHPUnit/Util/Getopt.php';
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 

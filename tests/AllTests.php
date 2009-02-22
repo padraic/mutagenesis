@@ -28,7 +28,7 @@ class AllTests
         $suite->addTestSuite('Mutateme_RunnerTest');
         $suite->addTestSuite('Mutateme_MutationTest');
         $suite->addTestSuite('Mutateme_RunkitTest');
-        $suite->addTest(new PHPUnit_Extensions_PhptTestSuite(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Mutateme'));
+        //$suite->addTest(new PHPUnit_Extensions_PhptTestSuite(dirname(__FILE__) . DIRECTORY_SEPARATOR . 'Mutateme'));
 
         return $suite;
     }
