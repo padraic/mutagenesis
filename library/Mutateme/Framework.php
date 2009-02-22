@@ -5,7 +5,7 @@ class Mutateme_Framework
 
     public static function autoload($class)
     {
-        if (substr($class, 0, 12) != 'Mutateme_') {
+        if (substr($class, 0, 9) != 'Mutateme_') {
             return false;
         }
         $path = dirname(dirname(__FILE__));

@@ -19,43 +19,40 @@ class Mutateme_Console_Command
 
         $runner = new Mutateme_Runner;
 
-        if (isset($options->workingdir)) {
-            $runner->setWorkingDirectory($options->workingdir);
-        } else {
-            $tmp = sys_get_temp_dir();
-            $workingTmp = $tmp . DIRECTORY_SEPARATOR . 'mutagens';
-            $runner->setWorkingDirectory($workingTmp);
-        }
-
         if (isset($options->basedir)) {
             $runner->setBaseDirectory($options->basedir);
         } else {
             $runner->setBaseDirectory(getcwd());
         }
 
-        if (isset($options->sourcedir)) {
-            $runner->setSourceDirectory($options->sourcedir);
-        } elseif (file_exists($runner->getBaseDirectory() . DIRECTORY_SEPARATOR . 'src')) {
-            $runner->setSourceDirectory($runner->getWorkingDirectory() . DIRECTORY_SEPARATOR . 'src');
-        }  elseif (file_exists($runner->getBaseDirectory() . DIRECTORY_SEPARATOR . 'lib')) {
-            $runner->setSourceDirectory($runner->getWorkingDirectory() . DIRECTORY_SEPARATOR . 'lib');
+        if (isset($options->srcdir)) {
+            $runner->setSourceDirectory($options->srcdir);
+        } elseif (file_exists($runner->getBaseDirectory() . '/src')) {
+            $runner->setSourceDirectory($runner->getBaseDirectory() . '/src');
+        }  elseif (file_exists($runner->getBaseDirectory() . '/lib')) {
+            $runner->setSourceDirectory($runner->getBaseDirectory() . '/lib');
+        }  elseif (file_exists($runner->getBaseDirectory() . '/library')) {
+            $runner->setSourceDirectory($runner->getBaseDirectory() . '/library');
         } else {
+            throw new Exception('Unable to determine the location of source code; please use the --srcdir command line option');
         }
 
         if (isset($options->specdir)) {
             $runner->setSpecDirectory($options->specdir);
         } elseif (isset($options->testdir)) {
             $runner->setSpecDirectory($options->testdir);
-        } elseif (file_exists($runner->getBaseDirectory() . DIRECTORY_SEPARATOR . 'specs')) {
-            $runner->setSpecDirectory($runner->getWorkingDirectory() . DIRECTORY_SEPARATOR . 'specs');
-        } elseif (file_exists($runner->getBaseDirectory() . DIRECTORY_SEPARATOR . 'tests')) {
-            $runner->setSpecDirectory($runner->getWorkingDirectory() . DIRECTORY_SEPARATOR . 'tests');
+        } elseif (file_exists($runner->getBaseDirectory() . '/tests')) {
+            $runner->setSpecDirectory($runner->getBaseDirectory() . '/tests');
+        } elseif (file_exists($runner->getBaseDirectory() . '/specs')) {
+            $runner->setSpecDirectory($runner->getBaseDirectory() . '/specs');
+        } else {
+            throw new Exception('Unable to determine the location of tests/specs; please use the --testdir or --specdir command line options');
         }
 
-        if (isset($options->command)) {
-            $runner->setAdapterName($options->command);
+        if (isset($options->adapter)) {
+            $runner->setAdapterName($options->adapter);
         } else {
-            $runner->setAdapterName('phpunit');
+            $runner->setAdapterName('phpunit'); //try adding autodetection a bit later!
         }
 
         $result = $runner->execute();

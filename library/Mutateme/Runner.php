@@ -8,6 +8,8 @@ require_once 'Mutateme/Adapter/Phpunit.php';
 
 class Mutateme_Runner
 {
+    protected $_baseDirectory = '';
+
     protected $_srcDirectory = '';
 
     protected $_specDirectory = '';
@@ -89,6 +91,20 @@ class Mutateme_Runner
     public function getSpecDirectory()
     {
         return $this->_specDirectory;
+    }
+
+    public function setBaseDirectory($baseDirectory)
+    {
+        $baseDirectory = rtrim($baseDirectory, ' \\/');
+        if (!is_dir($baseDirectory) || !is_readable($baseDirectory)) {
+            throw new Exception('Invalid base directory: "'.$baseDirectory.'"');
+        }
+        $this->_baseDirectory = $baseDirectory;
+    }
+
+    public function getBaseDirectory()
+    {
+        return $this->_baseDirectory;
     }
 
     public function setAdapterName($adapter)
