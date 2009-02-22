@@ -29,7 +29,7 @@ class Mutateme_Adapter_Phpunit extends Mutateme_Adapter
         $this->setOutput(ob_get_contents());
         ob_end_clean();
         $_SERVER['argv'] = $old;
-        return $this->_processOutput($this->getOutput());
+        return $this->processOutput($this->getOutput());
     }
 
     /**
@@ -39,11 +39,17 @@ class Mutateme_Adapter_Phpunit extends Mutateme_Adapter
      * @param string $output Output from the test framework being executed
      * @return bool
      */
-    protected function _processOutput($output)
+    public function processOutput($output)
     {
         $lines = explode("\n", $output);
-        if (preg_match("/.*[EF].*/", $lines[2])) {
-            return false;
+        $useful = array_slice($lines, 2);
+        foreach ($useful as $line) {
+            if ($line == "\n") {
+                break;
+            }
+            if (preg_match("/.*[EF].*/", $line)) {
+                return false;
+            }
         }
         return true;
     }
