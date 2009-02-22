@@ -15,11 +15,7 @@ class AllTests
 {
     public static function main()
     {
-        $parameters = array();
-        if (TESTS_GENERATE_REPORT && extension_loaded('xdebug')) {
-            $parameters['reportDirectory'] = TESTS_GENERATE_REPORT_TARGET;
-        }
-        PHPUnit_TextUI_TestRunner::run(self::suite(), $parameters);
+        PHPUnit_TextUI_TestRunner::run(self::suite());
     }
 
     public static function suite()

@@ -26,10 +26,22 @@ class Mutateme_Runner
 
     protected $_runkit = null;
 
+    protected $_options = array();
+
     public function execute()
     {
         // use adapter to ensure all tests are clean
-
+        $options = $this->getOptions();
+        $result = $this->getAdapter()->execute($options);
+        if (!$result) {
+            $str = 'Before you face the Mutants, you first need a 100% pass rate!' . PHP_EOL . PHP_EOL;
+            $str .=  $this->getAdapter()->getOutput();
+            return $str;
+        } else {
+            $str = 'All passed!' . PHP_EOL . PHP_EOL;
+            $str .=  $this->getAdapter()->getOutput();
+            return $str;
+        }
         // process mutants
         $mutables = $this->getMutables();
         foreach ($mutables as $mutable) {
@@ -151,6 +163,22 @@ class Mutateme_Runner
             $this->_runkit = new Mutateme_Runkit;
         }
         return $this->_runkit;
+    }
+
+    public function setOption($name, $value)
+    {
+        $this->_options[$name] = $value;
+    }
+
+    public function getOptions()
+    {
+        $options = array(
+            'srcdir' => $this->getSourceDirectory(),
+            'specdir' => $this->getSpecDirectory(),
+            'basedir' => $this->getBaseDirectory()
+        );
+        $options += $this->_options;
+        return $options;
     }
 
 }

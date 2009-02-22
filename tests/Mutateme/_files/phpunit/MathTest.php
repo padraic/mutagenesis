@@ -7,6 +7,6 @@ class MathTest extends PHPUnit_Framework_TestCase
     public function testAdds()
     {
         $math = new PhpunitMath;
-        $this->assertEquals(1, $math->add(0,1));
+        $this->assertEquals(4, $math->add(2,2));
     }
 }

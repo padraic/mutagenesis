@@ -17,12 +17,15 @@ class Mutateme_Adapter_Phpunit extends Mutateme_Adapter
         if (isset($options['testFile'])) {
             $_SERVER['argv'][2] = $options['testFile'];
         } else {
-            $_SERVER['argv'][2] = 'AllTests.php';
+            $_SERVER['argv'][2] = $options['specdir'].'/AllTests.php';
         }
         ob_start();
         ob_implicit_flush(false);
+        if (!defined('PHPUnit_MAIN_METHOD')) {
+            define('PHPUnit_MAIN_METHOD', 'PHPUnit_TextUI_Command::undefined');
+        }
         require_once 'PHPUnit/TextUI/Command.php';
-        PHPUnit_TextUI_Command::main();
+        PHPUnit_TextUI_Command::main(false);
         $this->setOutput(ob_get_contents());
         ob_end_clean();
         $_SERVER['argv'] = $old;
@@ -39,7 +42,7 @@ class Mutateme_Adapter_Phpunit extends Mutateme_Adapter
     protected function _processOutput($output)
     {
         $lines = explode("\n", $output);
-        if (preg_match("/.*[EF].*/", $lines[0])) {
+        if (preg_match("/.*[EF].*/", $lines[2])) {
             return false;
         }
         return true;
