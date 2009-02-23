@@ -26,7 +26,11 @@ class Mutateme_Console_Command
         }
 
         if (isset($options->srcdir)) {
-            $runner->setSourceDirectory($options->srcdir);
+            if (!file_exists($options->srcdir)) {
+                throw new Exception('Provided source code directory via --srcdir does not exist');
+            } else {
+                $runner->setSourceDirectory($options->srcdir);
+            }
         } elseif (file_exists($runner->getBaseDirectory() . '/src')) {
             $runner->setSourceDirectory($runner->getBaseDirectory() . '/src');
         }  elseif (file_exists($runner->getBaseDirectory() . '/lib')) {
@@ -38,7 +42,11 @@ class Mutateme_Console_Command
         }
 
         if (isset($options->specdir)) {
-            $runner->setSpecDirectory($options->specdir);
+            if (!file_exists($options->specdir)) {
+                throw new Exception('Provided tests/specs directory via --testdir or --specdir does not exist');
+            } else {
+                $runner->setSpecDirectory($options->specdir);
+            }
         } elseif (isset($options->testdir)) {
             $runner->setSpecDirectory($options->testdir);
         } elseif (file_exists($runner->getBaseDirectory() . '/tests')) {
@@ -63,7 +71,11 @@ class Mutateme_Console_Command
             $runner->setOption('test', $options->test);
         }
         if (isset($options->testfile)) {
-            $runner->setOption('testfile', $this->getSpecDirectory(). '/' .$options->testfile);
+            if (!file_exists($options->testfile)) {
+                $runner->setOption('testfile', $this->getSpecDirectory(). '/' .$options->testfile);
+            } else {
+                $runner->setOption('testfile', $options->testfile);
+            }
         }
 
         $result = $runner->execute();
