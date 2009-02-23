@@ -172,10 +172,12 @@ class Mutateme_MutableFile
             $mutation = new $mutationClass($this->getFilename());
             return $mutation;
         }
+        return null;
     }
 
     public function _parseTString(array $token)
     {
+        $type = null;
         if (strtolower($token[1]) == 'true') {
             $type = 'BooleanTrue';
         } elseif (strtolower($token[1]) == 'false') {
@@ -204,7 +206,11 @@ class Mutateme_MutableFile
         $argTokens = array();
         $methods = array();
         $mutable = array();
+        $static = false;
         foreach ($tokens as $index=>$token) {
+            if(is_array($token) && $token[0] == T_STATIC) {
+                $static = true;
+            }
             // get class name
             if (is_array($token) && $token[0] == T_CLASS) {
                 $className = $tokens[$index+2][1];
@@ -212,14 +218,18 @@ class Mutateme_MutableFile
             // get method name
             if (is_array($token) && $token[0] == T_FUNCTION) {
                 $methodName = $tokens[$index+2][1];
-                // notify loop we are in a new method
-                $inblock = true;
-                $inarg = true;
-                $mutable = array(
-                    'file' => $this->getFilename(),
-                    'class' => $className,
-                    'method' => $methodName
-                );
+                if($static == false) {
+                    // notify loop we are in a new method
+                    $inblock = true;
+                    $inarg = true;
+                    $mutable = array(
+                        'file' => $this->getFilename(),
+                        'class' => $className,
+                        'method' => $methodName
+                    );
+                } else {
+                    $static = false;
+                }
             }
             // Get the method's parameter string
             if ($inarg) {

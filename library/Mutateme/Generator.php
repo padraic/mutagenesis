@@ -20,6 +20,11 @@ class Mutateme_Generator
         }
     }
 
+    /**
+     * Return an array of mutable files.
+     * 
+     * @return Mutateme_MutableFile[]
+     */
     public function getMutables()
     {
         return $this->_mutables;

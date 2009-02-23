@@ -205,9 +205,18 @@ class Mutateme_Runner
         $this->_adapter = $adapter;
     }
 
+    /**
+     * Return the runkit instance
+     * 
+     * @return Mutateme_Runkit
+     */
     public function getRunkit()
     {
         if (is_null($this->_runkit)) {
+            if(!in_array('runkit', get_loaded_extensions())) {
+                throw new Exception('RunKit extension is not loaded.');
+            }
+
             $this->_runkit = new Mutateme_Runkit;
         }
         return $this->_runkit;
