@@ -4,4 +4,4 @@ require_once(dirname(__FILE__) . '/math_test.php');
 
 $test = &new GroupTest('All tests');
 $test->addTestCase(new TestOfMath());
-$test->run(new TextReporter());
+$test->run(new HtmlReporter());
