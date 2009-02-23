@@ -63,7 +63,7 @@ class Mutateme_Console_Command
             $runner->setOption('test', $options->test);
         }
         if (isset($options->testfile)) {
-            $runner->setOption('testfile', $options->testfile);
+            $runner->setOption('testfile', $this->getSpecDirectory(). '/' .$options->testfile);
         }
 
         $result = $runner->execute();
