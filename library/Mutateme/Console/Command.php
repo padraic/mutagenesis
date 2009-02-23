@@ -49,10 +49,21 @@ class Mutateme_Console_Command
             throw new Exception('Unable to determine the location of tests/specs; please use the --testdir or --specdir command line options');
         }
 
+        // handle spec cases
+
         if (isset($options->adapter)) {
             $runner->setAdapterName($options->adapter);
         } else {
             $runner->setAdapterName('phpunit'); //try adding autodetection a bit later!
+        }
+
+        // phpunit cases
+
+        if (isset($options->test)) {
+            $runner->setOption('test', $options->test);
+        }
+        if (isset($options->testfile)) {
+            $runner->setOption('testfile', $options->testfile);
         }
 
         $result = $runner->execute();

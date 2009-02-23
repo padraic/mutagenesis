@@ -30,17 +30,20 @@ class Mutateme_Runner
 
     public function execute()
     {
+        $break = PHP_EOL . PHP_EOL;
+        $report = 'MutateMe Alpha: Mutation Testing for PHP' . $break;
         // use adapter to ensure all tests are clean
         $options = $this->getOptions();
         $result = $this->getAdapter()->execute($options);
         if (!$result) {
-            $str = 'Before you face the Mutants, you first need a 100% pass rate!' . PHP_EOL . PHP_EOL;
-            $str .=  $this->getAdapter()->getOutput();
-            return $str;
-        } else {
-            $report = 'All passed!' . PHP_EOL . PHP_EOL;
-            $report .=  $this->getAdapter()->getOutput();
+            $report .= 'Before you face the Mutants, you first need a 100% pass rate!'.PHP_EOL.' That means no failures or errors (we\'ll allow skipped or incomplete tests).' . $break;
+            $report .=  $this->getAdapter()->getOutput() . $break;
+            return $report;
         }
+        
+        $report .= 'All initial checks successful! The mutagenic slime has been activated.' . $break;
+        $report .=  $this->getAdapter()->getOutput();
+        echo $report . PHP_EOL;
 
         $countMutants = 0;
         $countMutantsKilled = 0;
@@ -57,7 +60,7 @@ class Mutateme_Runner
                 $this->getRunkit()->reverseMutation($mutation);
                 // result collation
                 $countMutants++;
-                if ($result) { // careful - we want a FALSE result!
+                if (!$result) { // careful - we want a FALSE result!
                     $countMutantsKilled++;
                 } else { // tests all passing is a BAD thing :)
                     $countMutantsEscaped++;
@@ -69,7 +72,7 @@ class Mutateme_Runner
         }
 
         // reporting
-        $report .= $countMutants;
+        $report = $break . $countMutants;
         $report .= $countMutants == 1 ? ' Mutant' : ' Mutants';
         $report .= ' born out of the mutagenic slime!';
         $report .= PHP_EOL . PHP_EOL;
@@ -87,6 +90,7 @@ class Mutateme_Runner
             foreach ($diffMutantsEscaped as $mutantDiff) {
                 $report .= $i . ') ' . PHP_EOL . $mutantDiff;
                 $report .= PHP_EOL . PHP_EOL;
+                $report .= $this->getAdapter()->getOutput() . PHP_EOL.PHP_EOL;
                 $i++;
             }
 
@@ -95,7 +99,7 @@ class Mutateme_Runner
             $report .= 'No Mutants survived! Muahahahaha!';
         }
 
-        return $report;
+        return $report . $break;
     }
 
     public function getFiles()

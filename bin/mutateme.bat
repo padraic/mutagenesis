@@ -1,2 +1,3 @@
+@echo off
 set PHPBIN="@php_bin@"
-"@php_bin@" "@php_dir@/Mutagen/Console/Command.php" %*
+"@php_bin@" "@bin_dir@\mutateme" %*
