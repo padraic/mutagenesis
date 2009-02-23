@@ -8,7 +8,6 @@ class Mutateme_Console_Command
 
     /**
      *
-     * @todo should not directly echo reporter since some will pass mesgs only
      * @param Mutateme_Console_Getopt $options
      */
     public static function main(Mutateme_Console_Getopt $options = null)
@@ -65,7 +64,7 @@ class Mutateme_Console_Command
             $runner->setAdapterName('phpunit'); //try adding autodetection a bit later!
         }
 
-        // phpunit cases
+        // phpunit/simpletest cases
 
         if (isset($options->test)) {
             $runner->setOption('test', $options->test);
