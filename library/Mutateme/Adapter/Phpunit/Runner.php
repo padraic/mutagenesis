@@ -1,10 +1,10 @@
 <?php
 
-require_once 'PHPUnit/TextUI/Command.php';
+require_once 'PHPUnit/TextUI/TestRunner.php';
 
 PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
-class Mutateme_Adapter_Phpunit_Runner extends PHPUnit_TextUI_Command
+class Mutateme_Adapter_Phpunit_Runner
 {
 
     public static function main(array $arguments)
