@@ -212,7 +212,7 @@ class Mutateme_MutableFile
                 $static = true;
             }
             // get class name
-            if (is_array($token) && $token[0] == T_CLASS) {
+            if (is_array($token) && ($token[0] == T_CLASS || $token[0] == T_INTERFACE)) {
                 $className = $tokens[$index+2][1];
             }
             // get method name
