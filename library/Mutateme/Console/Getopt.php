@@ -18,7 +18,7 @@ class Mutateme_Console_Getopt
         return $this->_options[$name];
     }
 
-    protected function __get($name)
+    public function __get($name)
     {
         return $this->getOption($name);
     }
@@ -28,7 +28,7 @@ class Mutateme_Console_Getopt
         $this->_options[$name] = $value;
     }
 
-    protected function __set($name, $value)
+    public function __set($name, $value)
     {
         $this->setOption($name, $value);
     }
@@ -38,7 +38,7 @@ class Mutateme_Console_Getopt
         return isset($this->_options[$name]);
     }
 
-    protected function __isset($name)
+    public function __isset($name)
     {
         return $this->hasOption($name);
     }
