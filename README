@@ -27,7 +27,7 @@ Installation (Manual Installation without PEAR):
    from the latest CVS HEAD using the following commands:
    
    cvs -d :pserver:cvsread@cvs.php.net:/repository login
-   cvs -d:pserver:cvsread@cvs.php.net:/repository co pecl/runkit
+   cvs -d :pserver:cvsread@cvs.php.net:/repository co pecl/runkit
    cd runkit
    phpize
    ./configure
@@ -73,3 +73,58 @@ $ mutateme --adapter phpunit --basedir ./ --srcdir ./src --testdir ./tests --tes
 In the example above, we could have omitted the --basedir, --srcdir, --testdir and
 --testfile options since they meet the requirements of the autodetectable convention as 
 described above.
+
+Output:
+
+A successful Mutation Test would output something like:
+
+MutateMe Alpha: Mutation Testing for PHP
+
+All initial checks successful! The mutagenic slime has been activated.
+
+PHPUnit 3.3.14 by Sebastian Bergmann.
+
+.
+
+Time: 0 seconds
+
+OK (1 test, 1 assertion)
+
+.
+
+1 Mutant born out of the mutagenic slime!
+
+1 Mutant exterminated!
+
+No Mutants survived! Muahahahaha!
+
+A failed Mutation Test would indicate a test failed to detect an introduced error in the source code. This might be a completely spurious failed mutation, since not all introduced errors actually cause problems, but often it will highlight a new condition that you should a new test for so a future real error will be detected and not completely missed by the test suite:
+
+All initial checks successful! The mutagenic slime has been activated.
+
+PHPUnit 3.3.14 by Sebastian Bergmann.
+
+.
+
+Time: 0 seconds
+
+OK (1 test, 1 assertion)
+
+.
+
+1 Mutant born out of the mutagenic slime!
+
+0 Mutants exterminated!
+
+1 Mutant escaped; the integrity of your suite may be compromised by the
+following Mutants:
+
+1)
+Index: ./Math.php
+===================================================================
+@@ -1 +1 @@
+-return$op1+$op2;
++return$op1-$op2;
+
+Happy Hunting! Remember that some Mutants may just be Ghosts (or if you want to
+be boring, false positives).
