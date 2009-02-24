@@ -24,7 +24,8 @@ Installation (Manual Installation without PEAR):
 
 3. Install the runkit extension but NOT from PECL. Windows users can grab the DLL
    from http://dev.phpspec.org/php_runkit.dll, Linux users can compile the extension
-   from the latest CVS HEAD using the following commands:
+   from the latest CVS HEAD - the CVS user is "cvsread" with password "phpfi" - using
+   the following commands:
    
    cvs -d :pserver:cvsread@cvs.php.net:/repository login
    cvs -d :pserver:cvsread@cvs.php.net:/repository co pecl/runkit
