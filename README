@@ -4,13 +4,16 @@ not yet fully functional, and stability is a relative term :).
 
 Requirements:
 
-PHP: 5.2.4
+PHP: 5.2.4, probably less but I haven't checked
 PEAR: Text_Diff 1.1.0
 Extensions: ext/runkit, and optionally ext/xdiff
 
 Note: Do not install runkit from PECL since the current release does not support
-PHP 5.2. Follow the installation instructions below to grab the
-latest copy from CVS instead.
+PHP 5.2. Follow the installation instructions below to grab a patched version of
+runkit which supports both PHP 5.2 and static methods. Windows users should download
+the DLL from the given link - a patched version of the DLL will be made available
+soon. If you have installed from PECL delete the module and follow the instructions
+below to replace it with a slightly improved patched version.
 
 Installation (Manual Installation without PEAR):
 
@@ -23,13 +26,16 @@ Installation (Manual Installation without PEAR):
    directory you're putting these scripts respectively.
 
 3. Install the runkit extension but NOT from PECL. Windows users can grab the DLL
-   from http://dev.phpspec.org/php_runkit.dll, Linux users can compile the extension
-   from the latest CVS HEAD - the CVS user is "cvsread" with password "phpfi" - using
-   the following commands (as an example):
+   from http://dev.phpspec.org/php_runkit.dll but should disable E_STRICT error
+   reporting (I will compile a patched DLL for use with MutateMe soon). Linux users
+   should compile runkit from source. I've put up a patched version supporting
+   static methods (via a David Sklar patch) and PHP 5.2 (from CVS HEAD in PECL)
+   at http://github.com/padraic/runkit
 
-   cvs -d :pserver:cvsread@cvs.php.net:/repository login
-   cvs -d :pserver:cvsread@cvs.php.net:/repository co pecl/runkit
-   cd pecl/runkit
+   Use the following commands to compile from source (install git first!):
+
+   git clone git://github.com/padraic/runkit.git runkit
+   cd runkit
    phpize
    ./configure
    make
