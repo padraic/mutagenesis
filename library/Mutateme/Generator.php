@@ -66,12 +66,11 @@ class Mutateme_Generator
             if ($res == '.' || $res == '..') {
                 continue;
             }
-            if (!preg_match("/\.php$/", $res)) {
-                continue;
-            }
             $entry = $target . '/' . $res;
             if (is_dir($entry)) {
                 $this->_collateFiles($entry);
+                continue;
+            } else if(!preg_match("/\.php$/", $res)) {
                 continue;
             }
             $this->_files[] = $entry;
