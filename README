@@ -25,11 +25,11 @@ Installation (Manual Installation without PEAR):
 3. Install the runkit extension but NOT from PECL. Windows users can grab the DLL
    from http://dev.phpspec.org/php_runkit.dll, Linux users can compile the extension
    from the latest CVS HEAD - the CVS user is "cvsread" with password "phpfi" - using
-   the following commands:
-   
+   the following commands (as an example):
+
    cvs -d :pserver:cvsread@cvs.php.net:/repository login
    cvs -d :pserver:cvsread@cvs.php.net:/repository co pecl/runkit
-   cd runkit
+   cd pecl/runkit
    phpize
    ./configure
    make
@@ -43,7 +43,7 @@ Installation (Manual Installation without PEAR):
    Check the output of "php -i" or phpinfo() to ensure the extension is loaded.
 
 Usage:
-   
+
 MutateMe has just a few necessary command line options:
 
    --adapter    Adapter to use: phpunit or simpletest. PHPUnit is the default.
@@ -72,7 +72,7 @@ Example:
 $ mutateme --adapter phpunit --basedir ./ --srcdir ./src --testdir ./tests --testfile AllTests.php --test MyLib_AllTests
 
 In the example above, we could have omitted the --basedir, --srcdir, --testdir and
---testfile options since they meet the requirements of the autodetectable convention as 
+--testfile options since they meet the requirements of the autodetectable convention as
 described above.
 
 Output:
