@@ -71,7 +71,7 @@ class Mutateme_Console_Command
         }
         if (isset($options->testfile)) {
             if (!file_exists($options->testfile)) {
-                $runner->setOption('testfile', $this->getSpecDirectory(). '/' .$options->testfile);
+                $runner->setOption('testfile', $runner->getSpecDirectory(). '/' .$options->testfile);
             } else {
                 $runner->setOption('testfile', $options->testfile);
             }
