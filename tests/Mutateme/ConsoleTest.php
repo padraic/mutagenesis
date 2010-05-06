@@ -30,13 +30,29 @@ class Mutateme_ConsoleTest extends PHPUnit_Framework_TestCase
     public function testConsoleSetsRunnerBaseDirectoryFromCommandLineOptions()
     {
         $runner = new \Mutateme\Runner;
-        \Mutateme\Console::main(array('basedir'=>$this->root), $runner);
+        \Mutateme\Console::main(array('base'=>$this->root), $runner);
         $this->assertEquals($this->root, $runner->getBaseDirectory());
     }
 
-    public function tearDown()
+    public function testConsoleSetsRunnerSourceDirectoryFromCommandLineOptions()
     {
-        spl_autoload_unregister('\Mutateme\Loader::loadClass');
+        $runner = new \Mutateme\Runner;
+        \Mutateme\Console::main(array('src'=>$this->root . '/library'), $runner);
+        $this->assertEquals($this->root . '/library', $runner->getSourceDirectory());
+    }
+
+    public function testConsoleSetsRunnerTestsDirectoryFromCommandLineOptions()
+    {
+        $runner = new \Mutateme\Runner;
+        \Mutateme\Console::main(array('test'=>$this->root . '/tests'), $runner);
+        $this->assertEquals($this->root . '/tests', $runner->getTestDirectory());
+    }
+
+    public function testConsoleSetsRunnerAdapterNameFromCommandLineOptions()
+    {
+        $runner = new \Mutateme\Runner;
+        \Mutateme\Console::main(array('adapter'=>'foobar'), $runner);
+        $this->assertEquals('foobar', $runner->getAdapterName());
     }
 
 }

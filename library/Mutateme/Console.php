@@ -32,9 +32,9 @@ class Console
             self::$_options = getopt(
                 '',
                 array(
-                    'basedir::',
-                    'srcdir::',
-                    'testdir::',
+                    'base::',
+                    'src::',
+                    'test::',
                     'adapter::'
                 )
             );
@@ -47,14 +47,44 @@ class Console
         }
 
         self::setBaseDirectory($runner);
+        self::setSourceDirectory($runner);
+        self::setTestDirectory($runner);
+        self::setAdapterName($runner);
     }
 
     protected static function setBaseDirectory(\Mutateme\Runner $runner)
     {
-        if (isset(self::$_options['basedir'])) {
-            $runner->setBaseDirectory(self::$_options['basedir']);
+        if (isset(self::$_options['base'])) {
+            $runner->setBaseDirectory(self::$_options['base']);
         } else {
             $runner->setBaseDirectory(getcwd());
+        }
+    }
+
+    protected static function setSourceDirectory(\Mutateme\Runner $runner)
+    {
+        if (isset(self::$_options['src'])) {
+            $runner->setSourceDirectory(self::$_options['src']);
+        } else {
+            $runner->setSourceDirectory(getcwd());
+        }
+    }
+
+    protected static function setTestDirectory(\Mutateme\Runner $runner)
+    {
+        if (isset(self::$_options['test'])) {
+            $runner->setTestDirectory(self::$_options['test']);
+        } else {
+            $runner->setTestDirectory(getcwd());
+        }
+    }
+
+    protected static function setAdapterName(\Mutateme\Runner $runner)
+    {
+        if (isset(self::$_options['adapter'])) {
+            $runner->setAdapterName(self::$_options['adapter']);
+        } else {
+            $runner->setAdapterName(getcwd());
         }
     }
     
