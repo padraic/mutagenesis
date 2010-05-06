@@ -19,24 +19,19 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-class Mutateme_LoaderTest extends PHPUnit_Framework_TestCase
+class Mutateme_ConsoleTest extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        spl_autoload_unregister('\Mutateme\Loader::loadClass');
+        $this->root = dirname(__FILE__) . '/_files/root/base1';
     }
 
-    public function testCallingRegisterRegistersSelfAsSplAutoloaderFunction()
+    public function testConsoleSetsRunnerBaseDirectoryFromCommandLineOptions()
     {
-        //if (class_exists('Mutateme_Framework', false)) {
-        //    $this->markTestSkipped('Cannot run this test if MutateMe is in use for another reason (e.g. self mutation testing!)');
-        //}
-        require_once 'Mutateme/Loader.php';
-        $loader = new \Mutateme\Loader;
-        $loader->register();
-        $expected = array($loader, 'loadClass');
-        $this->assertTrue(in_array($expected, spl_autoload_functions()));
+        $runner = new \Mutateme\Runner;
+        \Mutateme\Console::main(array('basedir'=>$this->root), $runner);
+        $this->assertEquals($this->root, $runner->getBaseDirectory());
     }
 
     public function tearDown()
