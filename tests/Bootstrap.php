@@ -45,13 +45,6 @@ $path = array(
 );
 set_include_path(implode(PATH_SEPARATOR, $path));
 
-/**
- * Setup autoloading
- */
-require_once 'Zend/Loader/Autoloader.php';
-$autoloader = Zend_Loader_Autoloader::getInstance();
-$autoloader->registerPrefix('PHPUnit_');
-
 if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
     version_compare(PHPUnit_Runner_Version::id(), '3.1.6', '>=')) {
 
