@@ -143,5 +143,15 @@ class Runner
     {
         return $this->_adapterName;
     }
+
+    /**
+     * Execute the runner
+     *
+     * @return void
+     */
+    public function execute()
+    {
+    
+    }
     
 }

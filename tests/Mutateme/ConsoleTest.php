@@ -55,4 +55,13 @@ class Mutateme_ConsoleTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('foobar', $runner->getAdapterName());
     }
 
+    public function testConsoleExecutesRunnerAndEchosOutput()
+    {
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
+        $runner->expects($this->once())->method('execute')->will($this->returnValue('mutation results'));
+        ob_start();
+        \Mutateme\Console::main(null, $runner);
+        $this->assertEquals(ob_get_clean(), 'mutation results');
+    }
+
 }

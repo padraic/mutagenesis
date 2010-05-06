@@ -50,6 +50,9 @@ class Console
         self::setSourceDirectory($runner);
         self::setTestDirectory($runner);
         self::setAdapterName($runner);
+
+        $result = $runner->execute();
+        echo $result;
     }
 
     protected static function setBaseDirectory(\Mutateme\Runner $runner)
