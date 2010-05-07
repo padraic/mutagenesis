@@ -72,7 +72,7 @@ class Diff
      * @param  array|string $to
      * @return string
      */
-    public static function diff($from, $to)
+    public static function difference($from, $to)
     {
         if (is_string($from)) {
             $from = preg_split('(\r\n|\r|\n)', $from);

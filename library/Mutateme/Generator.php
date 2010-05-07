@@ -135,7 +135,7 @@ class Generator
             if (is_dir($entry)) {
                 $this->_collateFiles($entry);
                 continue;
-            } elseif (!preg_match("/\.php$/", $res)) {
+            } elseif (!preg_match("/\.php$/", $res)) { // TODO expand! INC/PHTML/etc.
                 continue;
             }
             $this->_files[] = $entry;

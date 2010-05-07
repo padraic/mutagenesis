@@ -25,6 +25,18 @@ class Text
 {
 
     /**
+     * Render the opening message (i.e. app and version mostly)
+     *
+     * @return string
+     */
+    public function renderOpening()
+    {
+        $out = 'MutateMe 0.5: Mutation Testing for PHP'
+            . PHP_EOL . PHP_EOL;
+        return $out;
+    }
+
+    /**
      * Render Mutateme output based on test pass. This is the pretest output,
      * rendered after a first-pass test run to ensure the test suite is in an
      * initial passing state.
@@ -76,13 +88,13 @@ class Text
     public function renderReport($total, $killed, $escaped, array $mutationDiffs, $output)
     {
         $out = PHP_EOL . PHP_EOL
-                . $total == 1 ? ' Mutant' : ' Mutants';
+                . $total == 1 ? ' Mutant' : ' Mutants'
                 . ' born out of the mutagenic slime!'
                 . PHP_EOL . PHP_EOL;
         if ($escaped > 0) {
-            $out .= $escaped;
-                . $escaped == 1 ? ' Mutant' : ' Mutants';
-                . ' escaped; the integrity of your source code may be compromised by the following Mutants:';
+            $out .= $escaped
+                . $escaped == 1 ? ' Mutant' : ' Mutants'
+                . ' escaped; the integrity of your source code may be compromised by the following Mutants:'
                 . PHP_EOL . PHP_EOL;
             $i = 1;
             foreach ($mutationDiffs as $diff) {
@@ -98,7 +110,7 @@ class Text
             . ' Ghosts (or if you want to be boring, \'false positives\').'
             . PHP_EOL . PHP_EOL;
         } else {
-            $out .= 'No Mutants survived! Muahahahaha!'
+            $out .= 'No Mutants survived! Someone in QA will be happy.'
                 . PHP_EOL . PHP_EOL;
         }
         return $out;
