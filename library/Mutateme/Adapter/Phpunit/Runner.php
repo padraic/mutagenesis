@@ -19,52 +19,39 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-require_once 'PHPUnit/TextUI/TestRunner.php';
-
-PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
-
 namespace Mutateme\Adapter\Phpunit;
+
+require_once 'PHPUnit/TextUI/Command.php';
+
+\PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
 class Runner
 {
 
+    /**
+     * Uses an instance of PHPUnit_TextUI_Command to execute the PHPUnit
+     * tests and simulates any Mutateme supported command line options suitable
+     * for PHPUnit. At present, we merely dissect a generic 'options' string
+     * equivelant to anything typed into a console after a normal 'phpunit'
+     * command. The adapter captures the TextUI output for further processing.
+     *
+     * @param array $arguments Mutateme arguments to pass to PHPUnit
+     * @return void
+     */
     public static function main(array $arguments)
     {
-        $runner = new \PHPUnit_TextUI_TestRunner;
-
-        $suite = $runner->getTest(
-            $arguments['test'],
-            $arguments['testFile']
-        );
-
-        if ($suite->testAt(0) instanceof \PHPUnit_Framework_Warning &&
-            strpos($suite->testAt(0)->getMessage(), 'No tests found in class') !== FALSE) {
-            require_once 'PHPUnit/Util/Skeleton/Test.php';
-
-            $skeleton = new \PHPUnit_Util_Skeleton_Test(
-                $arguments['test'],
-                $arguments['testFile']
-            );
-
-            $result = $skeleton->generate(TRUE);
-
-            if (!$result['incomplete']) {
-                eval(str_replace(array('<?php', '?>'), '', $result['code']));
-                $suite = new \PHPUnit_Framework_TestSuite($arguments['test'] . 'Test');
-            }
+        $optionString = 'phpunit';
+        if (isset($arguments['options'])) {
+            $optionString .= ' ' . $arguments['options'];
         }
-
-        try {
-            $runner->doRun(
-              $suite,
-              $arguments
-            );
-        } catch (\Exception $e) {
-            throw new \RuntimeException(
-              'Could not create and run test suite: ' . $e->getMessage()
-            );
+        $options = explode(' ', $optionString);
+        $originalWorkingDirectory = getcwd();
+        if (isset($arguments['tests'])) {
+            chdir($arguments['tests']);
         }
-
+        $command = new \PHPUnit_TextUI_Command;
+        $command->run($options, true);
+        chdir($originalWorkingDirectory);
     }
 
 }

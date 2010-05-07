@@ -39,7 +39,7 @@ class Runner
     protected $_sourceDirectory = '';
 
     /**
-     * Path to the test directory of the project being mutated
+     * Path to the tests directory of the project being mutated
      *
      * @var string
      */
@@ -51,6 +51,14 @@ class Runner
      * @var string
      */
     protected $_adapterName = '';
+
+    /**
+     * String of adapter options appended to any call to the current adapter's
+     * testing utility command (e.g. passing 'AllTests.php' to phpunit)
+     *
+     * @var string
+     */
+    protected $_adapterOptions = '';
 
     /**
      * Set the base directory of the project being mutated
@@ -127,7 +135,7 @@ class Runner
     /**
      * Set name of the test adapter to use
      *
-     * @return string
+     * @param string $adapter
      */
     public function setAdapterName($adapter)
     {
@@ -142,6 +150,26 @@ class Runner
     public function getAdapterName()
     {
         return $this->_adapterName;
+    }
+
+    /**
+     * Options to pass to adapter's underlying command
+     *
+     * @param string $optionString
+     */
+    public function setAdapterOptions($optionString)
+    {
+        $this->_adapterOptions = $optionString;
+    }
+
+    /**
+     * Get name of the test adapter to use
+     *
+     * @return string
+     */
+    public function getAdapterOptions()
+    {
+        return $this->_adapterOptions;
     }
 
     /**

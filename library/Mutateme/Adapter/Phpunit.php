@@ -21,7 +21,11 @@
 
 namespace Mutateme\Adapter;
 
-class Phpunit extends Adapter
+require_once 'Mutateme/Adapter/AdapterAbstract.php';
+
+require_once 'Mutateme/Adapter/Phpunit/Runner.php';
+
+class Phpunit extends AdapterAbstract
 {
 
     /**
@@ -32,19 +36,12 @@ class Phpunit extends Adapter
      */
     public function execute(array $options)
     {
-        $arguments = array();
-        if (isset($options['test'])) {
-            $arguments['test'] = $options['test'];
-        }
-        if (isset($options['testFile'])) {
-            $arguments['testFile'] = $options['testFile'];
-        }
-        if (!defined('PHPUnit_MAIN_METHOD')) {
-            define('PHPUnit_MAIN_METHOD', 'undefined');
-        }
+        //if (!defined('PHPUnit_MAIN_METHOD')) {
+        //    define('PHPUnit_MAIN_METHOD', 'undefined');
+        //}
         ob_start();
         ob_implicit_flush(false);
-        \Mutateme\Adapter\Phpunit\Runner::main($arguments);
+        \Mutateme\Adapter\Phpunit\Runner::main($options);
         $this->setOutput(ob_get_clean());
         return $this->_processOutput($this->getOutput());
     }

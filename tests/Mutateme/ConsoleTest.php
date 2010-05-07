@@ -44,7 +44,7 @@ class Mutateme_ConsoleTest extends PHPUnit_Framework_TestCase
     public function testConsoleSetsRunnerTestsDirectoryFromCommandLineOptions()
     {
         $runner = new \Mutateme\Runner;
-        \Mutateme\Console::main(array('test'=>$this->root . '/tests'), $runner);
+        \Mutateme\Console::main(array('tests'=>$this->root . '/tests'), $runner);
         $this->assertEquals($this->root . '/tests', $runner->getTestDirectory());
     }
 
@@ -53,6 +53,27 @@ class Mutateme_ConsoleTest extends PHPUnit_Framework_TestCase
         $runner = new \Mutateme\Runner;
         \Mutateme\Console::main(array('adapter'=>'foobar'), $runner);
         $this->assertEquals('foobar', $runner->getAdapterName());
+    }
+
+    public function testConsoleSetsRunnerAdapterOptionStringFromCommandLineOptions()
+    {
+        $runner = new \Mutateme\Runner;
+        \Mutateme\Console::main(array('options'=>'foobar'), $runner);
+        $this->assertEquals('foobar', $runner->getAdapterOptions());
+    }
+
+    public function testConsoleSetsRunnerAdapterToPhpunitByDefault()
+    {
+        $runner = new \Mutateme\Runner;
+        \Mutateme\Console::main(array(), $runner);
+        $this->assertEquals('phpunit', $runner->getAdapterName());
+    }
+
+    public function testConsoleSetsRunnerAdapterOptionsToEmptyStringByDefault()
+    {
+        $runner = new \Mutateme\Runner;
+        \Mutateme\Console::main(array(), $runner);
+        $this->assertEquals('', $runner->getAdapterOptions());
     }
 
     public function testConsoleExecutesRunnerAndEchosOutput()

@@ -34,8 +34,9 @@ class Console
                 array(
                     'base::',
                     'src::',
-                    'test::',
-                    'adapter::'
+                    'tests::',
+                    'adapter::',
+                    'options::'
                 )
             );
         } else {
@@ -50,6 +51,7 @@ class Console
         self::setSourceDirectory($runner);
         self::setTestDirectory($runner);
         self::setAdapterName($runner);
+        self::setAdapterOptions($runner);
 
         $result = $runner->execute();
         echo $result;
@@ -75,8 +77,8 @@ class Console
 
     protected static function setTestDirectory(\Mutateme\Runner $runner)
     {
-        if (isset(self::$_options['test'])) {
-            $runner->setTestDirectory(self::$_options['test']);
+        if (isset(self::$_options['tests'])) {
+            $runner->setTestDirectory(self::$_options['tests']);
         } else {
             $runner->setTestDirectory(getcwd());
         }
@@ -87,7 +89,14 @@ class Console
         if (isset(self::$_options['adapter'])) {
             $runner->setAdapterName(self::$_options['adapter']);
         } else {
-            $runner->setAdapterName(getcwd());
+            $runner->setAdapterName('phpunit');
+        }
+    }
+
+    protected static function setAdapterOptions(\Mutateme\Runner $runner)
+    {
+        if (isset(self::$_options['options'])) {
+            $runner->setAdapterOptions(self::$_options['options']);
         }
     }
     

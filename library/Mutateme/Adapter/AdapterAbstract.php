@@ -37,7 +37,7 @@ abstract class AdapterAbstract
      * @param array $options Options to be used when called the test suite runner
      * @return bool Boolean indicating whether test suite failed or passed
      */
-    abstract public function execute(array $options = null);
+    abstract public function execute(array $options);
 
     /**
      * Set the test library output so it can be used later
