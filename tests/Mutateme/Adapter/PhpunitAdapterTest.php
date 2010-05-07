@@ -91,4 +91,14 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         $this->assertFalse($adapter->execute($options));
     }
 
+    public function testAdapterDetectsTestsFailingFromError()
+    {
+        $options = array(
+            'tests' => $this->root,
+            'options' => 'ErrorTest'
+        );
+        $adapter = new \Mutateme\Adapter\Phpunit;
+        $this->assertFalse($adapter->execute($options));
+    }
+
 }
