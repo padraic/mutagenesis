@@ -46,6 +46,7 @@
 
 /**
  * I...uh...borrowed this. :P
+ * Changes made include the PHP 5.3 namespacing for Mutateme
  */
 namespace Mutateme\Utility;
 
