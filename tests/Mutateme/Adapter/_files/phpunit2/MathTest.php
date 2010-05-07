@@ -4,6 +4,10 @@ require_once dirname(__FILE__).'/Math.php';
 
 class MM2_MathTest extends PHPUnit_Framework_TestCase
 {
+
+    /**
+     * @group disabled
+     */
     public function testAdds()
     {
         $math = new Phpunit_MM2_Math;

@@ -36,9 +36,6 @@ class Phpunit extends AdapterAbstract
      */
     public function execute(array $options)
     {
-        //if (!defined('PHPUnit_MAIN_METHOD')) {
-        //    define('PHPUnit_MAIN_METHOD', 'undefined');
-        //}
         ob_start();
         ob_implicit_flush(false);
         \Mutateme\Adapter\Phpunit\Runner::main($options);

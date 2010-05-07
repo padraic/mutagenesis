@@ -50,7 +50,7 @@ class Runner
             chdir($arguments['tests']);
         }
         $command = new \PHPUnit_TextUI_Command;
-        $command->run($options, true);
+        $command->run($options, false);
         chdir($originalWorkingDirectory);
     }
 
