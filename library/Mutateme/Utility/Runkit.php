@@ -56,10 +56,14 @@ class Runkit
                 . ' (mutation application)'
             );
         }
+        /**
+         * TODO: Why are no args set in some cases? Bug?
+         */
+        $margs = (isset($mutation['args']) ? $mutation['args'] : '');
         if(runkit_method_add(
             $mutation['class'],
             $mutation['method'],
-            $mutation['args'],
+            $margs,
             $newBlock,
             $this->getMethodFlags($mutation)
         ) == false) {

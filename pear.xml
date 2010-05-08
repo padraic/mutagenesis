@@ -64,7 +64,7 @@
           <file name="Runner.php" role="php" md5sum="6619aeaa2f29c3fed28e63d83ea22b54"/>
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="31556905595cc8c4d549b57b6be65168"/>
-            <file name="Runkit.php" role="php" md5sum="e13cb2cfd6394fb351dd4124fecbb8fd"/>
+            <file name="Runkit.php" role="php" md5sum="37f3bb46c842c1b4a085ee7c56534eec"/>
           </dir>
         </dir>
       </dir>
