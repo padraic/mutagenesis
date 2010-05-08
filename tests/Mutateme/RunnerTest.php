@@ -75,8 +75,9 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
     {
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
-        $runner->setGenerator(new stubMutatemeGenerator1);
-        $this->assertTrue($runner->getGenerator() instanceof stubMutatemeGenerator1);
+        $generator = $this->getMock('Mutateme\Generator');
+        $runner->setGenerator($generator);
+        $this->assertSame($generator, $runner->getGenerator());
     }
 
     public function testShouldCreateGeneratorWhenNeededIfNoneProvided()
@@ -97,16 +98,25 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
     {
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
-        $runner->setGenerator(new stubMutatemeGenerator1);
-        $this->assertEquals($this->root, $runner->getGenerator()->getSourceDirectory());
+        $generator = $this->getMock('Mutateme\Generator');
+        $generator->expects($this->once())
+            ->method('setSourceDirectory')
+            ->with($this->equalTo($this->root));
+        $runner->setGenerator($generator);
     }
 
-    public function testShouldProvideMutablesIfAlreadyAvailable()
+    public function testShouldUseGeneratorToCreateMutablesAndStoreAllForRetrievalUsingGetMutablesMethod()
     {
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
-        $runner->setGenerator(new stubMutatemeGenerator1);
-        $this->assertEquals(array('mutables'), $runner->getMutables());
+        $generator = $this->getMock('Mutateme\Generator');
+        $generator->expects($this->once())
+            ->method('generate');
+        $generator->expects($this->once())
+            ->method('getMutables')
+            ->will($this->returnValue(array('mut1', 'mut2')));
+        $runner->setGenerator($generator);
+        $this->assertEquals(array('mut1', 'mut2'), $runner->getMutables());
     }
 
     public function testShouldGenerateMutablesWhenRequestedButNotYetAvailable()
@@ -120,8 +130,9 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
     {
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
-        $runner->setAdapter(new stubMutatemeAdapter1);
-        $this->assertTrue($runner->getAdapter() instanceof stubMutatemeAdapter1);
+        $adapter = $this->getMockForAbstractClass('Mutateme\Adapter\AdapterAbstract');
+        $runner->setAdapter($adapter);
+        $this->assertSame($adapter, $runner->getAdapter());
     }
 
     public function testShouldCreateTestingAdapterIfNotAlreadyAvailable()
@@ -150,19 +161,4 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($runner->getRunkit() instanceof \Mutateme\Runkit);
     }
 
-}
-
-class stubMutatemeGenerator1 extends \Mutateme\Generator
-{
-    protected $_mutables = array('mutables');
-    public function generate($mutableObject = null) {}
-}
-
-class stubMutatemeAdapter1 extends \Mutateme\Adapter\AdapterAbstract
-{
-    public function execute(array $options = null) {}
-}
-
-class stubMutatemeRunkit1 extends \Mutateme\Runkit
-{
 }
