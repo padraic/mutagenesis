@@ -21,10 +21,6 @@
 
 namespace Mutateme;
 
-require_once 'Mutateme/Renderer/Text.php';
-
-require_once 'Mutateme/Adapter/Phpunit.php';
-
 class Runner
 {
 
@@ -308,7 +304,7 @@ class Runner
     {
         if (is_null($this->_adapter)) {
             $name = ucfirst(strtolower($this->getAdapterName()));
-            $class = '\\Mutateme\\Adapter\\' . $name;
+            $class = 'Mutateme\\Adapter\\' . $name;
             if (!class_exists($class)) {
                 throw new \Exception('Invalid Adapter name: ' . strtolower($name));
             }
@@ -359,7 +355,7 @@ class Runner
     {
         if (is_null($this->_renderer)) {
             $name = ucfirst(strtolower($this->getRendererName()));
-            $class = '\\Mutateme\\Renderer\\' . $name;
+            $class = 'Mutateme\\Renderer\\' . $name;
             if (!class_exists($class)) {
                 throw new \Exception('Invalid Renderer name: ' . strtolower($name));
             }
