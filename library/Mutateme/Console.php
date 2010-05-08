@@ -112,7 +112,8 @@ class Console
     }
 
     /**
-     * Set an adapter name to use for the provided runner
+     * Set an adapter name to use for the provided runner. If none is
+     * provided, the PHPUnit adapter name is set by default.
      *
      * @param \Mutateme\Runner $runner
      */
