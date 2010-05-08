@@ -132,6 +132,13 @@ class Runner
          */
         $result = $this->getAdapter()->execute($this->getOptions());
         echo $renderer->renderPretest($result, $this->getAdapter()->getOutput());
+        
+        /**
+         * If the underlying test suite is not passing, we can't continue.
+         */
+        if (!$result) {
+            return;
+        }
 
         $countMutants = 0;
         $countMutantsKilled = 0;

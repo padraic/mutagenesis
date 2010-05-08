@@ -61,7 +61,7 @@
             <file name="RendererInterface.php" role="php" md5sum="fcc30bd492ddfdb13251afb8cbb14747"/>
             <file name="Text.php" role="php" md5sum="c2183e39b25a271c6517ec9a96a8ad96"/>
           </dir>
-          <file name="Runner.php" role="php" md5sum="6a07b04b6e8bbc57710af71b5de48cb1"/>
+          <file name="Runner.php" role="php" md5sum="6619aeaa2f29c3fed28e63d83ea22b54"/>
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="31556905595cc8c4d549b57b6be65168"/>
             <file name="Runkit.php" role="php" md5sum="e13cb2cfd6394fb351dd4124fecbb8fd"/>
