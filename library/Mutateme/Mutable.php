@@ -181,7 +181,7 @@ class Mutable
                 break;
         }
         if (!empty($type)) {
-            $mutationClass =  '\\Mutateme\\Mutation\\' . $type;
+            $mutationClass =  'Mutateme\\Mutation\\' . $type;
             if (!class_exists($mutationClass)) {
                 require_once str_replace('\\', '/', ltrim($mutationClass, '\\')) . '.php';
             }
@@ -212,7 +212,7 @@ class Mutable
                 break;
         }
         if (!empty($type)) {
-            $mutationClass =  '\\Mutateme\\Mutation\\' . $type;
+            $mutationClass =  'Mutateme\\Mutation\\' . $type;
             if (!class_exists($mutationClass)) {
                 // todo: given we're autoloading, could we not just kick up an exception here?
                 require_once str_replace('\\', '/', ltrim($mutationClass, '\\')) . '.php';

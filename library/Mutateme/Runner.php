@@ -158,6 +158,9 @@ class Runner
         foreach ($mutables as $mutable) {
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
+                /**
+                 * TODO: Add exception catchers to mitigate runkit failures
+                 */
                 $this->getRunkit()->applyMutation($mutation);
                 $result = $this->getAdapter()->execute($this->getOptions());
                 $this->getRunkit()->reverseMutation($mutation);

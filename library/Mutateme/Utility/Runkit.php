@@ -69,7 +69,7 @@ class Runkit
         ) == false) {
             throw new \Exception(
                 'runkit_method_add() failed when adding original '
-                . $mutation['class'] . '::' . $method['method']
+                . $mutation['class'] . '::' . $mutation['method']
                 . '(' . var_export($mutation['args']) . ') with ' . $newBlock
             );
         }
