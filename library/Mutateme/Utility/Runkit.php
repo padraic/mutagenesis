@@ -19,7 +19,7 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme;
+namespace Mutateme\Utility;
 
 class Runkit
 {
@@ -49,7 +49,7 @@ class Runkit
             $mutation['method'],
             $mutation['method'] . $this->_methodPreserveCode
         ) == false) {
-            throw new \RuntimeException(
+            throw new \Exception(
                 'runkit_method_rename() failed from ' . $mutation['class']
                 . '::' . $mutation['method'] . ' to ' . $mutation['class']
                 . '::' . $mutation['method'] . $this->_methodPreserveCode
@@ -63,7 +63,7 @@ class Runkit
             $newBlock,
             $this->getMethodFlags($mutation)
         ) == false) {
-            throw new \RuntimeException(
+            throw new \Exception(
                 'runkit_method_add() failed when adding original '
                 . $mutation['class'] . '::' . $method['method']
                 . '(' . var_export($mutation['args']) . ') with ' . $newBlock
@@ -82,7 +82,7 @@ class Runkit
             $mutation['class'],
             $mutation['method']
         ) == false) {
-            throw new \RuntimeException(
+            throw new \Exception(
                 'runkit_method_remove() failed attempting to remove '
                 . $mutation['class'] . '::' . $mutation['method']
             );
@@ -92,7 +92,7 @@ class Runkit
             $mutation['method'] . $this->_methodPreserveCode,
             $mutation['method']
         ) == false) {
-            throw new \RuntimeException(
+            throw new \Exception(
                 'runkit_method_rename() failed renaming from '
                 . $mutation['class'] . '::' . $mutation['method']
                 . $this->_methodPreserveCode . ' to ' . $mutation['class']

@@ -71,7 +71,7 @@ class Runner
      * Instance of \Mutateme\Runkit used to apply and reverse mutations
      * on loaded source code within the same process dynamically
      *
-     * @var \Mutateme\Runkit
+     * @var \Mutateme\Utility\Runkit
      */
     protected $_runkit = null;
 
@@ -330,7 +330,7 @@ class Runner
                     . ' extension suitable for MutateMe and PHP 5.3.'
                 );
             }
-            $this->_runkit = new \Mutateme\Runkit;
+            $this->_runkit = new \Mutateme\Utility\Runkit;
         }
         return $this->_runkit;
     }

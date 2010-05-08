@@ -23,7 +23,7 @@ require_once 'Mutateme/Mutation/MutationAbstract.php';
 
 require_once 'Mutateme/Mutation/OperatorAddition.php';
 
-require_once 'Mutateme/Runkit.php';
+require_once 'Mutateme/Utility/Runkit.php';
 
 class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
 {
@@ -44,7 +44,7 @@ class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
             'index' => 2,
             'mutation' => new \Mutateme\Mutation\OperatorAddition($this->root . '/runkit/Math1.php')
         );
-        $runkit = new \Mutateme\Runkit;
+        $runkit = new \Mutateme\Utility\Runkit;
         $runkit->applyMutation($mutation);
         $math = new RunkitTest_Math1;
         $this->assertEquals(0, $math->add(1,1));
@@ -62,7 +62,7 @@ class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
             'index' => 2,
             'mutation' => new \Mutateme\Mutation\OperatorAddition($this->root . '/runkit/Math1.php')
         );
-        $runkit = new \Mutateme\Runkit;
+        $runkit = new \Mutateme\Utility\Runkit;
         $runkit->applyMutation($mutation);
         $math = new RunkitTest_Math1;
         $runkit->reverseMutation($mutation);
@@ -80,7 +80,7 @@ class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
             'index' => 2,
             'mutation' => new \Mutateme\Mutation\OperatorAddition($this->root . '/runkit/Math2.php')
         );
-        $runkit = new \Mutateme\Runkit;
+        $runkit = new \Mutateme\Utility\Runkit;
         $runkit->applyMutation($mutation);
         $this->assertEquals(0, RunkitTest_Math2::add(1,1));
         $runkit->reverseMutation($mutation);
@@ -97,7 +97,7 @@ class Mutateme_RunkitTest extends PHPUnit_Framework_TestCase
             'index' => 2,
             'mutation' => new \Mutateme\Mutation\OperatorAddition($this->root . '/runkit/Math2.php')
         );
-        $runkit = new \Mutateme\Runkit;
+        $runkit = new \Mutateme\Utility\Runkit;
         $runkit->applyMutation($mutation);
         $runkit->reverseMutation($mutation);
         $this->assertEquals(2, RunkitTest_Math2::add(1,1));

@@ -19,7 +19,7 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-require_once 'Mutateme/Runkit.php';
+require_once 'Mutateme/Utility/Runkit.php';
 
 require_once 'Mutateme/Runner.php';
 
@@ -158,7 +158,7 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
     {
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
-        $this->assertTrue($runner->getRunkit() instanceof \Mutateme\Runkit);
+        $this->assertTrue($runner->getRunkit() instanceof \Mutateme\Utility\Runkit);
     }
 
 }
