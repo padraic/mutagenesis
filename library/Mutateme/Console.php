@@ -24,8 +24,20 @@ namespace Mutateme;
 class Console
 {
 
+    /**
+     * Options passed across the command line parsed by getopt()
+     *
+     * @var array
+     */
     protected static $_options = array();
 
+    /**
+     * Sets up options, and initialises the Runner to perform mutation
+     * tests and echo out the results
+     *
+     * @param array $options
+     * @param \Mutateme\Runner $runner Optional custom runner
+     */
     public static function main(array $options = null, \Mutateme\Runner $runner = null)
     {
         if (is_null($options)) {
@@ -57,6 +69,11 @@ class Console
         echo $result;
     }
 
+    /**
+     * Set a base directory for the provided runner
+     *
+     * @param \Mutateme\Runner $runner
+     */
     protected static function setBaseDirectory(\Mutateme\Runner $runner)
     {
         if (isset(self::$_options['base'])) {
@@ -66,6 +83,11 @@ class Console
         }
     }
 
+    /**
+     * Set a source directory for the provided runner
+     *
+     * @param \Mutateme\Runner $runner
+     */
     protected static function setSourceDirectory(\Mutateme\Runner $runner)
     {
         if (isset(self::$_options['src'])) {
@@ -75,6 +97,11 @@ class Console
         }
     }
 
+    /**
+     * Set a tests directory for the provided runner
+     *
+     * @param \Mutateme\Runner $runner
+     */
     protected static function setTestDirectory(\Mutateme\Runner $runner)
     {
         if (isset(self::$_options['tests'])) {
@@ -84,6 +111,11 @@ class Console
         }
     }
 
+    /**
+     * Set an adapter name to use for the provided runner
+     *
+     * @param \Mutateme\Runner $runner
+     */
     protected static function setAdapterName(\Mutateme\Runner $runner)
     {
         if (isset(self::$_options['adapter'])) {
@@ -93,6 +125,12 @@ class Console
         }
     }
 
+    /**
+     * Set options to be parsed and passed to the adapter instance used by
+     * the runner
+     *
+     * @param \Mutateme\Runner $runner
+     */
     protected static function setAdapterOptions(\Mutateme\Runner $runner)
     {
         if (isset(self::$_options['options'])) {
