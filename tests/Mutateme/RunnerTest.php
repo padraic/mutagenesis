@@ -39,14 +39,13 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->root, $runner->getSourceDirectory());
     }
 
-    /*public function testShouldThrowExceptionOnNonexistingDirectoryWhenSettingSourceDirectory()
+    /**
+     * @expectedException Exception
+     */
+    public function testShouldThrowExceptionOnNonexistingDirectoryWhenSettingSourceDirectory()
     {
         $runner = new \Mutateme\Runner;
-        try {
-            $runner->setSourceDirectory($this->badRoot);
-            $this->fail('Failed to detect that given directory does not exist');
-        } catch (Exception $e) {
-        }
+        $runner->setSourceDirectory($this->badRoot);
     }
 
     public function testShouldStoreTestDirectoryValue()
@@ -56,14 +55,13 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->root, $runner->getTestDirectory());
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testShouldThrowExceptionOnNonexistingDirectoryWhenSettingTestDirectory()
     {
         $runner = new \Mutateme\Runner;
-        try {
-            $runner->setTestDirectory($this->badRoot);
-            $this->fail('Failed to detect that given directory does not exist');
-        } catch (Exception $e) {
-        }
+        $runner->setTestDirectory($this->badRoot);
     }
 
     public function testShouldStoreAdapterNameValue()
@@ -134,16 +132,15 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($runner->getAdapter() instanceof \Mutateme\Adapter\Phpunit);
     }
 
+    /**
+     * @expectedException Exception
+     */
     public function testShouldThrowExceptionIfAdapterNameGivenIsNotSupported()
     {
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
         $runner->setAdapterName('DOESNOTCOMPUTE');
-        try {
-            $runner->getAdapter();
-            $this->fail('Adapter not available but no Exception was thrown as expected');
-        } catch (Exception $e) {
-        }
+        $runner->getAdapter();
     }
 
     public function testShouldCreateRunkitWrapperIfNotAvailable()
@@ -151,7 +148,7 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
         $this->assertTrue($runner->getRunkit() instanceof \Mutateme\Runkit);
-    }*/
+    }
 
 }
 

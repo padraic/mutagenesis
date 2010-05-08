@@ -181,7 +181,7 @@ class Runner
     {
         $dir = rtrim($dir, ' \\/');
         if (!is_dir($dir) || !is_readable($dir)) {
-            throw new Exception('Invalid base directory: "'.$dir.'"');
+            throw new \Exception('Invalid base directory: "'.$dir.'"');
         }
         $this->_baseDirectory = $dir;
     }
@@ -296,7 +296,7 @@ class Runner
             $name = ucfirst(strtolower($this->getAdapterName()));
             $class = '\\Mutateme\\Adapter\\' . $name;
             if (!class_exists($class)) {
-                throw new \RuntimeException('Invalid Adapter name: ' . strtolower($name));
+                throw new \Exception('Invalid Adapter name: ' . strtolower($name));
             }
             $this->_adapter = new $class;
         }
@@ -323,7 +323,7 @@ class Runner
     {
         if (is_null($this->_runkit)) {
             if(!in_array('runkit', get_loaded_extensions())) {
-                throw new \RuntimeException(
+                throw new \Exception(
                     'Runkit extension is not loaded. Unfortunately, runkit'
                     . ' is essential for MutateMe. Please see the manual or'
                     . ' README which explains how to install an updated runkit'
