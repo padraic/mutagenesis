@@ -1,0 +1,107 @@
+<?xml version="1.0"?>
+<package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0         http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd" version="2.0">
+  <name>MutateMe</name>
+  <channel>pear.php.net</channel>
+  <summary>Mutation Testing framework for PHP</summary>
+  <description>MutateMe is a Mutation Testing framework for PHP 5.3 (or higher). It's purpose is to link into a PHP test suite (e.g. PHPUnit) for a library or application, mangle (mutate) the underlying source code in varying ways, and check whether running the matching test suite reveals any form of failure. Mutations are progressively applied and tested. In essence, it is quality assurance for tests. If a mutation causes the test suite to fail, it means your tests were sufficient to detect the mutation (this is good!). If not...time to add new tests to cover the undetected mutation.</description>
+  <lead>
+    <name>Padraic Brady</name>
+    <user>padraic</user>
+    <email>padraic.brady@yahoo.com</email>
+    <active>yes</active>
+  </lead>
+  <date>2010-05-08</date>
+  <time>17:19:27</time>
+  <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+  </version>
+  <stability>
+    <release>beta</release>
+    <api>beta</api>
+  </stability>
+  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD</license>
+  <notes>Initial release.</notes>
+  <contents>
+    <dir name="/" baseinstalldir="">
+      <dir name="bin">
+        <file name="mutateme" role="script" baseinstalldir="/" md5sum="f047cf625f805726c21dcc0a932e7e0c">
+          <tasks:replace type="pear-config" from="/usr/bin/env php" to="php_bin"/>
+          <tasks:replace type="pear-config" from="@php_bin@" to="php_bin"/>
+          <tasks:replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
+          <tasks:replace type="pear-config" from="@pear_directory@" to="php_dir"/>
+        </file>
+        <file name="mutateme.bat" role="script" baseinstalldir="/" md5sum="5b99e0948dc278922b8c525dd552d998">
+          <tasks:replace type="pear-config" from="@php_bin@" to="php_bin"/>
+          <tasks:replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
+        </file>
+      </dir>
+      <dir name="library">
+        <dir name="Mutateme">
+          <dir name="Adapter">
+            <file name="AdapterAbstract.php" role="php" md5sum="fe306b6c402f63bd874ee1cdd2a3e20e"/>
+            <file name="Phpunit.php" role="php" md5sum="ae10f4244815b3b6b3f6d66061af19e2"/>
+            <dir name="Phpunit">
+              <file name="Runner.php" role="php" md5sum="a3e467b4626c1ac491fd07acf7e79d31"/>
+            </dir>
+          </dir>
+          <file name="Console.php" role="php" md5sum="beddf46ad812db401bd81a6dacc9a9fc"/>
+          <file name="Generator.php" role="php" md5sum="929891dc149e9975b731cef182466512"/>
+          <file name="Loader.php" role="php" md5sum="92dae8dfa1c88ff594401504d7993575"/>
+          <file name="Mutable.php" role="php" md5sum="f20213cf1c751d4199b0e57a6afee462"/>
+          <dir name="Mutation">
+            <file name="BooleanFalse.php" role="php" md5sum="7860903e117b7461ac5d45c5755afa71"/>
+            <file name="BooleanTrue.php" role="php" md5sum="4c5c95a5376732d3c465b76f79cc4b41"/>
+            <file name="MutationAbstract.php" role="php" md5sum="b39e23526b324ee388335993bfb7a2c0"/>
+            <file name="OperatorAddition.php" role="php" md5sum="7a8843edaec8ae8855a0568b2f5c5c48"/>
+            <file name="OperatorIncrement.php" role="php" md5sum="493679eff18660a6a5b75ec1a14e0d09"/>
+            <file name="OperatorSubtraction.php" role="php" md5sum="94f5668809a264096957f83cd19ff52d"/>
+          </dir>
+          <dir name="Renderer">
+            <file name="RendererInterface.php" role="php" md5sum="fcc30bd492ddfdb13251afb8cbb14747"/>
+            <file name="Text.php" role="php" md5sum="c2183e39b25a271c6517ec9a96a8ad96"/>
+          </dir>
+          <file name="Runner.php" role="php" md5sum="b4567ac744a0824f4fcffcb26d55de3f"/>
+          <dir name="Utility">
+            <file name="Diff.php" role="php" md5sum="31556905595cc8c4d549b57b6be65168"/>
+            <file name="Runkit.php" role="php" md5sum="e13cb2cfd6394fb351dd4124fecbb8fd"/>
+          </dir>
+        </dir>
+      </dir>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.3.0</min>
+      </php>
+      <pearinstaller>
+        <min>1.4.0</min>
+      </pearinstaller>
+    </required>
+  </dependencies>
+  <phprelease>
+    <filelist>
+      <install as="mutateme" name="bin/mutateme"/>
+      <install as="mutateme.bat" name="bin/mutateme.bat"/>
+      <install name="library/Mutateme/Adapter/AdapterAbstract.php" as="Mutateme/Adapter/AdapterAbstract.php"/>
+      <install name="library/Mutateme/Adapter/Phpunit.php" as="Mutateme/Adapter/Phpunit.php"/>
+      <install name="library/Mutateme/Adapter/Phpunit/Runner.php" as="Mutateme/Adapter/Phpunit/Runner.php"/>
+      <install name="library/Mutateme/Console.php" as="Mutateme/Console.php"/>
+      <install name="library/Mutateme/Generator.php" as="Mutateme/Generator.php"/>
+      <install name="library/Mutateme/Loader.php" as="Mutateme/Loader.php"/>
+      <install name="library/Mutateme/Mutable.php" as="Mutateme/Mutable.php"/>
+      <install name="library/Mutateme/Mutation/BooleanFalse.php" as="Mutateme/Mutation/BooleanFalse.php"/>
+      <install name="library/Mutateme/Mutation/BooleanTrue.php" as="Mutateme/Mutation/BooleanTrue.php"/>
+      <install name="library/Mutateme/Mutation/MutationAbstract.php" as="Mutateme/Mutation/MutationAbstract.php"/>
+      <install name="library/Mutateme/Mutation/OperatorAddition.php" as="Mutateme/Mutation/OperatorAddition.php"/>
+      <install name="library/Mutateme/Mutation/OperatorIncrement.php" as="Mutateme/Mutation/OperatorIncrement.php"/>
+      <install name="library/Mutateme/Mutation/OperatorSubtraction.php" as="Mutateme/Mutation/OperatorSubtraction.php"/>
+      <install name="library/Mutateme/Renderer/RendererInterface.php" as="Mutateme/Renderer/RendererInterface.php"/>
+      <install name="library/Mutateme/Renderer/Text.php" as="Mutateme/Renderer/Text.php"/>
+      <install name="library/Mutateme/Runner.php" as="Mutateme/Runner.php"/>
+      <install name="library/Mutateme/Utility/Diff.php" as="Mutateme/Utility/Diff.php"/>
+      <install name="library/Mutateme/Utility/Runkit.php" as="Mutateme/Utility/Runkit.php"/>
+    </filelist>
+  </phprelease>
+</package>
