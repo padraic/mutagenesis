@@ -48,7 +48,7 @@ class Text
     public function renderPretest($result, $output)
     {
         if(!$result) {
-            $out .= 'Before you face the Mutants, you first need a 100% pass rate!'
+            $out = 'Before you face the Mutants, you first need a 100% pass rate!'
                 . PHP_EOL
                 . 'That means no failures or errors (we\'ll allow skipped or incomplete tests).'
                 . PHP_EOL . PHP_EOL
@@ -79,8 +79,8 @@ class Text
      * Render the final MutateMe report
      *
      * @param integer $total Total mutations made and tested
-     * @param integer $killed Number of mutations that did not cause a test failure
-     * @param integer $escaped Number of mutations that did cause a test failure
+     * @param integer $killed Number of mutations that did cause a test failure
+     * @param integer $escaped Number of mutations that did not cause a test failure
      * @param array $mutationDiffs Array of mutation diff strings showing each test-fail mutation
      * @param string $output Result output from test adapter
      * @return string
@@ -88,12 +88,13 @@ class Text
     public function renderReport($total, $killed, $escaped, array $mutationDiffs, $output)
     {
         $out = PHP_EOL . PHP_EOL
-                . $total == 1 ? ' Mutant' : ' Mutants'
+                . $total
+                . ($total == 1 ? ' Mutant' : ' Mutants')
                 . ' born out of the mutagenic slime!'
                 . PHP_EOL . PHP_EOL;
         if ($escaped > 0) {
             $out .= $escaped
-                . $escaped == 1 ? ' Mutant' : ' Mutants'
+                . ($escaped == 1 ? ' Mutant' : ' Mutants')
                 . ' escaped; the integrity of your source code may be compromised by the following Mutants:'
                 . PHP_EOL . PHP_EOL;
             $i = 1;
