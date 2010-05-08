@@ -66,6 +66,13 @@ class Runner
      * @var \Mutateme\Renderer\Text
      */
     protected $_renderer = null;
+    
+    /**
+     * Name of the renderer, e.g. text, to utilise
+     *
+     * @var string
+     */
+    protected $_rendererName = 'text';
 
     /**
      * Instance of \Mutateme\Runkit used to apply and reverse mutations
@@ -114,10 +121,8 @@ class Runner
      */
     public function execute()
     {
-        if (is_null($this->_renderer)) {
-            $this->_renderer = new \Mutateme\Renderer\Text;
-        }
-        echo $this->_renderer->renderOpening();
+        $renderer = $this->getRenderer();
+        echo $renderer->renderOpening();
 
         /**
          * Run the test suite once to verify it is in a passing state before
@@ -126,7 +131,7 @@ class Runner
          * false positives for every single mutation applied later.
          */
         $result = $this->getAdapter()->execute($this->getOptions());
-        echo $this->_renderer->renderPretest($result, $this->getAdapter()->getOutput());
+        echo $renderer->renderPretest($result, $this->getAdapter()->getOutput());
 
         $countMutants = 0;
         $countMutantsKilled = 0;
@@ -156,14 +161,14 @@ class Runner
                     $countMutantsEscaped++;
                     $diffMutantsEscaped[] = $mutation['mutation']->getDiff();
                 }
-                echo $this->_renderer->renderProgressMark();
+                echo $renderer->renderProgressMark();
             }
         }
 
         /**
          * Render the final report (todo: rework format some time)
          */
-        echo $this->_renderer->renderReport(
+        echo $renderer->renderReport(
             $countMutants,
             $countMutantsKilled,
             $countMutantsEscaped,
@@ -311,6 +316,55 @@ class Runner
     public function setAdapter(\Mutateme\Adapter\AdapterAbstract $adapter)
     {
         $this->_adapter = $adapter;
+    }
+    
+    /**
+     * Set name of the renderer to use
+     *
+     * @param string $rname
+     */
+    public function setRendererName($rname)
+    {
+        $this->_rendererName = $rname;
+    }
+
+    /**
+     * Get name of the renderer to use
+     *
+     * @return string
+     */
+    public function getRendererName()
+    {
+        return $this->_rendererName;
+    }
+    
+    /**
+     * Get a result renderer. Creates a new one based on the configured
+     * renderer name passed on the CLI if not already set.
+     *
+     * @return \Mutateme\Renderer\RendererInterface
+     */
+    public function getRenderer()
+    {
+        if (is_null($this->_renderer)) {
+            $name = ucfirst(strtolower($this->getRendererName()));
+            $class = '\\Mutateme\\Renderer\\' . $name;
+            if (!class_exists($class)) {
+                throw new \Exception('Invalid Renderer name: ' . strtolower($name));
+            }
+            $this->_renderer = new $class;
+        }
+        return $this->_renderer;
+    }
+
+    /**
+     * Set a test framework adapter.
+     *
+     * @param \Mutateme\Renderer\RendererInterface $renderer
+     */
+    public function setRenderer(\Mutateme\Renderer\RendererInterface $renderer)
+    {
+        $this->_renderer = $renderer;
     }
 
     /**

@@ -21,7 +21,7 @@
 
 namespace Mutateme\Renderer;
 
-class Text
+class Text implements RendererInterface
 {
 
     /**

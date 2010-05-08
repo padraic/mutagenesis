@@ -23,6 +23,8 @@ require_once 'Mutateme/Utility/Runkit.php';
 
 require_once 'Mutateme/Runner.php';
 
+require_once 'Mutateme/Renderer/RendererInterface.php';
+
 class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
 {
 
@@ -70,6 +72,13 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $runner->setAdapterName('PHPSpec');
         $this->assertEquals('PHPSpec', $runner->getAdapterName());
     }
+    
+    public function testShouldStoreRendererNameValue()
+    {
+        $runner = new\ Mutateme\Runner;
+        $runner->setRendererName('Html');
+        $this->assertEquals('Html', $runner->getRendererName());
+    }
 
     public function testShouldStoreGeneratorObjectIfProvided()
     {
@@ -108,7 +117,6 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
     public function testShouldUseGeneratorToCreateMutablesAndStoreAllForRetrievalUsingGetMutablesMethod()
     {
         $runner = new \Mutateme\Runner;
-        $runner->setSourceDirectory($this->root);
         $generator = $this->getMock('Mutateme\Generator');
         $generator->expects($this->once())
             ->method('generate');
@@ -129,18 +137,30 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
     public function testShouldProvideTestingAdapterIfAlreadyAvailable()
     {
         $runner = new \Mutateme\Runner;
-        $runner->setSourceDirectory($this->root);
         $adapter = $this->getMockForAbstractClass('Mutateme\Adapter\AdapterAbstract');
         $runner->setAdapter($adapter);
         $this->assertSame($adapter, $runner->getAdapter());
+    }
+    
+    public function testShouldProvideRendererIfAlreadyAvailable()
+    {
+        $runner = new \Mutateme\Runner;
+        $renderer = $this->getMock('Mutateme\Renderer\RendererInterface');
+        $runner->setRenderer($renderer);
+        $this->assertSame($renderer, $runner->getRenderer());
     }
 
     public function testShouldCreateTestingAdapterIfNotAlreadyAvailable()
     {
         $runner = new \Mutateme\Runner;
-        $runner->setSourceDirectory($this->root);
         $runner->setAdapterName('PHPUNIT');
         $this->assertTrue($runner->getAdapter() instanceof \Mutateme\Adapter\Phpunit);
+    }
+    
+    public function testShouldCreateDefaultTextRendererIfOtherInstanceOrNameNotAlreadyAvailable()
+    {
+        $runner = new \Mutateme\Runner;
+        $this->assertTrue($runner->getRenderer() instanceof \Mutateme\Renderer\Text);
     }
 
     /**
@@ -149,7 +169,6 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
     public function testShouldThrowExceptionIfAdapterNameGivenIsNotSupported()
     {
         $runner = new \Mutateme\Runner;
-        $runner->setSourceDirectory($this->root);
         $runner->setAdapterName('DOESNOTCOMPUTE');
         $runner->getAdapter();
     }

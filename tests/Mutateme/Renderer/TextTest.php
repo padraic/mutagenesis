@@ -18,7 +18,9 @@
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
- 
+
+require_once 'Mutateme/Renderer/RendererInterface.php';
+
 require_once 'Mutateme/Renderer/Text.php';
 
 class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
