@@ -50,7 +50,7 @@ class Mutable
      *
      * @param string $filename
      */
-    public function __construct($filename)
+    public function __construct($filename = null)
     {
         $this->setFilename($filename);
     }

@@ -189,6 +189,7 @@ class Runner
             throw new \Exception('Invalid base directory: "'.$dir.'"');
         }
         $this->_baseDirectory = $dir;
+        return $this;
     }
 
     /**
@@ -213,6 +214,7 @@ class Runner
             throw new \Exception('Invalid source directory: "'.$dir.'"');
         }
         $this->_sourceDirectory = $dir;
+        return $this;
     }
 
     /**
@@ -237,6 +239,7 @@ class Runner
             throw new \Exception('Invalid test directory: "'.$dir.'"');
         }
         $this->_testDirectory = $dir;
+        return $this;
     }
 
     /**
@@ -257,6 +260,7 @@ class Runner
     public function setAdapterName($adapter)
     {
         $this->_adapterName = $adapter;
+        return $this;
     }
 
     /**
@@ -277,6 +281,7 @@ class Runner
     public function setAdapterOptions($optionString)
     {
         $this->_adapterOptions = $optionString;
+        return $this;
     }
 
     /**
@@ -316,6 +321,7 @@ class Runner
     public function setAdapter(\Mutateme\Adapter\AdapterAbstract $adapter)
     {
         $this->_adapter = $adapter;
+        return $this;
     }
     
     /**
@@ -326,6 +332,7 @@ class Runner
     public function setRendererName($rname)
     {
         $this->_rendererName = $rname;
+        return $this;
     }
 
     /**
@@ -365,6 +372,18 @@ class Runner
     public function setRenderer(\Mutateme\Renderer\RendererInterface $renderer)
     {
         $this->_renderer = $renderer;
+        return $this;
+    }
+    
+    /**
+     * Set a custom runkit instance.
+     *
+     * @param \Mutateme\Utility\Runkit $runkit
+     */
+    public function setRunkit(\Mutateme\Utility\Runkit $runkit)
+    {
+        $this->_runkit = $runkit;
+        return $this;
     }
 
     /**
@@ -398,6 +417,7 @@ class Runner
     public function setOption($name, $value)
     {
         $this->_options[$name] = $value;
+        return $this;
     }
 
     /**
@@ -442,6 +462,7 @@ class Runner
     {
         $this->_generator = $generator;
         $this->_generator->setSourceDirectory($this->getSourceDirectory());
+        return $this;
     }
 
     /**
