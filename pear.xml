@@ -25,7 +25,7 @@
   <contents>
     <dir name="/" baseinstalldir="">
       <dir name="bin">
-        <file name="mutateme" role="script" baseinstalldir="/" md5sum="f047cf625f805726c21dcc0a932e7e0c">
+        <file name="mutateme" role="script" baseinstalldir="/" md5sum="55fcc54ea47fcd16d1a2d1555d19bce1">
           <tasks:replace type="pear-config" from="/usr/bin/env php" to="php_bin"/>
           <tasks:replace type="pear-config" from="@php_bin@" to="php_bin"/>
           <tasks:replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
@@ -61,7 +61,7 @@
             <file name="RendererInterface.php" role="php" md5sum="fcc30bd492ddfdb13251afb8cbb14747"/>
             <file name="Text.php" role="php" md5sum="c2183e39b25a271c6517ec9a96a8ad96"/>
           </dir>
-          <file name="Runner.php" role="php" md5sum="b4567ac744a0824f4fcffcb26d55de3f"/>
+          <file name="Runner.php" role="php" md5sum="c57e4f9002210e7132aa29e581aad9ab"/>
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="31556905595cc8c4d549b57b6be65168"/>
             <file name="Runkit.php" role="php" md5sum="e13cb2cfd6394fb351dd4124fecbb8fd"/>

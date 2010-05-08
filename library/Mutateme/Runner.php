@@ -21,6 +21,10 @@
 
 namespace Mutateme;
 
+require_once 'Mutateme/Renderer/Text.php';
+
+require_once 'Mutateme/Adapter/Phpunit.php';
+
 class Runner
 {
 
@@ -72,7 +76,7 @@ class Runner
      *
      * @var string
      */
-    protected $_rendererName = 'text';
+    protected $_rendererName = 'Text';
 
     /**
      * Instance of \Mutateme\Runkit used to apply and reverse mutations

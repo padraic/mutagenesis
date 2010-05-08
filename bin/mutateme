@@ -9,4 +9,5 @@ require_once 'Mutateme/Loader.php';
 $loader = new \Mutateme\Loader;
 $loader->register();
 
-require 'Mutateme/Console/Command.php';
+require 'Mutateme/Console.php';
+\Mutateme\Console::main();
