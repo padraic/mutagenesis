@@ -42,7 +42,7 @@
             <file name="AdapterAbstract.php" role="php" md5sum="fe306b6c402f63bd874ee1cdd2a3e20e"/>
             <file name="Phpunit.php" role="php" md5sum="ae10f4244815b3b6b3f6d66061af19e2"/>
             <dir name="Phpunit">
-              <file name="Runner.php" role="php" md5sum="6a07b04b6e8bbc57710af71b5de48cb1"/>
+              <file name="Runner.php" role="php" md5sum="a3e467b4626c1ac491fd07acf7e79d31"/>
             </dir>
           </dir>
           <file name="Console.php" role="php" md5sum="beddf46ad812db401bd81a6dacc9a9fc"/>
@@ -61,7 +61,7 @@
             <file name="RendererInterface.php" role="php" md5sum="fcc30bd492ddfdb13251afb8cbb14747"/>
             <file name="Text.php" role="php" md5sum="c2183e39b25a271c6517ec9a96a8ad96"/>
           </dir>
-          <file name="Runner.php" role="php" md5sum="98661737e4d6411b8497ed8efcb65b1c"/>
+          <file name="Runner.php" role="php" md5sum="6a07b04b6e8bbc57710af71b5de48cb1"/>
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="31556905595cc8c4d549b57b6be65168"/>
             <file name="Runkit.php" role="php" md5sum="e13cb2cfd6394fb351dd4124fecbb8fd"/>
