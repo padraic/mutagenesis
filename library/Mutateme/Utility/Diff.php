@@ -46,7 +46,9 @@
 
 /**
  * I...uh...borrowed this. :P
- * Changes made include the PHP 5.3 namespacing for Mutateme
+ * Changes made include the PHP 5.3 namespacing for Mutateme, changed static
+ * diff() method name to difference() since it conflicts with the namespaced class
+ * name (interpreted as a constructor otherwise).
  */
 namespace Mutateme\Utility;
 
@@ -82,7 +84,7 @@ class Diff
             $to = preg_split('(\r\n|\r|\n)', $to);
         }
 
-        $buffer     = "--- Expected\n+++ Actual\n";
+        $buffer     = "";
         $start      = array();
         $end        = array();
         $fromLength = count($from);

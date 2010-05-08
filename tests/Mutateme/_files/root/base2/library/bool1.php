@@ -1,6 +1,6 @@
 <?php
 
-class Bool
+class Bool3
 {
     public function boolTrue($op1) 
     {

@@ -1,6 +1,6 @@
 <?php
 
-class Bool
+class Bool4
 {
     public function boolFalse($op1) 
     {

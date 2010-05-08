@@ -106,7 +106,7 @@ class Runner
      * @var array
      */
     protected $_options = array();
-
+    
     /**
      * Execute the runner
      *

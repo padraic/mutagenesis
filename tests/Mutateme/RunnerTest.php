@@ -26,7 +26,7 @@ require_once 'Mutateme/Runner.php';
 class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
 {
 
-        public function setUp()
+    public function setUp()
     {
         $this->root = dirname(__FILE__) . '/_files/root/base1';
         $this->badRoot = '/path/does/not/exist';
@@ -39,7 +39,7 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($this->root, $runner->getSourceDirectory());
     }
 
-    public function testShouldThrowExceptionOnNonexistingDirectoryWhenSettingSourceDirectory()
+    /*public function testShouldThrowExceptionOnNonexistingDirectoryWhenSettingSourceDirectory()
     {
         $runner = new \Mutateme\Runner;
         try {
@@ -151,7 +151,7 @@ class Mutateme_RunnerTest extends PHPUnit_Framework_TestCase
         $runner = new \Mutateme\Runner;
         $runner->setSourceDirectory($this->root);
         $this->assertTrue($runner->getRunkit() instanceof \Mutateme\Runkit);
-    }
+    }*/
 
 }
 

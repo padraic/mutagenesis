@@ -29,49 +29,49 @@ class Mutateme_ConsoleTest extends PHPUnit_Framework_TestCase
 
     public function testConsoleSetsRunnerBaseDirectoryFromCommandLineOptions()
     {
-        $runner = new \Mutateme\Runner;
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
         \Mutateme\Console::main(array('base'=>$this->root), $runner);
         $this->assertEquals($this->root, $runner->getBaseDirectory());
     }
 
     public function testConsoleSetsRunnerSourceDirectoryFromCommandLineOptions()
     {
-        $runner = new \Mutateme\Runner;
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
         \Mutateme\Console::main(array('src'=>$this->root . '/library'), $runner);
         $this->assertEquals($this->root . '/library', $runner->getSourceDirectory());
     }
 
     public function testConsoleSetsRunnerTestsDirectoryFromCommandLineOptions()
     {
-        $runner = new \Mutateme\Runner;
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
         \Mutateme\Console::main(array('tests'=>$this->root . '/tests'), $runner);
         $this->assertEquals($this->root . '/tests', $runner->getTestDirectory());
     }
 
     public function testConsoleSetsRunnerAdapterNameFromCommandLineOptions()
     {
-        $runner = new \Mutateme\Runner;
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
         \Mutateme\Console::main(array('adapter'=>'foobar'), $runner);
         $this->assertEquals('foobar', $runner->getAdapterName());
     }
 
     public function testConsoleSetsRunnerAdapterOptionStringFromCommandLineOptions()
     {
-        $runner = new \Mutateme\Runner;
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
         \Mutateme\Console::main(array('options'=>'foobar'), $runner);
         $this->assertEquals('foobar', $runner->getAdapterOptions());
     }
 
     public function testConsoleSetsRunnerAdapterToPhpunitByDefault()
     {
-        $runner = new \Mutateme\Runner;
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
         \Mutateme\Console::main(array(), $runner);
         $this->assertEquals('phpunit', $runner->getAdapterName());
     }
 
     public function testConsoleSetsRunnerAdapterOptionsToEmptyStringByDefault()
     {
-        $runner = new \Mutateme\Runner;
+        $runner = $this->getMock('Mutateme\Runner', array('execute'));
         \Mutateme\Console::main(array(), $runner);
         $this->assertEquals('', $runner->getAdapterOptions());
     }
