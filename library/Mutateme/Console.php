@@ -36,9 +36,10 @@ class Console
      * tests and echo out the results
      *
      * @param array $options
-     * @param \Mutateme\Runner $runner Optional custom runner
+     * @param \Mutateme\Runner\RunnerAbstract $runner Optional custom runner
      */
-    public static function main(array $options = null, \Mutateme\Runner $runner = null)
+    public static function main(array $options = null,
+    \Mutateme\Runner\RunnerAbstract $runner = null)
     {
         if (is_null($options)) {
             self::$_options = getopt(
@@ -56,7 +57,7 @@ class Console
         }
 
         if (is_null($runner)) {
-            $runner = new \Mutateme\Runner;
+            $runner = new \Mutateme\Runner\Base;
         }
 
         self::setBaseDirectory($runner);
@@ -72,9 +73,9 @@ class Console
     /**
      * Set a base directory for the provided runner
      *
-     * @param \Mutateme\Runner $runner
+     * @param \Mutateme\Runner\RunnerAbstract $runner
      */
-    protected static function setBaseDirectory(\Mutateme\Runner $runner)
+    protected static function setBaseDirectory(\Mutateme\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['base'])) {
             $runner->setBaseDirectory(self::$_options['base']);
@@ -86,9 +87,9 @@ class Console
     /**
      * Set a source directory for the provided runner
      *
-     * @param \Mutateme\Runner $runner
+     * @param \Mutateme\Runner\RunnerAbstract $runner
      */
-    protected static function setSourceDirectory(\Mutateme\Runner $runner)
+    protected static function setSourceDirectory(\Mutateme\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['src'])) {
             $runner->setSourceDirectory(self::$_options['src']);
@@ -100,9 +101,9 @@ class Console
     /**
      * Set a tests directory for the provided runner
      *
-     * @param \Mutateme\Runner $runner
+     * @param \Mutateme\Runner\RunnerAbstract $runner
      */
-    protected static function setTestDirectory(\Mutateme\Runner $runner)
+    protected static function setTestDirectory(\Mutateme\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['tests'])) {
             $runner->setTestDirectory(self::$_options['tests']);
@@ -115,9 +116,9 @@ class Console
      * Set an adapter name to use for the provided runner. If none is
      * provided, the PHPUnit adapter name is set by default.
      *
-     * @param \Mutateme\Runner $runner
+     * @param \Mutateme\Runner\RunnerAbstract $runner
      */
-    protected static function setAdapterName(\Mutateme\Runner $runner)
+    protected static function setAdapterName(\Mutateme\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['adapter'])) {
             $runner->setAdapterName(self::$_options['adapter']);
@@ -130,9 +131,9 @@ class Console
      * Set options to be parsed and passed to the adapter instance used by
      * the runner
      *
-     * @param \Mutateme\Runner $runner
+     * @param \Mutateme\Runner\RunnerAbstract $runner
      */
-    protected static function setAdapterOptions(\Mutateme\Runner $runner)
+    protected static function setAdapterOptions(\Mutateme\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['options'])) {
             $runner->setAdapterOptions(self::$_options['options']);

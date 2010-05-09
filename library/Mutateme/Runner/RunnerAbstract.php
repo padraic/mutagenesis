@@ -19,9 +19,9 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme;
+namespace Mutateme\Runner;
 
-class Runner
+abstract class RunnerAbstract
 {
 
     /**
@@ -119,73 +119,7 @@ class Runner
      *
      * @return void
      */
-    public function execute()
-    {
-        $renderer = $this->getRenderer();
-        echo $renderer->renderOpening();
-
-        /**
-         * Run the test suite once to verify it is in a passing state before
-         * mutations are applied. There's no point mutation testing source
-         * code which is already failing its tests since we'd simply get
-         * false positives for every single mutation applied later.
-         */
-        $result = $this->getAdapter()->execute($this->getOptions());
-        echo $renderer->renderPretest($result, $this->getAdapter()->getOutput());
-        
-        /**
-         * If the underlying test suite is not passing, we can't continue.
-         */
-        if (!$result) {
-            return;
-        }
-
-        $countMutants = 0;
-        $countMutantsKilled = 0;
-        $countMutantsEscaped = 0;
-        $diffMutantsEscaped = array();
-
-        /**
-         * Examine all source code files and collect up mutations to apply
-         */
-        $mutables = $this->getMutables();
-
-        /**
-         * Iterate across all mutations. After each, run the test suite and
-         * collect data on how tests handled the mutations. We use ext/runkit
-         * to dynamically alter included (in-memory) classes on the fly.
-         */
-        foreach ($mutables as $mutable) {
-            $mutations = $mutable->getMutations();
-            foreach ($mutations as $mutation) {
-                /**
-                 * TODO: Add exception catchers to mitigate runkit failures
-                 */
-                $this->getRunkit()->applyMutation($mutation);
-                $result = $this->getAdapter()->execute($this->getOptions());
-                $this->getRunkit()->reverseMutation($mutation);
-                $countMutants++;
-                if (!$result) {
-                    $countMutantsKilled++;
-                } else {
-                    $countMutantsEscaped++;
-                    $diffMutantsEscaped[] = $mutation['mutation']->getDiff();
-                }
-                echo $renderer->renderProgressMark();
-            }
-        }
-
-        /**
-         * Render the final report (todo: rework format some time)
-         */
-        echo $renderer->renderReport(
-            $countMutants,
-            $countMutantsKilled,
-            $countMutantsEscaped,
-            $diffMutantsEscaped,
-            $this->getAdapter()->getOutput()
-        );
-    }
+    abstract public function execute();
 
     /**
      * Set the base directory of the project being mutated

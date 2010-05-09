@@ -38,6 +38,16 @@ abstract class AdapterAbstract
      * @return bool Boolean indicating whether test suite failed or passed
      */
     abstract public function execute(array $options);
+    
+    /**
+     * Parse the result output text to see if there were any failures.
+     * In the context of mutation testing, a test failure is good (i.e. the
+     * mutation was detected by the test suite).
+     *
+     * @param string $output
+     * @return bool
+     */
+    abstract public function processOutput($output);
 
     /**
      * Set the test library output so it can be used later

@@ -36,11 +36,7 @@ class Phpunit extends AdapterAbstract
      */
     public function execute(array $options)
     {
-        ob_start();
-        ob_implicit_flush(false);
         \Mutateme\Adapter\Phpunit\Runner::main($options);
-        $this->setOutput(ob_get_clean());
-        return $this->_processOutput($this->getOutput());
     }
 
     /**
@@ -51,7 +47,7 @@ class Phpunit extends AdapterAbstract
      * @param string $output
      * @return bool
      */
-    protected function _processOutput($output)
+    public function processOutput($output)
     {
         $lines = explode("\n", $output);
         $useful = array_slice($lines, 2);
