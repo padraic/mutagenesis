@@ -38,10 +38,11 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'base' => dirname(__FILE__) . '/_files/phpunit',
             'options' => 'MM1_MathTest MathTest.php'
         );
+        ob_start();
         $adapter->execute($options);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
-            $adapter->getOutput()
+            ob_get_clean()
         );
     }
 
@@ -54,10 +55,11 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'base' => dirname(__FILE__) . '/_files/phpunit2',
             'options' => 'AllTests.php'
         );
+        ob_start();
         $adapter->execute($options);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
-            $adapter->getOutput()
+            ob_get_clean()
         );
     }
 
@@ -68,7 +70,9 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'options' => 'PassTest'
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
-        $this->assertTrue($adapter->execute($options));
+        ob_start();
+        $adapter->execute($options);
+        $this->assertTrue($adapter->processOutput(ob_get_clean()));
     }
 
     public function testAdapterDetectsTestsFailingFromTestFail()
@@ -78,7 +82,9 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'options' => 'FailTest'
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
-        $this->assertFalse($adapter->execute($options));
+        ob_start();
+        $adapter->execute($options);
+        $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
 
     public function testAdapterDetectsTestsFailingFromException()
@@ -88,7 +94,9 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'options' => 'ExceptionTest'
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
-        $this->assertFalse($adapter->execute($options));
+        ob_start();
+        $adapter->execute($options);
+        $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
 
     public function testAdapterDetectsTestsFailingFromError()
@@ -98,7 +106,9 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'options' => 'ErrorTest'
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
-        $this->assertFalse($adapter->execute($options));
+        ob_start();
+        $adapter->execute($options);
+        $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
 
 }
