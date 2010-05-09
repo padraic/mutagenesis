@@ -21,7 +21,7 @@
 
 namespace Mutateme\Runner;
 
-class Base extends RunnerAbstract
+class Mutation extends RunnerAbstract
 {
 
     /**
