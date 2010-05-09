@@ -79,7 +79,7 @@ class Process
     {
         $process = proc_open(
             self::_getPhpBinary(),
-            self::_descriptorSpec,
+            self::$_descriptorSpec,
             $pipes
         );
         if (is_resource($process)) {

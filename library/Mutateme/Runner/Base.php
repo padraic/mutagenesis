@@ -40,8 +40,11 @@ class Base extends RunnerAbstract
          * code which is already failing its tests since we'd simply get
          * false positives for every single mutation applied later.
          */
-        $result = $this->getAdapter()->execute($this->getOptions());
-        echo $renderer->renderPretest($result, $this->getAdapter()->getOutput());
+        ob_start();
+        $this->getAdapter()->execute($this->getOptions());
+        $pretestOutput = ob_get_clean();
+        $result = $this->getAdapter()->processOutput($pretestOutput);
+        echo $renderer->renderPretest($result, $pretestOutput);
         
         /**
          * If the underlying test suite is not passing, we can't continue.
