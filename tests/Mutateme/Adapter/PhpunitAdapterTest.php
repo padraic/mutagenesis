@@ -110,5 +110,24 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         $adapter->execute($options);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
+    
+    public function testAdapterOutputProcessingDetectsFailOverMultipleLinesWithNoDepOnFinalStatusReport()
+    {
+        $adapter = new \Mutateme\Adapter\Phpunit;
+        $output = <<<OUTPUT
+PHPUnit 3.4.12 by Sebastian Bergmann.
+
+............................................................ 60 / 300
+............................................................ 120 / 300
+............................................................ 180 / 300
+............................................................ 240 / 300
+...........................E................................ 300 / 300
+
+Time: 0 seconds, Memory: 11.00Mb
+
+OK (300 tests, 300 assertions)
+OUTPUT;
+        $this->assertFalse($adapter->processOutput($output));
+    }
 
 }

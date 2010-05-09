@@ -36,7 +36,7 @@ class Phpunit extends AdapterAbstract
      */
     public function execute(array $options)
     {
-        \Mutateme\Adapter\Phpunit\Runner::main($options);
+        Phpunit\Runner::main($options);
     }
 
     /**
