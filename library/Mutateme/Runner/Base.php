@@ -65,15 +65,16 @@ class Base extends RunnerAbstract
          * collect data on how tests handled the mutations. We use ext/runkit
          * to dynamically alter included (in-memory) classes on the fly.
          */
+        $job = new \Mutateme\Utility\Job($this);
         foreach ($mutables as $mutable) {
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
-                /**
-                 * TODO: Add exception catchers to mitigate runkit failures
-                 */
-                $this->getRunkit()->applyMutation($mutation);
-                $result = $this->getAdapter()->execute($this->getOptions());
-                $this->getRunkit()->reverseMutation($mutation);
+                //---- Here's where the sep process occurs
+                $output = \Mutateme\Utility\Process::run(
+                    $job->generate($mutation)
+                );
+                $result = $this->getAdapter()->processOutput($output['stdout']);     /* TODO: Store output for per-mutant results */
+                //----
                 $countMutants++;
                 if (!$result) {
                     $countMutantsKilled++;
@@ -93,7 +94,7 @@ class Base extends RunnerAbstract
             $countMutantsKilled,
             $countMutantsEscaped,
             $diffMutantsEscaped,
-            $this->getAdapter()->getOutput()
+            $output['stdout']
         );
     }
     

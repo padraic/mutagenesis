@@ -363,6 +363,20 @@ abstract class RunnerAbstract
         $this->_options[$name] = $value;
         return $this;
     }
+    
+    /**
+     * Set generic options
+     *
+     * @param string $name
+     * @param mixed $value
+     */
+    public function setOptions(array $options)
+    {
+        foreach ($options as $name=>$value) {
+            $this->setOption($name, $value);
+        }
+        return $this;
+    }
 
     /**
      * Compile all necessary options for the test framework adapter
