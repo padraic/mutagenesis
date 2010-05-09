@@ -40,8 +40,7 @@ class Base extends RunnerAbstract
     {
         $mutation = $this->getMutation();
         $this->getRunkit()->applyMutation($mutation);
-        $result = $this->getAdapter()->execute($this->getOptions());
-        $this->getRunkit()->reverseMutation($mutation);  
+        $this->getAdapter()->execute($this->getOptions());
     }
     
     /**

@@ -39,13 +39,13 @@
       <dir name="library">
         <dir name="Mutateme">
           <dir name="Adapter">
-            <file name="AdapterAbstract.php" role="php" md5sum="fe306b6c402f63bd874ee1cdd2a3e20e"/>
-            <file name="Phpunit.php" role="php" md5sum="ae10f4244815b3b6b3f6d66061af19e2"/>
+            <file name="AdapterAbstract.php" role="php" md5sum="6d988d27299aac546bb3052e2a367dfe"/>
+            <file name="Phpunit.php" role="php" md5sum="0e6dcc793eb9a949e727c543a2495119"/>
             <dir name="Phpunit">
               <file name="Runner.php" role="php" md5sum="a3e467b4626c1ac491fd07acf7e79d31"/>
             </dir>
           </dir>
-          <file name="Console.php" role="php" md5sum="beddf46ad812db401bd81a6dacc9a9fc"/>
+          <file name="Console.php" role="php" md5sum="d72ccc1077796a9ce9af0c5b9a5ea8ac"/>
           <file name="Generator.php" role="php" md5sum="929891dc149e9975b731cef182466512"/>
           <file name="Loader.php" role="php" md5sum="92dae8dfa1c88ff594401504d7993575"/>
           <file name="Mutable.php" role="php" md5sum="086f36b8fbce1dbc863ade72c8dfbe7c"/>
@@ -61,9 +61,15 @@
             <file name="RendererInterface.php" role="php" md5sum="fcc30bd492ddfdb13251afb8cbb14747"/>
             <file name="Text.php" role="php" md5sum="c2183e39b25a271c6517ec9a96a8ad96"/>
           </dir>
-          <file name="Runner.php" role="php" md5sum="5c5a6dbd69714b57ce760b560334bbb2"/>
+          <dir name="Runner">
+            <file name="Base.php" role="php" md5sum="f3e29b33e33b157c1ccef2a9b9251386"/>
+            <file name="Mutation.php" role="php" md5sum="af788fe07fe33354488d82f81aa59fd9"/>
+            <file name="RunnerAbstract.php" role="php" md5sum="016c2d5177327ec42b566842f0f7aa6a"/>
+          </dir>
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="31556905595cc8c4d549b57b6be65168"/>
+            <file name="Job.php" role="php" md5sum="915a1cf5a930f28fdaef99ace626a6c6"/>
+            <file name="Process.php" role="php" md5sum="d79baaa3fe68b6b4efab32a7a762887b"/>
             <file name="Runkit.php" role="php" md5sum="ab9c3b49abf8dd9a0bdf964f9b305e69"/>
           </dir>
         </dir>
@@ -99,8 +105,12 @@
       <install name="library/Mutateme/Mutation/OperatorSubtraction.php" as="Mutateme/Mutation/OperatorSubtraction.php"/>
       <install name="library/Mutateme/Renderer/RendererInterface.php" as="Mutateme/Renderer/RendererInterface.php"/>
       <install name="library/Mutateme/Renderer/Text.php" as="Mutateme/Renderer/Text.php"/>
-      <install name="library/Mutateme/Runner.php" as="Mutateme/Runner.php"/>
+      <install name="library/Mutateme/Runner/Base.php" as="Mutateme/Runner/Base.php"/>
+      <install name="library/Mutateme/Runner/Mutation.php" as="Mutateme/Runner/Mutation.php"/>
+      <install name="library/Mutateme/Runner/RunnerAbstract.php" as="Mutateme/Runner/RunnerAbstract.php"/>
       <install name="library/Mutateme/Utility/Diff.php" as="Mutateme/Utility/Diff.php"/>
+      <install name="library/Mutateme/Utility/Job.php" as="Mutateme/Utility/Job.php"/>
+      <install name="library/Mutateme/Utility/Process.php" as="Mutateme/Utility/Process.php"/>
       <install name="library/Mutateme/Utility/Runkit.php" as="Mutateme/Utility/Runkit.php"/>
     </filelist>
   </phprelease>
