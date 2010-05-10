@@ -261,29 +261,29 @@ class Mutable
         $methods = array();
         $mutable = array();
         $static = false;
+        $staticClassCapture = true;
         foreach ($tokens as $index=>$token) {
-            if(is_array($token) && $token[0] == T_STATIC) {
+            if(is_array($token) && $token[0] == T_STATIC && $staticClassCapture === true) {
                 $static = true;
+                $staticClassCapture = false;
+                continue;
             }
             // get class name
             if (is_array($token) && ($token[0] == T_CLASS || $token[0] == T_INTERFACE)) {
                 $className = $tokens[$index+2][1];
+                $staticClassCapture = false;
+                continue;
             }
             // get method name
             if (is_array($token) && $token[0] == T_FUNCTION) {
                 $methodName = $tokens[$index+2][1];
-                if($static == false) {
-                    // notify loop we are in a new method
-                    $inblock = true;
-                    $inarg = true;
-                    $mutable = array(
-                        'file' => $this->getFilename(),
-                        'class' => $className,
-                        'method' => $methodName
-                    );
-                } else {
-                    $static = false;
-                }
+                $inarg = true;
+                $mutable = array(
+                    'file' => $this->getFilename(),
+                    'class' => $className,
+                    'method' => $methodName
+                );
+                continue;
             }
             // Get the method's parameter string
             if ($inarg) {
@@ -296,11 +296,13 @@ class Mutable
                     continue;
                 } elseif ($roundcount >= 1) {
                     $argTokens[] = $token;
-                } elseif ($roundcount == 0 && count($argTokens) > 0) {
+                } elseif ($roundcount == 0) {
                     $mutable['args'] = $this->_reconstructFromTokens($argTokens);
                     $argTokens = array();
                     $inarg = false;
+                    $inblock = true;
                 }
+                continue;
             }
             // Get the method's block code
             if ($inblock) {
@@ -322,6 +324,7 @@ class Mutable
                     $mutable = array();
                     $blockTokens = array();
                     $inblock = false;
+                    $staticClassCapture = true;
                 }
             }
         }

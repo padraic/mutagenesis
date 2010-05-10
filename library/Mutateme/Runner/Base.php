@@ -72,12 +72,11 @@ class Base extends RunnerAbstract
         foreach ($mutables as $mutable) {
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
-                //---- Here's where the sep process occurs
                 $output = \Mutateme\Utility\Process::run(
                     $job->generate($mutation)
                 );
-                $result = $this->getAdapter()->processOutput($output['stdout']);     /* TODO: Store output for per-mutant results */
-                //----
+                /* TODO: Store output for per-mutant results */
+                $result = $this->getAdapter()->processOutput($output['stdout']);
                 $countMutants++;
                 if (!$result) {
                     $countMutantsKilled++;
@@ -90,7 +89,7 @@ class Base extends RunnerAbstract
         }
 
         /**
-         * Render the final report (todo: rework format some time)
+         * Render the final report (todo: rework format sometime)
          */
         echo $renderer->renderReport(
             $countMutants,

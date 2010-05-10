@@ -57,7 +57,7 @@ class Runkit
             );
         }
         /**
-         * TODO: Why are no args set in some cases? Bug?
+         * TODO: Check why args would be unset rather than an empty string
          */
         $margs = (isset($mutation['args']) ? $mutation['args'] : '');
         if(runkit_method_add(
@@ -70,9 +70,11 @@ class Runkit
             throw new \Exception(
                 'runkit_method_add() failed when replacing original '
                 . $mutation['class'] . '::' . $mutation['method']
-                . '(' . var_export($mutation['args']) . ') with a mutation of'
+                . '(' . var_export($margs) . ') with a mutation of'
                 . ' type ' . get_class($mutation['mutation']) . ' using the'
-                . ' following source code:' . PHP_EOL . $newBlock
+                . ' following (mutated) source code from '
+                . $mutation['mutation']->getFilename() . ':' . PHP_EOL
+                . $newBlock
             );
         }
     }

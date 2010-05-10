@@ -56,7 +56,7 @@ class Mutateme_MutableTest extends PHPUnit_Framework_TestCase
         $file = new \Mutateme\Mutable($this->root . '/math000.php');
         $file->generate();
         $return = $file->getMutables();
-        $this->assertEquals(array('file','class','method','tokens'),array_keys($return[0]));
+        $this->assertEquals(array('file','class','method','args','tokens'),array_keys($return[0]));
     }
 
     public function testShouldNotGenerateMutablesIfMethodBodyIsNotViable()
@@ -148,6 +148,55 @@ class Mutateme_MutableTest extends PHPUnit_Framework_TestCase
         $file->generate();
         $return = $file->getMutations();
         $this->assertTrue($return[0]['mutation'] instanceof \Mutateme\Mutation\BooleanFalse);
+    }
+    
+    /**
+     * Covers bug where Mutable may incorrectly parse a method and omit the first
+     * opening bracket in an IF clause, leading to syntax errors when
+     * attempting to add the new method block via runkit
+     *
+     * @group MM1
+     */
+    public function testCreatesAccurateMapOfIfClausesSingleNonStaticMethod()
+    {
+        $file = new \Mutateme\Mutable(dirname(__FILE__) . '/_files/IfClause.php');
+        $file->generate();
+        $mutations = $file->getMutations();
+        $mutation = $mutations[0];
+        $this->assertEquals(dirname(__FILE__) . '/_files/IfClause.php', $mutation['file']);
+        $this->assertEquals('Some_Class_With_If_Clause_In_Method', $mutation['class']);
+        $this->assertEquals('_getSession', $mutation['method']);
+        $this->assertEquals('', $mutation['args']);
+        $block = <<<BLOCK
+
+        static \$session = null;
+        if (\$session === null) {
+            \$session = new Zend_Session_Namespace(
+                \$this->getSessionNamespace(), true
+            );
+        }
+    
+BLOCK;
+        $this->assertEquals($block, $this->_reconstructFromTokens($mutation['tokens']));
+    }
+    
+    /**
+     * Reconstruct a string of source code from its constituent tokens
+     *
+     * @param array $tokens
+     * @return string
+     */
+    protected function _reconstructFromTokens(array $tokens)
+    {
+        $str = '';
+        foreach ($tokens as $token) {
+            if (is_string($token)) {
+                $str .= $token;
+            } else {
+                $str .= $token[1];
+            }
+        }
+        return $str;
     }
 
 }
