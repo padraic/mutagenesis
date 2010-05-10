@@ -62,6 +62,14 @@ method of installation is:
 
 The above process will install MutateMe as a PEAR library.
 
+Note: If installing from a git clone, you may need to delete any previous
+MutateMe install via PEAR using:
+
+    sudo pear uninstall MutateMe
+    
+While the git repository tracks code in development, I hope to add an official
+PEAR channel in the near future.
+
 Operation
 ---------
 
