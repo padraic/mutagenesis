@@ -3,6 +3,8 @@ MutateMe
 
 A PHP 5.3+ Mutation Testing framework.
 
+MutateMe is released under a New BSD License.
+
 Mutation Testing
 ----------------
 
