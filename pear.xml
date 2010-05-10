@@ -3,14 +3,14 @@
   <name>MutateMe</name>
   <channel>pear.php.net</channel>
   <summary>Mutation Testing framework for PHP</summary>
-  <description>MutateMe is a Mutation Testing framework for PHP 5.3 (or higher). It's purpose is to link into a PHP test suite (e.g. PHPUnit) for a library or application, mangle (mutate) the underlying source code in varying ways, and check whether running the matching test suite reveals any form of failure. Mutations are progressively applied and tested. In essence, it is quality assurance for tests. If a mutation causes the test suite to fail, it means your tests were sufficient to detect the mutation (this is good!). If not...time to add new tests to cover the undetected mutation.</description>
+  <description>MutateMe is a Mutation Testing framework for PHP 5.3 (or higher). Its purpose is to link into a PHP test suite (e.g. PHPUnit) for a library or application, mangle (mutate) the underlying source code in varying ways, and check whether running the matching test suite reveals any form of failure. Mutations are progressively applied and tested. In essence, it is quality assurance for tests. If a mutation causes the test suite to fail, it means your tests were sufficient to detect the mutation (this is good!). If not...time to add new tests to cover the undetected mutation.</description>
   <lead>
     <name>Padraic Brady</name>
     <user>padraic</user>
     <email>padraic.brady@yahoo.com</email>
     <active>yes</active>
   </lead>
-  <date>2010-05-08</date>
+  <date>2010-05-10</date>
   <time>17:19:27</time>
   <version>
     <release>0.5.0</release>
@@ -62,7 +62,7 @@
             <file name="Text.php" role="php" md5sum="df8a7ed4eee0056534e8ea414953b8c0"/>
           </dir>
           <dir name="Runner">
-            <file name="Base.php" role="php" md5sum="14125a92fa9e72c219b6cd14c7faf265"/>
+            <file name="Base.php" role="php" md5sum="83b7227d27e541708b4bf08f6355c961"/>
             <file name="Mutation.php" role="php" md5sum="8ccc3324a0626aa8c5df589976e01726"/>
             <file name="RunnerAbstract.php" role="php" md5sum="016c2d5177327ec42b566842f0f7aa6a"/>
           </dir>

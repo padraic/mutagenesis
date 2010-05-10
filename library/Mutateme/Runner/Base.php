@@ -81,6 +81,10 @@ class Base extends RunnerAbstract
                     $countMutantsKilled++;
                 } else {
                     $countMutantsEscaped++;
+                    $mutation['mutation']->mutate(
+                        $mutation['tokens'],
+                        $mutation['index']
+                    );
                     $diffMutantsEscaped[] = $mutation['mutation']->getDiff();
                 }
                 echo $renderer->renderProgressMark($result);
