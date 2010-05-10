@@ -33,10 +33,15 @@ an updated runkit is maintained on Github at
 To install the runkit extension, the following commands should be sufficient:
 
 `git clone http://github.com/zenovich/runkit.git runkit
+
 cd runkit
+
 phpize
+
 ./configure
+
 make
+
 sudo make install`
 
 Once the runkit extension has been installed, you should edit your relevant
@@ -55,7 +60,9 @@ has been provided but this does not prevent a simple install! The simplest
 method of installation is:
 
 `git clone git://github.com/padraic/mutateme.git mutateme
+
 cd mutateme
+
 sudo pear install pear.xml`
 
 The above process will install MutateMe as a PEAR library.
