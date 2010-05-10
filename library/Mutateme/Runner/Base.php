@@ -94,8 +94,7 @@ class Base extends RunnerAbstract
             $countMutants,
             $countMutantsKilled,
             $countMutantsEscaped,
-            $diffMutantsEscaped,
-            $output['stdout']
+            $diffMutantsEscaped
         );
     }
     

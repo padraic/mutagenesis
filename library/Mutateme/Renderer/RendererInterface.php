@@ -61,6 +61,6 @@ interface RendererInterface
      * @param string $output Result output from test adapter
      * @return string
      */
-    public function renderReport($total, $killed, $escaped, array $mutationDiffs, $output);
+    public function renderReport($total, $killed, $escaped, array $mutationDiffs, $output = '');
 
 }

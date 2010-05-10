@@ -90,7 +90,7 @@ class Text implements RendererInterface
      * @param string $output Result output from test adapter
      * @return string
      */
-    public function renderReport($total, $killed, $escaped, array $mutationDiffs, $output)
+    public function renderReport($total, $killed, $escaped, array $mutationDiffs, $output = '')
     {
         $out = PHP_EOL . PHP_EOL
                 . $total
