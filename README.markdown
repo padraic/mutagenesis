@@ -26,9 +26,10 @@ MutateMe requires PHP 5.3.
 
 In addition, MutateMe relies on the PECL runkit extension in order to mutate
 source code already in memory. Unfortunately, the current version of runkit
-in PHP's official subversion repository is in turns incomplete or buggy. However
+in PHP's official subversion repository is in turns incomplete or bugged. However
 an updated runkit is maintained on Github at
 [http://github.com/zenovich/runkit](http://github.com/zenovich/runkit "runkit").
+MutateMe requires that this specific version of runkit is used with PHP 5.3.
 
 To install the runkit extension, the following commands should be sufficient:
 
@@ -44,7 +45,8 @@ php.ini file to add the extension for loading, e.g.
 
     extension=runkit.so
 
-Huge thanks to Dmitry Zenovich (zenovich on Github) for this!
+Huge thanks to Dmitry Zenovich (zenovich on Github) for maintaining this runkit
+copy!
 
 
 Installation

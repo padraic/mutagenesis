@@ -23,6 +23,12 @@ require_once 'Mutateme/Renderer/RendererInterface.php';
 
 require_once 'Mutateme/Renderer/Text.php';
 
+require_once 'Mutateme/Utility/Diff.php';
+
+require_once 'Mutateme/Mutation/MutationAbstract.php';
+
+require_once 'Mutateme/Mutation/BooleanTrue.php';
+
 class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
 {
 
@@ -92,22 +98,44 @@ class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
     
     public function testRendersFinalReportWithEscapeesFromASingleMutant()
     {
+        $escaped = $this->getMock(
+            'Mutateme\\Mutation\\BooleanTrue',
+            array('getDiff'),
+            array(),
+            'MockBooleanTrue',
+            false
+        );
+        $escaped->expects($this->once())
+            ->method('getDiff')
+            ->will($this->returnValue('diff1'));
+        $expected = <<<EXPECTED
+
+
+1 Mutant born out of the mutagenic slime!
+
+1 Mutant escaped; the integrity of your source code may be compromised by the following Mutants:
+
+1)
+Difference on Foo::bar() in /path/to/foo.php
+===================================================================
+diff1
+test1output
+
+Happy Hunting! Remember that some Mutants may just be Ghosts (or if you want to be boring, 'false positives').
+
+
+EXPECTED;
+        $mutations = array(
+            array(
+                'class' => 'Foo',
+                'method' => 'bar',
+                'file' => '/path/to/foo.php',
+                'mutation' => $escaped
+            )
+        );
         $this->assertEquals(
-            PHP_EOL . PHP_EOL
-                . '1 Mutant born out of the mutagenic slime!'
-                . PHP_EOL . PHP_EOL
-                . '1 Mutant escaped; the integrity of your source code may be compromised by the following Mutants:'
-                . PHP_EOL . PHP_EOL
-                . '1) '
-                . PHP_EOL
-                . 'diff1'
-                . PHP_EOL . PHP_EOL
-                . 'test1output'
-                . PHP_EOL . PHP_EOL
-                . 'Happy Hunting! Remember that some Mutants may just be'
-                . ' Ghosts (or if you want to be boring, \'false positives\').'
-                . PHP_EOL . PHP_EOL,
-            $this->_renderer->renderReport(1, 0, 1, array('diff1'), 'test1output')
+            $expected,
+            $this->_renderer->renderReport(1, 0, 1, $mutations, 'test1output')
         );   
     }
 

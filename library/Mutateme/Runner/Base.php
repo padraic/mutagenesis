@@ -85,7 +85,7 @@ class Base extends RunnerAbstract
                         $mutation['tokens'],
                         $mutation['index']
                     );
-                    $diffMutantsEscaped[] = $mutation['mutation']->getDiff();
+                    $mutantsEscaped[] = $mutation;
                 }
                 echo $renderer->renderProgressMark($result);
             }
@@ -98,7 +98,7 @@ class Base extends RunnerAbstract
             $countMutants,
             $countMutantsKilled,
             $countMutantsEscaped,
-            $diffMutantsEscaped
+            $mutantsEscaped
         );
     }
     

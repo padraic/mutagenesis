@@ -91,8 +91,6 @@ abstract class MutationAbstract
         $original = $this->_reconstructFromTokens($this->_tokensOriginal);
         $mutated = $this->_reconstructFromTokens($this->_tokensMutated);
         $difference = \Mutateme\Utility\Diff::difference($original, $mutated);
-        $difference = 'Index: ' . $this->getFilename() . PHP_EOL
-            . str_repeat('=', 67) . PHP_EOL . $difference;
         return $difference;
     }
 

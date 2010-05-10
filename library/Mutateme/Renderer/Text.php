@@ -90,7 +90,7 @@ class Text implements RendererInterface
      * @param string $output Result output from test adapter
      * @return string
      */
-    public function renderReport($total, $killed, $escaped, array $mutationDiffs, $output = '')
+    public function renderReport($total, $killed, $escaped, array $mutations, $output = '')
     {
         $out = PHP_EOL . PHP_EOL
                 . $total
@@ -103,13 +103,18 @@ class Text implements RendererInterface
                 . ' escaped; the integrity of your source code may be compromised by the following Mutants:'
                 . PHP_EOL . PHP_EOL;
             $i = 1;
-            foreach ($mutationDiffs as $diff) {
-                $out .= $i . ') '
+            foreach ($mutations as $mutation) {
+                $out .= $i . ')'
                     . PHP_EOL
-                    . $diff
-                    . PHP_EOL . PHP_EOL
-                    . $output
-                    . PHP_EOL . PHP_EOL;
+                    . 'Difference on ' . $mutation['class'] . '::' . $mutation['method']
+                    . '() in ' . $mutation['file']
+                    . PHP_EOL . str_repeat('=', 67) . PHP_EOL
+                    . $mutation['mutation']->getDiff()
+                    . PHP_EOL;
+                if (!empty($output)) {
+                    $out .= $output
+                        . PHP_EOL . PHP_EOL;
+                }
                 $i++;
             }
             $out .= 'Happy Hunting! Remember that some Mutants may just be'

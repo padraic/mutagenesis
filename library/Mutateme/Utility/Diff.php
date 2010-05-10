@@ -72,9 +72,10 @@ class Diff
      *
      * @param  array|string $from
      * @param  array|string $to
+     * @param  integer $contextLines
      * @return string
      */
-    public static function difference($from, $to)
+    public static function difference($from, $to, $contextLines = 3)
     {
         if (is_string($from)) {
             $from = preg_split('(\r\n|\r|\n)', $from);
@@ -183,6 +184,10 @@ class Diff
         }
 
         $newChunk = TRUE;
+        $context = array();
+        $contextPre = array();
+        $contextPost = array();
+        $contextPreSet = false;
 
         for ($i = $start; $i < $end; $i++) {
             if (isset($old[$i])) {
@@ -202,12 +207,33 @@ class Diff
             }
 
             else if ($diff[$i][1] === 2 /* REMOVED */) {
+                $popc = $contextLines;
+                if (count($context) < $contextLines) {
+                    $popc = count($context);
+                }
+                if ($popc > 0) {
+                    while ($popc > 0) {
+                        $buffer .= array_pop($context);
+                        $popc--;
+                    }
+                }
+                $context = array();
+                $contextPreSet = true;
                 $buffer .= '-' . $diff[$i][0] . "\n";
             }
 
             else {
-                $buffer .= ' ' . $diff[$i][0] . "\n";
+                $context[] = ' ' . $diff[$i][0] . "\n";
+                if($contextPreSet && count($context) == $contextLines) {
+                    $buffer .= implode('', $context);
+                    $context = array();
+                    break;
+                }
             }
+        }
+        
+        if (count($context) > 0) {
+            $buffer .= implode('', $context);
         }
 
         return $buffer;
