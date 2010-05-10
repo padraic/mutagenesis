@@ -68,9 +68,11 @@ class Runkit
             $this->getMethodFlags($mutation)
         ) == false) {
             throw new \Exception(
-                'runkit_method_add() failed when adding original '
+                'runkit_method_add() failed when replacing original '
                 . $mutation['class'] . '::' . $mutation['method']
-                . '(' . var_export($mutation['args']) . ') with ' . $newBlock
+                . '(' . var_export($mutation['args']) . ') with a mutation of'
+                . ' type ' . get_class($mutation['mutation']) . ' using the'
+                . ' following source code:' . PHP_EOL . $newBlock
             );
         }
     }
