@@ -142,7 +142,8 @@ testing cannot be performed (i.e. all mutants would escape!).
 
 The final report renders all escaped mutants with a description of the class,
 method and file mutated, along with a diff of the method code that was
-changed. Here's a quick exerpt of a mutation test run with escaped mutants.
+changed. Here's a quick exerpt of a mutation test run with escaped mutants
+(containing the first escaped example - the remainder are omitted for brevity).
 
     MutateMe 0.5: Mutation Testing for PHP
 
@@ -163,8 +164,8 @@ changed. Here's a quick exerpt of a mutation test run with escaped mutants.
 
     20 Mutants escaped; the integrity of your source code may be compromised by the following Mutants:
 
-    1) 
-    Index: library/Idun/Validate/And.php
+    1)
+    Difference on Idun_Validate_And::isValid() in library/Idun/Validate/And.php
     ===================================================================
     @@ @@
                      $this->_errors = $conditional->getErrors();
@@ -173,6 +174,7 @@ changed. Here's a quick exerpt of a mutation test run with escaped mutants.
                  }
              }
              return true;
+
 
 
     
