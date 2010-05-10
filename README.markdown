@@ -93,6 +93,14 @@ test suite (or a subset thereof) for each mutation can be a time consuming
 process (i.e. the time for one test run multiplied by the number of generated
 mutants).
 
+On a final note, Mutation Testing is a semi-blind process. Not all mutations
+introduce true errors. Changing a TRUE to a FALSE where a variable is being
+initialised (and is definitely changed later) would not cause a test failure.
+Such a reported mutant is a false positive (or ghost). These are unavoidable
+but should be examined in context to ensure they are indeed harmless. Updating
+source code to remove such false positives will still assist in getting more
+relevant Mutation Testing reports in the future.
+
 Command Line Options
 --------------------
 
