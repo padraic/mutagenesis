@@ -39,7 +39,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'options' => 'MM1_MathTest MathTest.php'
         );
         ob_start();
-        $adapter->execute($options);
+        $adapter->execute($options, true);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
             ob_get_clean()
@@ -56,7 +56,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'options' => 'AllTests.php'
         );
         ob_start();
-        $adapter->execute($options);
+        $adapter->execute($options, true);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
             ob_get_clean()
@@ -71,7 +71,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options);
+        $adapter->execute($options, true);
         $this->assertTrue($adapter->processOutput(ob_get_clean()));
     }
 
@@ -83,7 +83,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options);
+        $adapter->execute($options, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
 
@@ -95,7 +95,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options);
+        $adapter->execute($options, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
 
@@ -107,7 +107,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         );
         $adapter = new \Mutateme\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options);
+        $adapter->execute($options, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
     

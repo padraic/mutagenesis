@@ -35,12 +35,20 @@ class Runner
      * equivelant to anything typed into a console after a normal 'phpunit'
      * command. The adapter captures the TextUI output for further processing.
      *
+     * To prevent duplication of output from stdout, PHPUnit is hard
+     * configured to write to stderrm(stdin is used in proc_open call)
+     *
      * @param array $arguments Mutateme arguments to pass to PHPUnit
      * @return void
      */
-    public static function main(array $arguments)
+    public static function main(array $arguments, $useStdout = false)
     {
         $optionString = 'phpunit';
+        if($useStdout) {
+            $optionString .= '';
+        } else {
+            $optionString = ' --stderr';
+        }
         if (isset($arguments['options'])) {
             $optionString .= ' ' . $arguments['options'];
         }

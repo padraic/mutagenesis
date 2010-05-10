@@ -68,9 +68,14 @@ class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
         );
     }
     
-    public function testRendersProgressMarkAsPeriodCharacter()
+    public function testRendersProgressMarkAsPeriodCharacterIfTestResultWasFalse()
     {
-        $this->assertEquals('.', $this->_renderer->renderProgressMark());
+        $this->assertEquals('.', $this->_renderer->renderProgressMark(false));
+    }
+    
+    public function testRendersProgressMarkAsECharacterIfTestResultWasFalse()
+    {
+        $this->assertEquals('E', $this->_renderer->renderProgressMark(true));
     }
     
     public function testRendersFinalReportWithNoEscapeesFromASingleMutant()

@@ -34,9 +34,9 @@ class Phpunit extends AdapterAbstract
      * @param array $options Options to be used when called the test suite runner
      * @return bool Boolean indicating whether test suite failed or passed
      */
-    public function execute(array $options)
+    public function execute(array $options, $useStdout = false)
     {
-        Phpunit\Runner::main($options);
+        Phpunit\Runner::main($options, $useStdout);
     }
 
     /**
