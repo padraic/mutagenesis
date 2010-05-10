@@ -11,7 +11,7 @@ According to Wikipedia:
 >Mutation testing (or Mutation analysis or Program mutation) is a method of
 >software testing, which involves modifying programs' source code or byte code
 >in small ways. In short, any tests which pass after code has been mutated
->are considered defective. These so-called mutations, are based on well-defined
+>are considered defective. These so-called mutations are based on well-defined
 >mutation operators that either mimic typical programming errors (such as using
 >the wrong operator or variable name) or force the creation of valuable tests
 >(such as driving each expression to zero). The purpose is to help the tester
@@ -59,3 +59,112 @@ method of installation is:
     sudo pear install pear.xml
 
 The above process will install MutateMe as a PEAR library.
+
+Operation
+---------
+
+MutateMe is used from the command line using the installed 'mutateme' script
+or 'mutateme.bat' from Windows. It hooks into the underlying test suite for
+a library or application by using an adapter. Currently, a PHPUnit adapter is
+bundled and used by default.
+
+After an initial test run to ensure all unit tests are passing, MutateMe
+examines the source code of what is being tested. Based on this examination,
+it generates a set of "mutations" (i.e. deliberate errors). For example, it may
+locate the boolean value TRUE and generate a mutation to change it to FALSE.
+For each generated mutation, the test suite is rerun (via the adapter) with the
+mutation applied to the relevant class method using the runkit extension. Each
+such test run is performed in a new PHP process.
+
+If the test suite passes, this is interpreted as meaning that the test suite
+did not detect the deliberately introduced error. This is referred to as an
+"escaped mutant". It demonstrates that your test suite was insufficient to
+detect that particular mutation (a possible sign you need more unit tests!).
+
+If the test suite reports a failure, error or exception, this is interpreted as
+a successful mutant capture. Your test suite was sufficient to detect the
+deliberate error.
+
+After all mutations have been tested, a final report is provided with a small
+diff description of each escaped mutant.
+
+It should be noted that, depending on the MutateMe options used, running the
+test suite (or a subset thereof) for each mutation can be a time consuming
+process (i.e. the time for one test run multiplied by the number of generated
+mutants).
+
+Command Line Options
+--------------------
+
+A typical mutateme command is issued with:
+
+    mutateme --src="/path/project/library" --tests="/path/project/tests"
+    
+The basic parameters let you control the directory depth, i.e. which subset of
+the source code and/or tests will be utilised. Additional options may be passed
+to direct the unit test framework adapter:
+
+* --adapter: The name of the unit test adapter to use; defaults to "phpunit"
+* --options: String containing options to pass to the unit test framework's command
+
+For example, imagine we usually employ the following to run some PHPUnit tests:
+
+    phpunit AllTests.php --exclude-group=disabled
+    
+We can pass this to mutateme as:
+
+    mutateme --src="/path/project/library" --tests="/path/project/tests" \
+        --options="AllTests.php --exclude-group=disabled"
+        
+Note: "\" merely marks a line break for this README. The command should be on
+a single line with the \ removed.
+
+This afford a very flexible means of allowing users to use MutateMe on narrower
+subsets of their test suites.
+
+Understand MutateMe Output
+--------------------------
+
+MutateMe outputs an initial and final report. The initial report is the result
+of a pretest, a test run to ensure the test suite is in a passing state before
+attempting any mutations. Tests must be in a non-fail state or else mutation
+testing cannot be performed (i.e. all mutants would escape!).
+
+The final report renders all escaped mutants with a description of the class,
+method and file mutated, along with a diff of the method code that was
+changed. Here's a quick exerpt of a mutation test run with escaped mutants.
+
+    MutateMe 0.5: Mutation Testing for PHP
+
+    All initial checks successful! The mutagenic slime has been activated. Stand by...
+
+    PHPUnit 3.4.12 by Sebastian Bergmann.
+
+    ............................................................ 60 / 62
+    ..
+
+    Time: 0 seconds, Memory: 16.50Mb
+
+    OK (62 tests, 156 assertions)
+
+    EEEEEEEEEE..EEEEE...EEEEE
+
+    25 Mutants born out of the mutagenic slime!
+
+    20 Mutants escaped; the integrity of your source code may be compromised by the following Mutants:
+
+    1) 
+    Index: library/Idun/Validate/And.php
+    ===================================================================
+    @@ @@
+                     $this->_errors = $conditional->getErrors();
+    -                return false;
+    +                return true;
+                 }
+             }
+             return true;
+
+
+    
+
+
