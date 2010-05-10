@@ -39,7 +39,9 @@ class Mutation extends RunnerAbstract
     public function execute()
     {
         $mutation = $this->getMutation();
-        $this->getRunkit()->applyMutation($mutation);
+        if (!empty($mutation)) {
+            $this->getRunkit()->applyMutation($mutation);
+        }
         $this->getAdapter()->execute($this->getOptions());
     }
     

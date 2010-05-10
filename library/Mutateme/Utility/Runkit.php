@@ -56,21 +56,17 @@ class Runkit
                 . ' (mutation application)'
             );
         }
-        /**
-         * TODO: Check why args would be unset rather than an empty string
-         */
-        $margs = (isset($mutation['args']) ? $mutation['args'] : '');
         if(runkit_method_add(
             $mutation['class'],
             $mutation['method'],
-            $margs,
+            $mutation['args'],
             $newBlock,
             $this->getMethodFlags($mutation)
         ) == false) {
             throw new \Exception(
                 'runkit_method_add() failed when replacing original '
                 . $mutation['class'] . '::' . $mutation['method']
-                . '(' . var_export($margs) . ') with a mutation of'
+                . '(' . var_export($mutation['args']) . ') with a mutation of'
                 . ' type ' . get_class($mutation['mutation']) . ' using the'
                 . ' following (mutated) source code from '
                 . $mutation['mutation']->getFilename() . ':' . PHP_EOL

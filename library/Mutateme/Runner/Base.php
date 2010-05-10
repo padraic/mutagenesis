@@ -33,6 +33,7 @@ class Base extends RunnerAbstract
     {
         $renderer = $this->getRenderer();
         echo $renderer->renderOpening();
+        $job = new \Mutateme\Utility\Job($this);
 
         /**
          * Run the test suite once to verify it is in a passing state before
@@ -40,11 +41,9 @@ class Base extends RunnerAbstract
          * code which is already failing its tests since we'd simply get
          * false positives for every single mutation applied later.
          */
-        ob_start();
-        $this->getAdapter()->execute($this->getOptions());
-        $pretestOutput = ob_get_clean();
-        $result = $this->getAdapter()->processOutput($pretestOutput);
-        echo $renderer->renderPretest($result, $pretestOutput);
+        $output = \Mutateme\Utility\Process::run($job->generate());
+        $result = $this->getAdapter()->processOutput($output['stdout']);
+        echo $renderer->renderPretest($result, $output['stdout']);
         
         /**
          * If the underlying test suite is not passing, we can't continue.
@@ -68,7 +67,7 @@ class Base extends RunnerAbstract
          * collect data on how tests handled the mutations. We use ext/runkit
          * to dynamically alter included (in-memory) classes on the fly.
          */
-        $job = new \Mutateme\Utility\Job($this);
+        
         foreach ($mutables as $mutable) {
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
@@ -84,7 +83,7 @@ class Base extends RunnerAbstract
                     $countMutantsEscaped++;
                     $diffMutantsEscaped[] = $mutation['mutation']->getDiff();
                 }
-                echo $renderer->renderProgressMark();
+                echo $renderer->renderProgressMark($result);
             }
         }
 

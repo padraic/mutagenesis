@@ -48,7 +48,7 @@ class Job
      * @param array $mutation Mutation data and objects to be used
      * @return string
      */
-    public function generate(array $mutation)
+    public function generate(array $mutation = array())
     {
         $serializedMutation = serialize($mutation);
         $script = <<<SCRIPT

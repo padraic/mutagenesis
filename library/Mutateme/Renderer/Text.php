@@ -68,11 +68,16 @@ class Text implements RendererInterface
      * Render a progress marker indicating the execution of a single mutation
      * and the successful execution of the related test suite
      *
+     * @param bool $result Whether unit tests passed (bad) or not (good)
      * @return string
      */
-    public function renderProgressMark()
+    public function renderProgressMark($result)
     {
-        return '.';
+        if ($result) {
+            return 'E';
+        } else {
+            return '.';
+        }
     }
 
     /**
