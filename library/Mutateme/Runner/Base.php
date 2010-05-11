@@ -77,7 +77,9 @@ class Base extends RunnerAbstract
                 /* TODO: Store output for per-mutant results */
                 $result = $this->getAdapter()->processOutput($output['stdout']);
                 $countMutants++;
-                if (!$result) {
+                if ($result == 'timed out') {
+                    $countMutantsKilled++;
+                } elseif (!$result) {
                     $countMutantsKilled++;
                 } else {
                     $countMutantsEscaped++;

@@ -210,6 +210,12 @@ class Mutable
             case T_DEC:
                 $type = 'OperatorDecrement';
                 break;
+            case T_BOOLEAN_AND:
+                $type = 'BooleanAnd';
+                break;
+            case T_BOOLEAN_OR:
+                $type = 'BooleanOr';
+                break;
             case T_STRING:
                 $type = $this->_parseTString($token);
                 break;

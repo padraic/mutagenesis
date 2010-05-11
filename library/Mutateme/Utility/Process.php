@@ -74,8 +74,9 @@ class Process
      * to the method
      *
      * @param string $source
+     * @param integer $timeout Time allowed for the process to run before we assume it timed out
      */
-    public static function run($source)
+    public static function run($source, $timeout = 120)
     {
         $process = proc_open(
             self::_getPhpBinary(),
@@ -85,15 +86,22 @@ class Process
         if (is_resource($process)) {
             fwrite($pipes[0], $source);
             fclose($pipes[0]);
+            stream_set_timeout($pipes[1], $timeout);
             $stdout = stream_get_contents($pipes[1]);
+            $info = stream_get_meta_data($pipes[1]);
             fclose($pipes[1]);
-            $stderr = stream_get_contents($pipes[2]);
-            fclose($pipes[2]);
             proc_close($process);
-            return array(
-                'stdout' => $stdout,
-                'stderr' => $stderr
-            );
+            if($info['timed_out']) {
+                return array(
+                    'stdout' => $stdout
+                );
+            } else {
+                return array(
+                    'stdout' => 'Your tests timed out. MutateMe may have'
+                        . ' inadvertently created an infinite loop using'
+                        . ' the current mutation.'
+                );
+            }
         } else {
             throw new \Exception('Unable to open a new process with proc_open()');
         }

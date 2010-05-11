@@ -75,6 +75,8 @@ class Text implements RendererInterface
     {
         if ($result) {
             return 'E';
+        } elseif ($result == 'timed output') {
+            return 'T';
         } else {
             return '.';
         }

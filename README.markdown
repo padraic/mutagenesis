@@ -185,7 +185,23 @@ changed. Here's a quick exerpt of a mutation test run with escaped mutants
              }
              return true;
 
+Supported Mutations
+-------------------
 
+Work on MutateMe is ongoing, and more mutations will be added over time. At
+present the following mutations are available:
+
+    * BooleanTrue: replace TRUE with FALSE
+    * BooleanFalse: replace FALSE with TRUE
+    * BooleanAnd: replace && with ||
+    * BooleanOr: replace || with &&
+    * OperatorAddition: replace + with -
+    * OperatorSubtraction: replace - with +
+    * OperatorIncrement: replace ++ with --
+    * OperatorDecrement: replace -- with ++
+    
+Obviously, this is just the tip of the iceberg. Mutations will be continually
+added now that we have the core framework in a stable working state.
 
     
 

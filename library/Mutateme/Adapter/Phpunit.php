@@ -49,6 +49,9 @@ class Phpunit extends AdapterAbstract
      */
     public function processOutput($output)
     {
+        if (substr($output, 0, 21) == 'Your tests timed out.') {
+            return 'timed out';
+        }
         $lines = explode("\n", $output);
         $useful = array_slice($lines, 2);
         foreach ($useful as $line) {
