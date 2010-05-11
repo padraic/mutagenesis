@@ -40,6 +40,9 @@ class Mutation extends RunnerAbstract
     {
         $mutation = $this->getMutation();
         if (!empty($mutation)) {
+            if (!is_null($this->getBootstrap())) {
+                require_once $this->getBootstrap();
+            }
             $this->getRunkit()->applyMutation($mutation);
         }
         $this->getAdapter()->execute($this->getOptions());

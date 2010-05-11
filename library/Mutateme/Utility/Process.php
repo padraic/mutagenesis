@@ -78,6 +78,7 @@ class Process
      */
     public static function run($source, $timeout = 120)
     {
+    var_dump($timeout); exit;
         $process = proc_open(
             self::_getPhpBinary(),
             self::$_descriptorSpec,
@@ -93,14 +94,14 @@ class Process
             proc_close($process);
             if($info['timed_out']) {
                 return array(
-                    'stdout' => $stdout
-                );
-            } else {
-                return array(
                     'stdout' => 'Your tests timed out. MutateMe may have'
                         . ' inadvertently created an infinite loop using'
                         . ' the current mutation.'
                 );
+            } else {
+                return array(
+                    'stdout' => $stdout
+                );  
             }
         } else {
             throw new \Exception('Unable to open a new process with proc_open()');

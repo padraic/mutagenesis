@@ -126,20 +126,35 @@ to direct the unit test framework adapter:
 
 * --adapter: The name of the unit test adapter to use; defaults to "phpunit"
 * --options: String containing options to pass to the unit test framework's command
+* --timeout: Sets the number of seconds after which a test run is considered timout
+* --bootstrap: Sets a bootstrap file to include prior to running tests
+
+Note: The default timeout is 120 seconds. Any test suite exceeding this should
+have a relevant timeout set using --timeout or else all test runs would
+timeout. A reported timeout is not a bad thing, it simply means a mutation
+may have created a noticeable infinite loop in the source code.
+
+Important: The bootstrap option is essential where your source code relies on
+autoloading. MutateMe needs to include class files prior to the test adapter
+running, so setting a relevant bootstrap prevents include errors. For example,
+PHPUnit test suites often use a TestHelper.php or Bootstrap.php file.
 
 For example, imagine we usually employ the following to run some PHPUnit tests:
 
     phpunit AllTests.php --exclude-group=disabled
     
+In addition, we use the file TestHelper.php to setup autloading for the tests.
+    
 We can pass this to mutateme as:
 
     mutateme --src="/path/project/library" --tests="/path/project/tests" \
-        --options="AllTests.php --exclude-group=disabled"
+        --options="AllTests.php --exclude-group=disabled" \
+        --bootstrap="TestHelper.php"
         
-Note: "\" merely marks a line break for this README. The command should be on
+Note: "\\" merely marks a line break for this README. The command should be on
 a single line with the \ removed.
 
-This afford a very flexible means of allowing users to use MutateMe on narrower
+This affords a very flexible means of allowing users to use MutateMe on narrower
 subsets of their test suites.
 
 Understand MutateMe Output
@@ -189,7 +204,8 @@ Supported Mutations
 -------------------
 
 Work on MutateMe is ongoing, and more mutations will be added over time. At
-present the following mutations are available:
+present the following mutations are available (primarily simple operator/value
+reversals):
 
     * BooleanTrue: replace TRUE with FALSE
     * BooleanFalse: replace FALSE with TRUE

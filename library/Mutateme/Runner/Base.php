@@ -55,7 +55,7 @@ class Base extends RunnerAbstract
         $countMutants = 0;
         $countMutantsKilled = 0;
         $countMutantsEscaped = 0;
-        $diffMutantsEscaped = array();
+        $mutantsEscaped = array();
 
         /**
          * Examine all source code files and collect up mutations to apply
@@ -72,7 +72,7 @@ class Base extends RunnerAbstract
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
                 $output = \Mutateme\Utility\Process::run(
-                    $job->generate($mutation)
+                    $job->generate($mutation), $this->getTimeout()
                 );
                 /* TODO: Store output for per-mutant results */
                 $result = $this->getAdapter()->processOutput($output['stdout']);

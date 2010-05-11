@@ -49,7 +49,9 @@ class Console
                     'src::',
                     'tests::',
                     'adapter::',
-                    'options::'
+                    'bootstrap::',
+                    'options::',
+                    'timeout::'
                 )
             );
         } else {
@@ -64,7 +66,9 @@ class Console
         self::setSourceDirectory($runner);
         self::setTestDirectory($runner);
         self::setAdapterName($runner);
+        self::setBootstrap($runner);
         self::setAdapterOptions($runner);
+        self::setTimeout($runner);
 
         $result = $runner->execute();
         echo $result;
@@ -137,6 +141,33 @@ class Console
     {
         if (isset(self::$_options['options'])) {
             $runner->setAdapterOptions(self::$_options['options']);
+        }
+    }
+    
+    /**
+     * Set timeout in seconds to apply to each test run. The default timeout
+     * is 120 seconds.
+     *
+     * @param \Mutateme\Runner\RunnerAbstract $runner
+     */
+    protected static function setTimeout(\Mutateme\Runner\RunnerAbstract $runner)
+    {
+        if (isset(self::$_options['timeout'])) {
+            $runner->setTimeout(self::$_options['timeout']);
+        }
+    }
+    
+    /**
+     * Set the path to a bootstrap file used when testing. This allows
+     * for registering autoloaders and such, for example TestHelper.php or
+     * Bootstrap.php are common for PHPUnit.
+     *
+     * @param \Mutateme\Runner\RunnerAbstract $runner
+     */
+    protected static function setBootstrap(\Mutateme\Runner\RunnerAbstract $runner)
+    {
+        if (isset(self::$_options['bootstrap'])) {
+            $runner->setBootstrap(self::$_options['bootstrap']);
         }
     }
     

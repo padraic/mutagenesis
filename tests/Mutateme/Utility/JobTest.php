@@ -48,6 +48,8 @@ require_once 'Mutateme/Loader.php';
     ->setTestDirectory('{$tests}')
     ->setAdapterName('phpspec')
     ->setAdapterOptions('--foo=bar')
+    ->setTimeout('120')
+    ->setBootstrap('')
     ->setMutation('a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;O:8:"stdClass":0:{}}');
 \$runner->execute();
 EXPECTED;

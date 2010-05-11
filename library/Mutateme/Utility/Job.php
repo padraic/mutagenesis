@@ -62,6 +62,8 @@ require_once 'Mutateme/Loader.php';
     ->setTestDirectory('{$this->_runner->getTestDirectory()}')
     ->setAdapterName('{$this->_runner->getAdapterName()}')
     ->setAdapterOptions('{$this->_runner->getAdapterOptions()}')
+    ->setTimeout('{$this->_runner->getTimeout()}')
+    ->setBootstrap('{$this->_runner->getBootstrap()}')
     ->setMutation('{$serializedMutation}');
 \$runner->execute();
 SCRIPT;

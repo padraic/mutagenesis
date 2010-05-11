@@ -40,17 +40,19 @@
         <dir name="Mutateme">
           <dir name="Adapter">
             <file name="AdapterAbstract.php" role="php" md5sum="6d988d27299aac546bb3052e2a367dfe"/>
-            <file name="Phpunit.php" role="php" md5sum="996d725de748312c5c884f44112c322a"/>
+            <file name="Phpunit.php" role="php" md5sum="9a8553fc461d1e680d83cd98652781c5"/>
             <dir name="Phpunit">
               <file name="Runner.php" role="php" md5sum="12e8b1a868a802d271015196a4091b1c"/>
             </dir>
           </dir>
-          <file name="Console.php" role="php" md5sum="d72ccc1077796a9ce9af0c5b9a5ea8ac"/>
+          <file name="Console.php" role="php" md5sum="82308b8a190ede98fc751233237af4e7"/>
           <file name="Generator.php" role="php" md5sum="929891dc149e9975b731cef182466512"/>
           <file name="Loader.php" role="php" md5sum="92dae8dfa1c88ff594401504d7993575"/>
-          <file name="Mutable.php" role="php" md5sum="53038004121bc357d9156e87632e8694"/>
+          <file name="Mutable.php" role="php" md5sum="4c24ca9df945c348319b3fc800e1e02f"/>
           <dir name="Mutation">
+            <file name="BooleanAnd.php" role="php" md5sum="18151f181d40aa9a43bd87c5a126da64"/>
             <file name="BooleanFalse.php" role="php" md5sum="7860903e117b7461ac5d45c5755afa71"/>
+            <file name="BooleanOr.php" role="php" md5sum="3066068ff0d0b89654efd05ca122fd9f"/>
             <file name="BooleanTrue.php" role="php" md5sum="4c5c95a5376732d3c465b76f79cc4b41"/>
             <file name="MutationAbstract.php" role="php" md5sum="cf253b5d00ef7a07541b7bf6d69e53e8"/>
             <file name="OperatorAddition.php" role="php" md5sum="7a8843edaec8ae8855a0568b2f5c5c48"/>
@@ -60,17 +62,17 @@
           </dir>
           <dir name="Renderer">
             <file name="RendererInterface.php" role="php" md5sum="c1067f406006bfe957fb94193c5c0db3"/>
-            <file name="Text.php" role="php" md5sum="d524d9acf373f0f218fc6ed45f66bdb4"/>
+            <file name="Text.php" role="php" md5sum="bbf30e53d61da4a46049b0b5e3262426"/>
           </dir>
           <dir name="Runner">
-            <file name="Base.php" role="php" md5sum="624000c3a84bde9e0f38b1440ee168db"/>
+            <file name="Base.php" role="php" md5sum="6497c4c60c17aada0f833babf4a11c7f"/>
             <file name="Mutation.php" role="php" md5sum="8ccc3324a0626aa8c5df589976e01726"/>
-            <file name="RunnerAbstract.php" role="php" md5sum="016c2d5177327ec42b566842f0f7aa6a"/>
+            <file name="RunnerAbstract.php" role="php" md5sum="53f0ea4cbf2865bcdc46afb517d59dda"/>
           </dir>
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="513ca4ca0e2535e6f20ad50dfaa123a3"/>
             <file name="Job.php" role="php" md5sum="8ee8f0ac5bd549bb5fab88ad24efa25b"/>
-            <file name="Process.php" role="php" md5sum="239dce5b0d561decca5f7c8d42dd52fd"/>
+            <file name="Process.php" role="php" md5sum="38f7f6440f284ebdb3393a1365facac3"/>
             <file name="Runkit.php" role="php" md5sum="a70dae8a89d8e09f17b31b555b26f1ae"/>
           </dir>
         </dir>
@@ -98,7 +100,9 @@
       <install name="library/Mutateme/Generator.php" as="Mutateme/Generator.php"/>
       <install name="library/Mutateme/Loader.php" as="Mutateme/Loader.php"/>
       <install name="library/Mutateme/Mutable.php" as="Mutateme/Mutable.php"/>
+      <install name="library/Mutateme/Mutation/BooleanAnd.php" as="Mutateme/Mutation/BooleanAnd.php"/>
       <install name="library/Mutateme/Mutation/BooleanFalse.php" as="Mutateme/Mutation/BooleanFalse.php"/>
+      <install name="library/Mutateme/Mutation/BooleanOr.php" as="Mutateme/Mutation/BooleanOr.php"/>
       <install name="library/Mutateme/Mutation/BooleanTrue.php" as="Mutateme/Mutation/BooleanTrue.php"/>
       <install name="library/Mutateme/Mutation/MutationAbstract.php" as="Mutateme/Mutation/MutationAbstract.php"/>
       <install name="library/Mutateme/Mutation/OperatorAddition.php" as="Mutateme/Mutation/OperatorAddition.php"/>

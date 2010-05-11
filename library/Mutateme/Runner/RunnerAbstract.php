@@ -115,6 +115,20 @@ abstract class RunnerAbstract
     protected $_options = array();
     
     /**
+     * Timeout in seconds allowed per test execution
+     *
+     * @var int
+     */
+    protected $_timeout = 120;
+    
+    /**
+     * Test framework bootstrap
+     *
+     * @var string
+     */
+    protected $_bootstrap = null;
+    
+    /**
      * Execute the runner
      *
      * @return void
@@ -435,6 +449,57 @@ abstract class RunnerAbstract
             $this->_generator->setSourceDirectory($this->getSourceDirectory());
         }
         return $this->_generator;
+    }
+    
+    /**
+     * Set timeout in seconds for each test run
+     *
+     * @param int $timeout
+     */
+    public function setTimeout($timeout)
+    {
+        $this->_timeout = (int) $timeout;
+    }
+
+    /**
+     * Get timeout in seconds for each test run
+     *
+     * @return null|int
+     */
+    public function getTimeout()
+    {
+        return $this->_timeout;
+    }
+    
+    /**
+     * Set a bootstrap file included before tests run (e.g. setup autoloading)
+     *
+     * @param string $file
+     */
+    public function setBootstrap($file)
+    {
+        if (!file_exists($file) || !is_readable($file)) {
+            throw new \Exception('Invalid bootstrap file: "'.$file.'"');
+        }
+        $this->_bootstrap = $file;
+        return $this;
+    }
+
+    /**
+     * Get a bootstrap file included before tests run
+     *
+     * @return string
+     */
+    public function getBootstrap()
+    {
+        if (is_null($this->_bootstrap)) {
+            if (file_exists($this->getTestDirectory() . '/TestHelper.php')) {
+                return $this->getTestDirectory() . '/TestHelper.php';
+            } elseif (file_exists($this->getTestDirectory() . '/Bootstrap.php')) {
+                return $this->getTestDirectory() . '/Bootstrap.php';
+            }
+        }
+        return $this->_bootstrap;
     }
     
 }
