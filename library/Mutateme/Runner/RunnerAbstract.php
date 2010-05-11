@@ -459,6 +459,7 @@ abstract class RunnerAbstract
     public function setTimeout($timeout)
     {
         $this->_timeout = (int) $timeout;
+        return $this;
     }
 
     /**
