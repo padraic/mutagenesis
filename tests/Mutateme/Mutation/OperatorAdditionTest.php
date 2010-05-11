@@ -19,17 +19,15 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-class Mutateme_Mutation_BooleanFalseTest extends PHPUnit_Framework_TestCase
+class Mutateme_Mutation_OperatorAdditionTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testReturnsTokenEquivalentToTrue()
+    public function testReturnsTokenEquivalentToSubtractionOperator()
     {
-        $mutation = new \Mutateme\Mutation\BooleanFalse;
+        $mutation = new \Mutateme\Mutation\OperatorAddition;
         $this->assertEquals(
             array(
-                10 => array(
-                    T_STRING, 'true'
-                )
+                10 => '-'
             ),
             $mutation->getMutation(array(), 10)
         );

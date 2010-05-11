@@ -50,7 +50,7 @@ abstract class MutationAbstract
      *
      * @param string $filename
      */
-    public function __construct($filename)
+    public function __construct($filename = '')
     {
         $this->_filename = $filename;
     }

@@ -19,16 +19,16 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-class Mutateme_Mutation_BooleanFalseTest extends PHPUnit_Framework_TestCase
+class Mutateme_Mutation_BooleanTrueTest extends PHPUnit_Framework_TestCase
 {
 
-    public function testReturnsTokenEquivalentToTrue()
+    public function testReturnsTokenEquivalentToFalse()
     {
-        $mutation = new \Mutateme\Mutation\BooleanFalse;
+        $mutation = new \Mutateme\Mutation\BooleanTrue;
         $this->assertEquals(
             array(
                 10 => array(
-                    T_STRING, 'true'
+                    T_STRING, 'false'
                 )
             ),
             $mutation->getMutation(array(), 10)

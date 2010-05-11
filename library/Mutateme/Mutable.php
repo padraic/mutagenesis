@@ -207,6 +207,9 @@ class Mutable
             case T_INC:
                 $type = 'OperatorIncrement';
                 break;
+            case T_DEC:
+                $type = 'OperatorDecrement';
+                break;
             case T_STRING:
                 $type = $this->_parseTString($token);
                 break;

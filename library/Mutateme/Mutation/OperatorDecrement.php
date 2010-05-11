@@ -19,20 +19,22 @@
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-class Mutateme_Mutation_BooleanFalseTest extends PHPUnit_Framework_TestCase
-{
+namespace Mutateme\Mutation;
 
-    public function testReturnsTokenEquivalentToTrue()
+class OperatorDecrement extends MutationAbstract
+{
+    /**
+     * Replace T_DEC (--) with T_INC (++) 
+     *
+     * @param array $tokens
+     * @param int $index
+     * @return array
+     */
+    public function getMutation(array $tokens, $index)
     {
-        $mutation = new \Mutateme\Mutation\BooleanFalse;
-        $this->assertEquals(
-            array(
-                10 => array(
-                    T_STRING, 'true'
-                )
-            ),
-            $mutation->getMutation(array(), 10)
-        );
+        $tokens[$index][0] = T_INC;
+        $tokens[$index][1] = '++';
+        return $tokens;
     }
 
 }
