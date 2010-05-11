@@ -72,7 +72,7 @@
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="513ca4ca0e2535e6f20ad50dfaa123a3"/>
             <file name="Job.php" role="php" md5sum="2d349efed24d6878ced7a02ea22ccc4d"/>
-            <file name="Process.php" role="php" md5sum="2463e2cf0008263ef7e4e7d6b0fe976e"/>
+            <file name="Process.php" role="php" md5sum="3b87cbcef8a9bdd043c71354f9b70323"/>
             <file name="Runkit.php" role="php" md5sum="a70dae8a89d8e09f17b31b555b26f1ae"/>
           </dir>
         </dir>

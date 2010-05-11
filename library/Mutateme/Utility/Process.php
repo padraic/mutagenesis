@@ -78,7 +78,6 @@ class Process
      */
     public static function run($source, $timeout = 120)
     {
-    var_dump($timeout); exit;
         $process = proc_open(
             self::_getPhpBinary(),
             self::$_descriptorSpec,
