@@ -48,12 +48,13 @@
           <file name="Console.php" role="php" md5sum="d72ccc1077796a9ce9af0c5b9a5ea8ac"/>
           <file name="Generator.php" role="php" md5sum="929891dc149e9975b731cef182466512"/>
           <file name="Loader.php" role="php" md5sum="92dae8dfa1c88ff594401504d7993575"/>
-          <file name="Mutable.php" role="php" md5sum="5f3f36c9bd8c733a78b466fe3beb6a7b"/>
+          <file name="Mutable.php" role="php" md5sum="53038004121bc357d9156e87632e8694"/>
           <dir name="Mutation">
             <file name="BooleanFalse.php" role="php" md5sum="7860903e117b7461ac5d45c5755afa71"/>
             <file name="BooleanTrue.php" role="php" md5sum="4c5c95a5376732d3c465b76f79cc4b41"/>
-            <file name="MutationAbstract.php" role="php" md5sum="60ee861cb6cf2f0222965748b1d0adf5"/>
+            <file name="MutationAbstract.php" role="php" md5sum="cf253b5d00ef7a07541b7bf6d69e53e8"/>
             <file name="OperatorAddition.php" role="php" md5sum="7a8843edaec8ae8855a0568b2f5c5c48"/>
+            <file name="OperatorDecrement.php" role="php" md5sum="08a9ce73dd9146b8206d1a97de220da8"/>
             <file name="OperatorIncrement.php" role="php" md5sum="493679eff18660a6a5b75ec1a14e0d09"/>
             <file name="OperatorSubtraction.php" role="php" md5sum="94f5668809a264096957f83cd19ff52d"/>
           </dir>
@@ -101,6 +102,7 @@
       <install name="library/Mutateme/Mutation/BooleanTrue.php" as="Mutateme/Mutation/BooleanTrue.php"/>
       <install name="library/Mutateme/Mutation/MutationAbstract.php" as="Mutateme/Mutation/MutationAbstract.php"/>
       <install name="library/Mutateme/Mutation/OperatorAddition.php" as="Mutateme/Mutation/OperatorAddition.php"/>
+      <install name="library/Mutateme/Mutation/OperatorDecrement.php" as="Mutateme/Mutation/OperatorDecrement.php"/>
       <install name="library/Mutateme/Mutation/OperatorIncrement.php" as="Mutateme/Mutation/OperatorIncrement.php"/>
       <install name="library/Mutateme/Mutation/OperatorSubtraction.php" as="Mutateme/Mutation/OperatorSubtraction.php"/>
       <install name="library/Mutateme/Renderer/RendererInterface.php" as="Mutateme/Renderer/RendererInterface.php"/>
