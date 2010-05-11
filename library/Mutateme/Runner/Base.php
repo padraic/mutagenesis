@@ -77,11 +77,11 @@ class Base extends RunnerAbstract
                 /* TODO: Store output for per-mutant results */
                 $result = $this->getAdapter()->processOutput($output['stdout']);
                 $countMutants++;
-                if ($result == 'timed out') {
+                if ($result === 'timed out') {
                     $countMutantsKilled++;
                 } elseif (!$result) {
                     $countMutantsKilled++;
-                } else {
+                } elseif ($result) {
                     $countMutantsEscaped++;
                     $mutation['mutation']->mutate(
                         $mutation['tokens'],
