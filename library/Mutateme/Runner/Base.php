@@ -56,6 +56,7 @@ class Base extends RunnerAbstract
         $countMutantsKilled = 0;
         $countMutantsEscaped = 0;
         $mutantsEscaped = array();
+        $mutantsCaptured = array();
 
         /**
          * Examine all source code files and collect up mutations to apply
@@ -77,10 +78,15 @@ class Base extends RunnerAbstract
                 /* TODO: Store output for per-mutant results */
                 $result = $this->getAdapter()->processOutput($output['stdout']);
                 $countMutants++;
-                if ($result === 'timed out') {
+                if ($result === 'timed out' || !$result) {
                     $countMutantsKilled++;
-                } elseif (!$result) {
-                    $countMutantsKilled++;
+                    if ($this->getDetailCaptures()) {
+                        $mutation['mutation']->mutate(
+                            $mutation['tokens'],
+                            $mutation['index']
+                        );
+                        $mutantsCaptured[] = array($mutation, $output['stdout']);
+                    }
                 } elseif ($result) {
                     $countMutantsEscaped++;
                     $mutation['mutation']->mutate(
@@ -100,7 +106,8 @@ class Base extends RunnerAbstract
             $countMutants,
             $countMutantsKilled,
             $countMutantsEscaped,
-            $mutantsEscaped
+            $mutantsEscaped,
+            $mutantsCaptured
         );
     }
     

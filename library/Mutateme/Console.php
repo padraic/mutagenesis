@@ -51,7 +51,8 @@ class Console
                     'adapter::',
                     'bootstrap::',
                     'options::',
-                    'timeout::'
+                    'timeout::',
+                    'detail-captures::'
                 )
             );
         } else {
@@ -69,6 +70,7 @@ class Console
         self::setBootstrap($runner);
         self::setAdapterOptions($runner);
         self::setTimeout($runner);
+        self::setDetailCaptures($runner);
 
         $result = $runner->execute();
         echo $result;
@@ -168,6 +170,19 @@ class Console
     {
         if (isset(self::$_options['bootstrap'])) {
             $runner->setBootstrap(self::$_options['bootstrap']);
+        }
+    }
+    
+    /**
+     * Set timeout in seconds to apply to each test run. The default timeout
+     * is 120 seconds.
+     *
+     * @param \Mutateme\Runner\RunnerAbstract $runner
+     */
+    protected static function setDetailCaptures(\Mutateme\Runner\RunnerAbstract $runner)
+    {
+        if (isset(self::$_options['detail-captures'])) {
+            $runner->setDetailCaptures(true);
         }
     }
     

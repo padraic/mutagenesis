@@ -129,6 +129,14 @@ abstract class RunnerAbstract
     protected $_bootstrap = null;
     
     /**
+     * Flag to add detailed reports (including test results) about
+     * the mutations which caused test failures (i.e. captured)
+     *
+     * @var bool
+     */
+    protected $_detailCaptures = false;
+    
+    /**
      * Execute the runner
      *
      * @return void
@@ -504,6 +512,29 @@ abstract class RunnerAbstract
             }
         }
         return $this->_bootstrap;
+    }
+    
+    /**
+     * Set flag to add detailed reports (including test results) about
+     * the mutations which caused test failures (i.e. captured)
+     *
+     * @param bool $bool
+     */
+    public function setDetailCaptures($bool)
+    {
+        $this->_detailCaptures = (bool) $bool;
+        return $this;
+    }
+
+    /**
+     * Get flag to add detailed reports (including test results) about
+     * the mutations which caused test failures (i.e. captured)
+     *
+     * @return bool
+     */
+    public function getDetailCaptures()
+    {
+        return $this->_detailCaptures;
     }
     
 }

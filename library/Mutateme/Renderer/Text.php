@@ -57,10 +57,11 @@ class Text implements RendererInterface
             return $out;
         }
         $out = 'All initial checks successful! The mutagenic slime has been activated.'
-                . ' Stand by...'
                 . PHP_EOL . PHP_EOL
-                . $output
-                . PHP_EOL;
+                . $this->_indentTestOutput($output)
+                . PHP_EOL . PHP_EOL
+                . 'Stand by...Mutation Testing commencing.'
+                . PHP_EOL . PHP_EOL;
         return $out;
     }
 
@@ -73,10 +74,10 @@ class Text implements RendererInterface
      */
     public function renderProgressMark($result)
     {
-        if ($result) {
-            return 'E';
-        } elseif ($result == 'timed output') {
+        if ($result === 'timed out') {
             return 'T';
+        } elseif ($result) {
+            return 'E';
         } else {
             return '.';
         }
@@ -92,7 +93,7 @@ class Text implements RendererInterface
      * @param string $output Result output from test adapter
      * @return string
      */
-    public function renderReport($total, $killed, $escaped, array $mutations, $output = '')
+    public function renderReport($total, $killed, $escaped, array $mutations, array $mutantsCaptured, $output = '')
     {
         $out = PHP_EOL . PHP_EOL
                 . $total
@@ -114,7 +115,7 @@ class Text implements RendererInterface
                     . $mutation['mutation']->getDiff()
                     . PHP_EOL;
                 if (!empty($output)) {
-                    $out .= $output
+                    $out .= $this->_indentTestOutput($output)
                         . PHP_EOL . PHP_EOL;
                 }
                 $i++;
@@ -126,7 +127,43 @@ class Text implements RendererInterface
             $out .= 'No Mutants survived! Someone in QA will be happy.'
                 . PHP_EOL . PHP_EOL;
         }
+        if (count($mutantsCaptured) > 0) {
+            $out .= 'The following Mutants were safely captured (see above for escapees):'
+                . PHP_EOL . PHP_EOL;
+            $i = 1;
+            foreach ($mutantsCaptured as $mutant) {
+                $out .= $i . ')'
+                    . PHP_EOL
+                    . 'Difference on ' . $mutant[0]['class'] . '::' . $mutant[0]['method']
+                    . '() in ' . $mutant[0]['file']
+                    . PHP_EOL . str_repeat('=', 67) . PHP_EOL
+                    . $mutant[0]['mutation']->getDiff()
+                    . PHP_EOL;
+                $out .= 'Reported test output:' . PHP_EOL
+                    . PHP_EOL . $this->_indentTestOutput($mutant[1]) . PHP_EOL . PHP_EOL;
+                $i++;
+            }
+            $out .= "Check above these capture details to see if any mutants"
+             . ' escaped.';
+        }
         return $out;
+    }
+    
+    /**
+     * Utility function to prefix test output lines with an indent and equals sign
+     *
+     * @var string $output
+     * @return string
+     */
+    protected function _indentTestOutput($output)
+    {
+        $lines = explode("\n", $output);
+        $out = array();
+        foreach ($lines as $line) {
+            $out[] = '    > ' . $line;
+        }
+        $return = implode("\n", $out);
+        return $return;
     }
 
 }

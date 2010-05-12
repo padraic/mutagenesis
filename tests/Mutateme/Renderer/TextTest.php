@@ -135,7 +135,7 @@ EXPECTED;
         );
         $this->assertEquals(
             $expected,
-            $this->_renderer->renderReport(1, 0, 1, $mutations, 'test1output')
+            $this->_renderer->renderReport(1, 0, 1, $mutations, array(), 'test1output')
         );   
     }
 

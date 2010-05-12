@@ -128,6 +128,7 @@ to direct the unit test framework adapter:
 * --options: String containing options to pass to the unit test framework's command
 * --timeout: Sets the number of seconds after which a test run is considered timout
 * --bootstrap: Sets a bootstrap file to include prior to running tests
+* --detail-captures: Shows mutation diffs and testing reports for captured mutants
 
 Note: The default timeout is 120 seconds. Any test suite exceeding this should
 have a relevant timeout set using --timeout or else all test runs would
