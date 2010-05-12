@@ -145,7 +145,7 @@ For example, imagine we usually employ the following to run some PHPUnit tests:
     phpunit AllTests.php --exclude-group=disabled
     
 In addition, we use the file TestHelper.php to setup autloading for the tests
-(this would normally included from with AllTests.php manually but MutateMe
+(this would normally be included from within AllTests.php manually but MutateMe
 needs to load it as early as possible).
     
 We can pass this to mutateme as:
@@ -185,8 +185,6 @@ changed. Here's a quick exerpt of a mutation test run with escaped mutants
         > Time: 0 seconds, Memory: 16.50Mb
         > 
         > OK (62 tests, 156 assertions)
-        > 
-        > EEEEEEEEEE..EEEEE...EEEEE
         > 
 
     Stand by...Mutation Testing commencing.
