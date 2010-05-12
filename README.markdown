@@ -144,7 +144,9 @@ For example, imagine we usually employ the following to run some PHPUnit tests:
 
     phpunit AllTests.php --exclude-group=disabled
     
-In addition, we use the file TestHelper.php to setup autloading for the tests.
+In addition, we use the file TestHelper.php to setup autloading for the tests
+(this would normally included from with AllTests.php manually but MutateMe
+needs to load it as early as possible).
     
 We can pass this to mutateme as:
 
@@ -173,22 +175,27 @@ changed. Here's a quick exerpt of a mutation test run with escaped mutants
 
     MutateMe 0.5: Mutation Testing for PHP
 
-    All initial checks successful! The mutagenic slime has been activated. Stand by...
+    All initial checks successful! The mutagenic slime has been activated.
 
-    PHPUnit 3.4.12 by Sebastian Bergmann.
+        > PHPUnit 3.4.12 by Sebastian Bergmann.
+        > 
+        > ............................................................ 60 / 62
+        > ..
+        > 
+        > Time: 0 seconds, Memory: 16.50Mb
+        > 
+        > OK (62 tests, 156 assertions)
+        > 
+        > EEEEEEEEEE..EEEEE...EEEEE
+        > 
 
-    ............................................................ 60 / 62
-    ..
+    Stand by...Mutation Testing commencing.
 
-    Time: 0 seconds, Memory: 16.50Mb
+    ...E........EE........E.EEEEEEE...EEEEE.
 
-    OK (62 tests, 156 assertions)
+    40 Mutants born out of the mutagenic slime!
 
-    EEEEEEEEEE..EEEEE...EEEEE
-
-    25 Mutants born out of the mutagenic slime!
-
-    20 Mutants escaped; the integrity of your source code may be compromised by the following Mutants:
+    16 Mutants escaped; the integrity of your source code may be compromised by the following Mutants:
 
     1)
     Difference on Idun_Validate_And::isValid() in library/Idun/Validate/And.php
@@ -200,6 +207,12 @@ changed. Here's a quick exerpt of a mutation test run with escaped mutants
                  }
              }
              return true;
+             
+The progress output uses the following markers:
+
+* .: Current mutation was detected by test suite
+* E: Current mutation was undetected by test suite
+* T: Test suite timed out (see --timeout option)
 
 Supported Mutations
 -------------------
