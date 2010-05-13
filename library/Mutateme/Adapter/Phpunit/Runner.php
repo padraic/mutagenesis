@@ -22,8 +22,11 @@
 namespace Mutateme\Adapter\Phpunit;
 
 require_once 'PHPUnit/Autoload.php';
+require_once 'PHP/CodeCoverage/Filter.php';
 
-\PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+\PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(
+  __FILE__, 'PHPUNIT'
+);
 
 class Runner
 {

@@ -54,20 +54,27 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
      * appear in the code coverage report and that all production code source
      * files, even those that are not covered by a test yet, are processed.
      */
-    PHPUnit_Util_Filter::addDirectoryToWhitelist($library);
+    PHP_CodeCoverage_Filter::getInstance()->addDirectoryToWhitelist($library);
 
     /*
      * Omit from code coverage reports the contents of the tests directory
      */
     foreach (array('.php', '.phtml', '.csv', '.inc') as $suffix) {
-        PHPUnit_Util_Filter::addDirectoryToFilter($tests, $suffix);
+        PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist(
+          $tests, $suffix
+        );
     }
-    PHPUnit_Util_Filter::addDirectoryToFilter(PEAR_INSTALL_DIR);
-    PHPUnit_Util_Filter::addDirectoryToFilter(PHP_LIBDIR);
+
+    PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist(
+      PEAR_INSTALL_DIR
+    );
+
+    PHP_CodeCoverage_Filter::getInstance()->addDirectoryToBlacklist(
+      PHP_LIBDIR
+    );
 }
 
 /*
  * Unset global variables that are no longer needed.
  */
 unset($root, $library, $tests, $path);
-
