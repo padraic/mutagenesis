@@ -72,6 +72,19 @@ MutateMe install via PEAR using:
 While the git repository tracks code in development, I hope to add an official
 PEAR channel in the near future.
 
+Note: MutateMe supports PHPUnit 3.4 by default, the current stable version. If
+you are using the unreleased PHPUnit 3.5, you should instead install from the
+phpunit-3.5 branch using:
+
+    git clone git://github.com/padraic/mutateme.git mutateme
+    cd mutateme
+    git checkout phpunit-3.5
+    sudo pear install pear.xml
+
+The checkout operation is not remote (git clones all branches so any clone
+just sticks you on the master branch by default). Welcome to the wonderful
+world of git.
+
 Operation
 ---------
 
