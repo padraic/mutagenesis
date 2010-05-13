@@ -21,7 +21,7 @@
 
 namespace Mutateme\Adapter\Phpunit;
 
-require_once 'PHPUnit/TextUI/Command.php';
+require_once 'PHPUnit/Autoload.php';
 
 \PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
 
