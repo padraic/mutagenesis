@@ -488,7 +488,7 @@ abstract class RunnerAbstract
     public function setBootstrap($file)
     {
         if (empty($file)) {
-            return;
+            return $this;
         }
         if (!file_exists($file) || !is_readable($file)) {
             throw new \Exception('Invalid bootstrap file: "'.$file.'"');
