@@ -66,10 +66,10 @@ class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
         $testOutput = 'Stuff passed';
         $this->assertEquals(
             'All initial checks successful! The mutagenic slime has been activated.'
-                . ' Stand by...'
                 . PHP_EOL . PHP_EOL
-                . $testOutput
-                . PHP_EOL,
+                . '    > ' . $testOutput
+                . PHP_EOL . PHP_EOL . 'Stand by...Mutation Testing commencing.'
+                . PHP_EOL . PHP_EOL,
             $this->_renderer->renderPretest($result, $testOutput)
         );
     }
@@ -92,7 +92,7 @@ class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
                 . PHP_EOL . PHP_EOL
                 . 'No Mutants survived! Someone in QA will be happy.'
                 . PHP_EOL . PHP_EOL,
-            $this->_renderer->renderReport(1, 1, 0, array(), '')
+            $this->_renderer->renderReport(1, 1, 0, array(), array(), '')
         );   
     }
     
@@ -119,7 +119,7 @@ class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
 Difference on Foo::bar() in /path/to/foo.php
 ===================================================================
 diff1
-test1output
+    > test1output
 
 Happy Hunting! Remember that some Mutants may just be Ghosts (or if you want to be boring, 'false positives').
 
