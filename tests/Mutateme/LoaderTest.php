@@ -29,9 +29,6 @@ class Mutateme_LoaderTest extends PHPUnit_Framework_TestCase
 
     public function testCallingRegisterRegistersSelfAsSplAutoloaderFunction()
     {
-        //if (class_exists('Mutateme_Framework', false)) {
-        //    $this->markTestSkipped('Cannot run this test if MutateMe is in use for another reason (e.g. self mutation testing!)');
-        //}
         require_once 'Mutateme/Loader.php';
         $loader = new \Mutateme\Loader;
         $loader->register();
@@ -41,7 +38,8 @@ class Mutateme_LoaderTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        spl_autoload_unregister('\Mutateme\Loader::loadClass');
+        $loader = new \Mutateme\Loader;
+        $loader->register();
     }
 
 }

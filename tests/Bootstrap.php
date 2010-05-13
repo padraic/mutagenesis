@@ -66,6 +66,10 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
     PHPUnit_Util_Filter::addDirectoryToFilter(PHP_LIBDIR);
 }
 
+require_once 'Mutateme/Loader.php';
+$loader = new \Mutateme\Loader;
+$loader->register();
+
 /*
  * Unset global variables that are no longer needed.
  */
