@@ -67,7 +67,7 @@
           <dir name="Runner">
             <file name="Base.php" role="php" md5sum="637e45978dda44fd94a42b9d0ae14e0c"/>
             <file name="Mutation.php" role="php" md5sum="d745e2293ebceda50a58ca30d56c6e83"/>
-            <file name="RunnerAbstract.php" role="php" md5sum="0984749bf5ba6a702494f9ec811fa4a0"/>
+            <file name="RunnerAbstract.php" role="php" md5sum="119eec83d4f8578f8df9847e57f1e0c5"/>
           </dir>
           <dir name="Utility">
             <file name="Diff.php" role="php" md5sum="513ca4ca0e2535e6f20ad50dfaa123a3"/>

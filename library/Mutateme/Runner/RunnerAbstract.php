@@ -270,8 +270,9 @@ abstract class RunnerAbstract
     {
         if (is_null($this->_adapter)) {
             $name = ucfirst(strtolower($this->getAdapterName()));
+            $file = '/Adapter/' . $name . '.php';
             $class = 'Mutateme\\Adapter\\' . $name;
-            if (!class_exists($class)) {
+            if (!file_exists(dirname(dirname(__FILE__)) . $file)) {
                 throw new \Exception('Invalid Adapter name: ' . strtolower($name));
             }
             $this->_adapter = new $class;
