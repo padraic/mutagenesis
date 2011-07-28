@@ -23,7 +23,10 @@ namespace Mutateme\Adapter\Phpunit;
 
 require_once 'PHPUnit/TextUI/Command.php';
 
-\PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+//\PHPUnit_Util_Filter::addFileToFilter(__FILE__, 'PHPUNIT');
+if (class_exists('PHP_CodeCoverage_Filter', true)) {
+    \PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'PHPUNIT');
+}
 
 class Runner
 {
