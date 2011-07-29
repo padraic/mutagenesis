@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0         http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd" version="2.0">
-  <name>MutateMe</name>
+  <name>Mutagenesis</name>
   <channel>pear.php.net</channel>
   <summary>Mutation Testing framework for PHP</summary>
-  <description>MutateMe is a Mutation Testing framework for PHP 5.3 (or higher). Its purpose is to link into a PHP test suite (e.g. PHPUnit) for a library or application, mangle (mutate) the underlying source code in varying ways, and check whether running the matching test suite reveals any form of failure. Mutations are progressively applied and tested. In essence, it is quality assurance for tests. If a mutation causes the test suite to fail, it means your tests were sufficient to detect the mutation (this is good!). If not...time to add new tests to cover the undetected mutation.</description>
+  <description>Mutagenesis is a Mutation Testing framework for PHP 5.3 (or higher). Its purpose is to link into a PHP test suite (e.g. PHPUnit) for a library or application, mangle (mutate) the underlying source code in varying ways, and check whether running the matching test suite reveals any form of failure. Mutations are progressively applied and tested. In essence, it is quality assurance for tests. If a mutation causes the test suite to fail, it means your tests were sufficient to detect the mutation (this is good!). If not...time to add new tests to cover the undetected mutation.</description>
   <lead>
     <name>Padraic Brady</name>
     <user>padraic</user>
@@ -25,19 +25,19 @@
   <contents>
     <dir name="/" baseinstalldir="">
       <dir name="bin">
-        <file name="mutateme" role="script" baseinstalldir="/" md5sum="55fcc54ea47fcd16d1a2d1555d19bce1">
+        <file name="mutagenesis" role="script" baseinstalldir="/" md5sum="55fcc54ea47fcd16d1a2d1555d19bce1">
           <tasks:replace type="pear-config" from="/usr/bin/env php" to="php_bin"/>
           <tasks:replace type="pear-config" from="@php_bin@" to="php_bin"/>
           <tasks:replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
           <tasks:replace type="pear-config" from="@pear_directory@" to="php_dir"/>
         </file>
-        <file name="mutateme.bat" role="script" baseinstalldir="/" md5sum="5b99e0948dc278922b8c525dd552d998">
+        <file name="mutagenesis.bat" role="script" baseinstalldir="/" md5sum="5b99e0948dc278922b8c525dd552d998">
           <tasks:replace type="pear-config" from="@php_bin@" to="php_bin"/>
           <tasks:replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
         </file>
       </dir>
       <dir name="library">
-        <dir name="Mutateme">
+        <dir name="Mutagenesis">
           <dir name="Adapter">
             <file name="AdapterAbstract.php" role="php" md5sum="6d988d27299aac546bb3052e2a367dfe"/>
             <file name="Phpunit.php" role="php" md5sum="9a8553fc461d1e680d83cd98652781c5"/>
@@ -91,33 +91,33 @@
   </dependencies>
   <phprelease>
     <filelist>
-      <install as="mutateme" name="bin/mutateme"/>
-      <install as="mutateme.bat" name="bin/mutateme.bat"/>
-      <install name="library/Mutateme/Adapter/AdapterAbstract.php" as="Mutateme/Adapter/AdapterAbstract.php"/>
-      <install name="library/Mutateme/Adapter/Phpunit.php" as="Mutateme/Adapter/Phpunit.php"/>
-      <install name="library/Mutateme/Adapter/Phpunit/Runner.php" as="Mutateme/Adapter/Phpunit/Runner.php"/>
-      <install name="library/Mutateme/Console.php" as="Mutateme/Console.php"/>
-      <install name="library/Mutateme/Generator.php" as="Mutateme/Generator.php"/>
-      <install name="library/Mutateme/Loader.php" as="Mutateme/Loader.php"/>
-      <install name="library/Mutateme/Mutable.php" as="Mutateme/Mutable.php"/>
-      <install name="library/Mutateme/Mutation/BooleanAnd.php" as="Mutateme/Mutation/BooleanAnd.php"/>
-      <install name="library/Mutateme/Mutation/BooleanFalse.php" as="Mutateme/Mutation/BooleanFalse.php"/>
-      <install name="library/Mutateme/Mutation/BooleanOr.php" as="Mutateme/Mutation/BooleanOr.php"/>
-      <install name="library/Mutateme/Mutation/BooleanTrue.php" as="Mutateme/Mutation/BooleanTrue.php"/>
-      <install name="library/Mutateme/Mutation/MutationAbstract.php" as="Mutateme/Mutation/MutationAbstract.php"/>
-      <install name="library/Mutateme/Mutation/OperatorAddition.php" as="Mutateme/Mutation/OperatorAddition.php"/>
-      <install name="library/Mutateme/Mutation/OperatorDecrement.php" as="Mutateme/Mutation/OperatorDecrement.php"/>
-      <install name="library/Mutateme/Mutation/OperatorIncrement.php" as="Mutateme/Mutation/OperatorIncrement.php"/>
-      <install name="library/Mutateme/Mutation/OperatorSubtraction.php" as="Mutateme/Mutation/OperatorSubtraction.php"/>
-      <install name="library/Mutateme/Renderer/RendererInterface.php" as="Mutateme/Renderer/RendererInterface.php"/>
-      <install name="library/Mutateme/Renderer/Text.php" as="Mutateme/Renderer/Text.php"/>
-      <install name="library/Mutateme/Runner/Base.php" as="Mutateme/Runner/Base.php"/>
-      <install name="library/Mutateme/Runner/Mutation.php" as="Mutateme/Runner/Mutation.php"/>
-      <install name="library/Mutateme/Runner/RunnerAbstract.php" as="Mutateme/Runner/RunnerAbstract.php"/>
-      <install name="library/Mutateme/Utility/Diff.php" as="Mutateme/Utility/Diff.php"/>
-      <install name="library/Mutateme/Utility/Job.php" as="Mutateme/Utility/Job.php"/>
-      <install name="library/Mutateme/Utility/Process.php" as="Mutateme/Utility/Process.php"/>
-      <install name="library/Mutateme/Utility/Runkit.php" as="Mutateme/Utility/Runkit.php"/>
+      <install as="mutagenesis" name="bin/mutagenesis"/>
+      <install as="mutagenesis.bat" name="bin/mutagenesis.bat"/>
+      <install name="library/Mutagenesis/Adapter/AdapterAbstract.php" as="Mutagenesis/Adapter/AdapterAbstract.php"/>
+      <install name="library/Mutagenesis/Adapter/Phpunit.php" as="Mutagenesis/Adapter/Phpunit.php"/>
+      <install name="library/Mutagenesis/Adapter/Phpunit/Runner.php" as="Mutagenesis/Adapter/Phpunit/Runner.php"/>
+      <install name="library/Mutagenesis/Console.php" as="Mutagenesis/Console.php"/>
+      <install name="library/Mutagenesis/Generator.php" as="Mutagenesis/Generator.php"/>
+      <install name="library/Mutagenesis/Loader.php" as="Mutagenesis/Loader.php"/>
+      <install name="library/Mutagenesis/Mutable.php" as="Mutagenesis/Mutable.php"/>
+      <install name="library/Mutagenesis/Mutation/BooleanAnd.php" as="Mutagenesis/Mutation/BooleanAnd.php"/>
+      <install name="library/Mutagenesis/Mutation/BooleanFalse.php" as="Mutagenesis/Mutation/BooleanFalse.php"/>
+      <install name="library/Mutagenesis/Mutation/BooleanOr.php" as="Mutagenesis/Mutation/BooleanOr.php"/>
+      <install name="library/Mutagenesis/Mutation/BooleanTrue.php" as="Mutagenesis/Mutation/BooleanTrue.php"/>
+      <install name="library/Mutagenesis/Mutation/MutationAbstract.php" as="Mutagenesis/Mutation/MutationAbstract.php"/>
+      <install name="library/Mutagenesis/Mutation/OperatorAddition.php" as="Mutagenesis/Mutation/OperatorAddition.php"/>
+      <install name="library/Mutagenesis/Mutation/OperatorDecrement.php" as="Mutagenesis/Mutation/OperatorDecrement.php"/>
+      <install name="library/Mutagenesis/Mutation/OperatorIncrement.php" as="Mutagenesis/Mutation/OperatorIncrement.php"/>
+      <install name="library/Mutagenesis/Mutation/OperatorSubtraction.php" as="Mutagenesis/Mutation/OperatorSubtraction.php"/>
+      <install name="library/Mutagenesis/Renderer/RendererInterface.php" as="Mutagenesis/Renderer/RendererInterface.php"/>
+      <install name="library/Mutagenesis/Renderer/Text.php" as="Mutagenesis/Renderer/Text.php"/>
+      <install name="library/Mutagenesis/Runner/Base.php" as="Mutagenesis/Runner/Base.php"/>
+      <install name="library/Mutagenesis/Runner/Mutation.php" as="Mutagenesis/Runner/Mutation.php"/>
+      <install name="library/Mutagenesis/Runner/RunnerAbstract.php" as="Mutagenesis/Runner/RunnerAbstract.php"/>
+      <install name="library/Mutagenesis/Utility/Diff.php" as="Mutagenesis/Utility/Diff.php"/>
+      <install name="library/Mutagenesis/Utility/Job.php" as="Mutagenesis/Utility/Job.php"/>
+      <install name="library/Mutagenesis/Utility/Process.php" as="Mutagenesis/Utility/Process.php"/>
+      <install name="library/Mutagenesis/Utility/Runkit.php" as="Mutagenesis/Utility/Runkit.php"/>
     </filelist>
   </phprelease>
 </package>
