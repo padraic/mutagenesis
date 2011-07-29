@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme;
+namespace Mutagenesis;
 
 class Console
 {
@@ -36,10 +36,10 @@ class Console
      * tests and echo out the results
      *
      * @param array $options
-     * @param \Mutateme\Runner\RunnerAbstract $runner Optional custom runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner Optional custom runner
      */
     public static function main(array $options = null,
-    \Mutateme\Runner\RunnerAbstract $runner = null)
+    \Mutagenesis\Runner\RunnerAbstract $runner = null)
     {
         if (is_null($options)) {
             self::$_options = getopt(
@@ -60,7 +60,7 @@ class Console
         }
 
         if (is_null($runner)) {
-            $runner = new \Mutateme\Runner\Base;
+            $runner = new \Mutagenesis\Runner\Base;
         }
 
         self::setBaseDirectory($runner);
@@ -79,9 +79,9 @@ class Console
     /**
      * Set a base directory for the provided runner
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setBaseDirectory(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setBaseDirectory(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['base'])) {
             $runner->setBaseDirectory(self::$_options['base']);
@@ -93,9 +93,9 @@ class Console
     /**
      * Set a source directory for the provided runner
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setSourceDirectory(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setSourceDirectory(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['src'])) {
             $runner->setSourceDirectory(self::$_options['src']);
@@ -107,9 +107,9 @@ class Console
     /**
      * Set a tests directory for the provided runner
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setTestDirectory(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setTestDirectory(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['tests'])) {
             $runner->setTestDirectory(self::$_options['tests']);
@@ -122,9 +122,9 @@ class Console
      * Set an adapter name to use for the provided runner. If none is
      * provided, the PHPUnit adapter name is set by default.
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setAdapterName(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setAdapterName(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['adapter'])) {
             $runner->setAdapterName(self::$_options['adapter']);
@@ -137,9 +137,9 @@ class Console
      * Set options to be parsed and passed to the adapter instance used by
      * the runner
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setAdapterOptions(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setAdapterOptions(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['options'])) {
             $runner->setAdapterOptions(self::$_options['options']);
@@ -150,9 +150,9 @@ class Console
      * Set timeout in seconds to apply to each test run. The default timeout
      * is 120 seconds.
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setTimeout(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setTimeout(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['timeout'])) {
             $runner->setTimeout(self::$_options['timeout']);
@@ -164,9 +164,9 @@ class Console
      * for registering autoloaders and such, for example TestHelper.php or
      * Bootstrap.php are common for PHPUnit.
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setBootstrap(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setBootstrap(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['bootstrap'])) {
             $runner->setBootstrap(self::$_options['bootstrap']);
@@ -177,9 +177,9 @@ class Console
      * Set timeout in seconds to apply to each test run. The default timeout
      * is 120 seconds.
      *
-     * @param \Mutateme\Runner\RunnerAbstract $runner
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
      */
-    protected static function setDetailCaptures(\Mutateme\Runner\RunnerAbstract $runner)
+    protected static function setDetailCaptures(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['detail-captures'])) {
             $runner->setDetailCaptures(true);

@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme\Runner;
+namespace Mutagenesis\Runner;
 
 abstract class RunnerAbstract
 {
@@ -63,7 +63,7 @@ abstract class RunnerAbstract
     /**
      * Instance of a suitable renderer used to format results into output
      *
-     * @var \Mutateme\Renderer\Text
+     * @var \Mutagenesis\Renderer\Text
      */
     protected $_renderer = null;
     
@@ -75,27 +75,27 @@ abstract class RunnerAbstract
     protected $_rendererName = 'Text';
 
     /**
-     * Instance of \Mutateme\Runkit used to apply and reverse mutations
+     * Instance of \Mutagenesis\Runkit used to apply and reverse mutations
      * on loaded source code within the same process dynamically
      *
-     * @var \Mutateme\Utility\Runkit
+     * @var \Mutagenesis\Utility\Runkit
      */
     protected $_runkit = null;
 
     /**
-     * Instance of \Mutateme\Generator used to generate mutations from the
+     * Instance of \Mutagenesis\Generator used to generate mutations from the
      * underlying source code
      *
-     * @var \Mutateme\Generator
+     * @var \Mutagenesis\Generator
      */
     protected $_generator = null;
 
     /**
-     * Instance of \Mutateme\Adapter\AdapterAbstract linking Mutateme to
+     * Instance of \Mutagenesis\Adapter\AdapterAbstract linking Mutagenesis to
      * to an underlying test framework to execute tests and parse the test
      * results
      *
-     * @var \Mutateme\Adapter\AdapterAbstract
+     * @var \Mutagenesis\Adapter\AdapterAbstract
      */
     protected $_adapter = null;
 
@@ -264,14 +264,14 @@ abstract class RunnerAbstract
      * Get a test framework adapter. Creates a new one based on the configured
      * adapter name passed on the CLI if not already set.
      *
-     * @return \Mutateme\Adapter\AdapterAbstract
+     * @return \Mutagenesis\Adapter\AdapterAbstract
      */
     public function getAdapter()
     {
         if (is_null($this->_adapter)) {
             $name = ucfirst(strtolower($this->getAdapterName()));
             $file = '/Adapter/' . $name . '.php';
-            $class = 'Mutateme\\Adapter\\' . $name;
+            $class = 'Mutagenesis\\Adapter\\' . $name;
             if (!file_exists(dirname(dirname(__FILE__)) . $file)) {
                 throw new \Exception('Invalid Adapter name: ' . strtolower($name));
             }
@@ -283,9 +283,9 @@ abstract class RunnerAbstract
     /**
      * Set a test framework adapter.
      *
-     * @param \Mutateme\Adapter\AdapterAbstract $adapter
+     * @param \Mutagenesis\Adapter\AdapterAbstract $adapter
      */
-    public function setAdapter(\Mutateme\Adapter\AdapterAbstract $adapter)
+    public function setAdapter(\Mutagenesis\Adapter\AdapterAbstract $adapter)
     {
         $this->_adapter = $adapter;
         return $this;
@@ -316,13 +316,13 @@ abstract class RunnerAbstract
      * Get a result renderer. Creates a new one based on the configured
      * renderer name passed on the CLI if not already set.
      *
-     * @return \Mutateme\Renderer\RendererInterface
+     * @return \Mutagenesis\Renderer\RendererInterface
      */
     public function getRenderer()
     {
         if (is_null($this->_renderer)) {
             $name = ucfirst(strtolower($this->getRendererName()));
-            $class = 'Mutateme\\Renderer\\' . $name;
+            $class = 'Mutagenesis\\Renderer\\' . $name;
             if (!class_exists($class)) {
                 throw new \Exception('Invalid Renderer name: ' . strtolower($name));
             }
@@ -334,9 +334,9 @@ abstract class RunnerAbstract
     /**
      * Set a test framework adapter.
      *
-     * @param \Mutateme\Renderer\RendererInterface $renderer
+     * @param \Mutagenesis\Renderer\RendererInterface $renderer
      */
-    public function setRenderer(\Mutateme\Renderer\RendererInterface $renderer)
+    public function setRenderer(\Mutagenesis\Renderer\RendererInterface $renderer)
     {
         $this->_renderer = $renderer;
         return $this;
@@ -345,19 +345,19 @@ abstract class RunnerAbstract
     /**
      * Set a custom runkit instance.
      *
-     * @param \Mutateme\Utility\Runkit $runkit
+     * @param \Mutagenesis\Utility\Runkit $runkit
      */
-    public function setRunkit(\Mutateme\Utility\Runkit $runkit)
+    public function setRunkit(\Mutagenesis\Utility\Runkit $runkit)
     {
         $this->_runkit = $runkit;
         return $this;
     }
 
     /**
-     * Creates and returns a new instance of \Mutateme\Runkit if not previously
+     * Creates and returns a new instance of \Mutagenesis\Runkit if not previously
      * loaded
      *
-     * @return \Mutateme\Runkit
+     * @return \Mutagenesis\Runkit
      */
     public function getRunkit()
     {
@@ -365,12 +365,12 @@ abstract class RunnerAbstract
             if(!in_array('runkit', get_loaded_extensions())) {
                 throw new \Exception(
                     'Runkit extension is not loaded. Unfortunately, runkit'
-                    . ' is essential for MutateMe. Please see the manual or'
+                    . ' is essential for Mutagenesis. Please see the manual or'
                     . ' README which explains how to install an updated runkit'
-                    . ' extension suitable for MutateMe and PHP 5.3.'
+                    . ' extension suitable for Mutagenesis and PHP 5.3.'
                 );
             }
-            $this->_runkit = new \Mutateme\Utility\Runkit;
+            $this->_runkit = new \Mutagenesis\Utility\Runkit;
         }
         return $this->_runkit;
     }
@@ -437,9 +437,9 @@ abstract class RunnerAbstract
      * Set a specific Generator of mutations (stuck with a subclass).
      * TODO Add interface
      *
-     * @param \Mutateme\Generator
+     * @param \Mutagenesis\Generator
      */
-    public function setGenerator(\Mutateme\Generator $generator)
+    public function setGenerator(\Mutagenesis\Generator $generator)
     {
         $this->_generator = $generator;
         $this->_generator->setSourceDirectory($this->getSourceDirectory());
@@ -449,12 +449,12 @@ abstract class RunnerAbstract
     /**
      * Get a specific Generator of mutations.
      *
-     * @return \Mutateme\Generator
+     * @return \Mutagenesis\Generator
      */
     public function getGenerator()
     {
         if (!isset($this->_generator)) {
-            $this->_generator = new \Mutateme\Generator($this);
+            $this->_generator = new \Mutagenesis\Generator($this);
             $this->_generator->setSourceDirectory($this->getSourceDirectory());
         }
         return $this->_generator;

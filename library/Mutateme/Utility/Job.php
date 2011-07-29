@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme\Utility;
+namespace Mutagenesis\Utility;
 
 class Job
 {
@@ -28,16 +28,16 @@ class Job
      * Set a Runner containing the basic information for setting up
      * a relevant mutation run
      *
-     * @var \Mutateme\Runner\RunnerAbstract
+     * @var \Mutagenesis\Runner\RunnerAbstract
      */
     protected $_runner = null;
     
     /**
      * Constructor; accepts a starting Runner
      *
-     * @param \Mutateme\Runner\RunnerAbstract
+     * @param \Mutagenesis\Runner\RunnerAbstract
      */
-    public function __construct(\Mutateme\Runner\RunnerAbstract $runner)
+    public function __construct(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         $this->_runner = $runner;
     }
@@ -53,10 +53,10 @@ class Job
         $serializedMutation = serialize($mutation);
         $script = <<<SCRIPT
 <?php
-require_once 'Mutateme/Loader.php';
-\$loader = new \Mutateme\Loader;
+require_once 'Mutagenesis/Loader.php';
+\$loader = new \Mutagenesis\Loader;
 \$loader->register();
-\$runner = new \Mutateme\Runner\Mutation;
+\$runner = new \Mutagenesis\Runner\Mutation;
 \$runner->setBaseDirectory('{$this->_runner->getBaseDirectory()}')
     ->setSourceDirectory('{$this->_runner->getSourceDirectory()}')
     ->setTestDirectory('{$this->_runner->getTestDirectory()}')

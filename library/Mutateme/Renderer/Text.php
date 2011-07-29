@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme\Renderer;
+namespace Mutagenesis\Renderer;
 
 class Text implements RendererInterface
 {
@@ -31,13 +31,13 @@ class Text implements RendererInterface
      */
     public function renderOpening()
     {
-        $out = 'MutateMe 0.5: Mutation Testing for PHP'
+        $out = 'Mutagenesis 0.5: Mutation Testing for PHP'
             . PHP_EOL . PHP_EOL;
         return $out;
     }
 
     /**
-     * Render Mutateme output based on test pass. This is the pretest output,
+     * Render Mutagenesis output based on test pass. This is the pretest output,
      * rendered after a first-pass test run to ensure the test suite is in an
      * initial passing state.
      *
@@ -84,7 +84,7 @@ class Text implements RendererInterface
     }
 
     /**
-     * Render the final MutateMe report
+     * Render the final Mutagenesis report
      *
      * @param integer $total Total mutations made and tested
      * @param integer $killed Number of mutations that did cause a test failure

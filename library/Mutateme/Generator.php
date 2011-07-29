@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme;
+namespace Mutagenesis;
 
 class Generator
 {
@@ -42,15 +42,15 @@ class Generator
      * The collection of possible mutations stored as sets of mutation
      * instructions (allowing us to apply and reverse mutations on the fly)
      *
-     * @var \Mutateme\Mutable[]
+     * @var \Mutagenesis\Mutable[]
      */
     protected $_mutables = array();
 
     /**
-     * Given a source directory (@see \Mutateme\Generator::setSourceDirectory)
-     * pass each to a \Mutateme\Mutable instance which is used to generate
+     * Given a source directory (@see \Mutagenesis\Generator::setSourceDirectory)
+     * pass each to a \Mutagenesis\Mutable instance which is used to generate
      * mutations and store the instructions for applying and reversing them as
-     * a set of mutables (instances of \Mutateme\Mutation).
+     * a set of mutables (instances of \Mutagenesis\Mutation).
      *
      * @return void
      */
@@ -59,7 +59,7 @@ class Generator
         $files = $this->getFiles();
         foreach ($files as $file) {
             if (is_null($mutableObject)) {
-                $mutable = new \Mutateme\Mutable($file);
+                $mutable = new \Mutagenesis\Mutable($file);
             } else {
                 $mutable = new $mutableObject;
                 $mutable->setFilename($file);
@@ -72,7 +72,7 @@ class Generator
     /**
      * Return an array of mutable files.
      * 
-     * @return \Mutateme\Mutable[]
+     * @return \Mutagenesis\Mutable[]
      */
     public function getMutables()
     {

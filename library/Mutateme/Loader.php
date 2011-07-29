@@ -17,7 +17,7 @@
  * @author Fabien Potencier <fabien.potencier@symfony-project.org>
  */
 
-namespace Mutateme;
+namespace Mutagenesis;
 
 class Loader
 {
@@ -32,7 +32,7 @@ class Loader
      * 
      * @param string $ns The namespace to use.
      */
-    public function __construct($ns = 'Mutateme', $includePath = null)
+    public function __construct($ns = 'Mutagenesis', $includePath = null)
     {
         $this->_namespace = $ns;
         $this->_includePath = $includePath;

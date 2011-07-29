@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,21 +12,21 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-require_once 'Mutateme/Mutation/BooleanAnd.php';
+require_once 'Mutagenesis/Mutation/BooleanAnd.php';
 
-class Mutateme_Mutation_BooleanAndTest extends PHPUnit_Framework_TestCase
+class Mutagenesis_Mutation_BooleanAndTest extends PHPUnit_Framework_TestCase
 {
 
     public function testReturnsTokenEquivalentToBooleanOr()
     {
-        $mutation = new \Mutateme\Mutation\BooleanAnd;
+        $mutation = new \Mutagenesis\Mutation\BooleanAnd;
         $this->assertEquals(
             array(
                 10 => array(T_BOOLEAN_OR, '||')

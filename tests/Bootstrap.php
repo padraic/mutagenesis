@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,15 +12,15 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
 /*
- * Set error reporting to the level to which Mutateme code must comply.
+ * Set error reporting to the level to which Mutagenesis code must comply.
  */
 error_reporting(E_ALL | E_STRICT);
 
@@ -33,7 +33,7 @@ $library = "$root/library";
 $tests   = "$root/tests";
 
 /*
- * Prepend the Mutateme library/ and tests/ directories to the
+ * Prepend the Mutagenesis library/ and tests/ directories to the
  * include_path. This allows the tests to run out of the box and helps prevent
  * loading other copies of the code and tests that would supercede
  * this copy.
@@ -49,7 +49,7 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
     version_compare(PHPUnit_Runner_Version::id(), '3.1.6', '>=')) {
 
     /*
-     * Add Mutateme library/ directory to the PHPUnit code coverage
+     * Add Mutagenesis library/ directory to the PHPUnit code coverage
      * whitelist. This has the effect that only production code source files
      * appear in the code coverage report and that all production code source
      * files, even those that are not covered by a test yet, are processed.
@@ -66,8 +66,8 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
     PHPUnit_Util_Filter::addDirectoryToFilter(PHP_LIBDIR);
 }
 
-require_once 'Mutateme/Loader.php';
-$loader = new \Mutateme\Loader;
+require_once 'Mutagenesis/Loader.php';
+$loader = new \Mutagenesis\Loader;
 $loader->register();
 
 /*

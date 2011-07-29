@@ -1,8 +1,8 @@
 <?php
 
-require_once 'Mutateme/Generator.php';
+require_once 'Mutagenesis/Generator.php';
 
-class Mutateme_GeneratorTest extends PHPUnit_Framework_TestCase
+class Mutagenesis_GeneratorTest extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -13,7 +13,7 @@ class Mutateme_GeneratorTest extends PHPUnit_Framework_TestCase
 
     public function testShouldStoreSourceDirectoryValue()
     {
-        $generator = new \Mutateme\Generator;
+        $generator = new \Mutagenesis\Generator;
         $generator->setSourceDirectory($this->root . '/library');
         $this->assertEquals($this->root . '/library', $generator->getSourceDirectory());
     }
@@ -23,13 +23,13 @@ class Mutateme_GeneratorTest extends PHPUnit_Framework_TestCase
      */
     public function testShouldThrowExceptionOnNonexistingDirectory()
     {
-        $generator = new \Mutateme\Generator;
+        $generator = new \Mutagenesis\Generator;
         $generator->setSourceDirectory($this->badRoot);
     }
 
     public function testShouldCollateAllFilesValidForMutationTesting()
     {
-        $generator = new \Mutateme\Generator;
+        $generator = new \Mutagenesis\Generator;
         $generator->setSourceDirectory($this->root);
         $this->assertEquals(array(
             $this->root . '/library/bool2.php',
@@ -39,7 +39,7 @@ class Mutateme_GeneratorTest extends PHPUnit_Framework_TestCase
 
     public function testShouldGenerateMutableFileObjects()
     {
-        $generator = new \Mutateme\Generator;
+        $generator = new \Mutagenesis\Generator;
         $generator->setSourceDirectory($this->root);
         $mutable = $this->getMock('Mutable', array('generate', 'setFilename'));
         $generator->generate($mutable);
@@ -49,7 +49,7 @@ class Mutateme_GeneratorTest extends PHPUnit_Framework_TestCase
 
     public function testShouldGenerateAMutableFileObjectPerDetectedFile()
     {
-        $generator = new \Mutateme\Generator;
+        $generator = new \Mutagenesis\Generator;
         $generator->setSourceDirectory($this->root);
         $mutable = $this->getMock('Mutable', array('generate', 'setFilename'));
         $generator->generate($mutable);

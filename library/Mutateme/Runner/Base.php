@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme\Runner;
+namespace Mutagenesis\Runner;
 
 class Base extends RunnerAbstract
 {
@@ -33,7 +33,7 @@ class Base extends RunnerAbstract
     {
         $renderer = $this->getRenderer();
         echo $renderer->renderOpening();
-        $job = new \Mutateme\Utility\Job($this);
+        $job = new \Mutagenesis\Utility\Job($this);
 
         /**
          * Run the test suite once to verify it is in a passing state before
@@ -41,7 +41,7 @@ class Base extends RunnerAbstract
          * code which is already failing its tests since we'd simply get
          * false positives for every single mutation applied later.
          */
-        $output = \Mutateme\Utility\Process::run($job->generate());
+        $output = \Mutagenesis\Utility\Process::run($job->generate());
         $result = $this->getAdapter()->processOutput($output['stdout']);
         echo $renderer->renderPretest($result, $output['stdout']);
         
@@ -72,7 +72,7 @@ class Base extends RunnerAbstract
         foreach ($mutables as $mutable) {
             $mutations = $mutable->getMutations();
             foreach ($mutations as $mutation) {
-                $output = \Mutateme\Utility\Process::run(
+                $output = \Mutagenesis\Utility\Process::run(
                     $job->generate($mutation), $this->getTimeout()
                 );
                 /* TODO: Store output for per-mutant results */

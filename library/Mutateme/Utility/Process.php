@@ -1,9 +1,9 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * File liberated from Sebastian Bergmann's PHPUnit with minimal editing for
- * MutateMe. Original copyright and license preserved as follows.
+ * Mutagenesis. Original copyright and license preserved as follows.
  *
  * Copyright (c) 2002-2010, Sebastian Bergmann <sb@sebastian-bergmann.de>.
  * All rights reserved.
@@ -37,8 +37,8 @@
  * ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @author     Sebastian Bergmann <sb@sebastian-bergmann.de>
  * @copyright  2002-2010 Sebastian Bergmann <sb@sebastian-bergmann.de>
@@ -46,7 +46,7 @@
  * @link       http://www.phpunit.de/
  */
 
-namespace Mutateme\Utility;
+namespace Mutagenesis\Utility;
 
 class Process
 {
@@ -93,7 +93,7 @@ class Process
             proc_close($process);
             if($info['timed_out']) {
                 return array(
-                    'stdout' => 'Your tests timed out. MutateMe may have'
+                    'stdout' => 'Your tests timed out. Mutagenesis may have'
                         . ' inadvertently created an infinite loop using'
                         . ' the current mutation.'
                 );

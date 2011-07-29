@@ -46,11 +46,11 @@
 
 /**
  * I...uh...borrowed this. :P
- * Changes made include the PHP 5.3 namespacing for Mutateme, changed static
+ * Changes made include the PHP 5.3 namespacing for Mutagenesis, changed static
  * diff() method name to difference() since it conflicts with the namespaced class
  * name (interpreted as a constructor otherwise).
  */
-namespace Mutateme\Utility;
+namespace Mutagenesis\Utility;
 
 /**
  * Diff implementation.

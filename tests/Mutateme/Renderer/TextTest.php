@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,35 +12,35 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-require_once 'Mutateme/Renderer/RendererInterface.php';
+require_once 'Mutagenesis/Renderer/RendererInterface.php';
 
-require_once 'Mutateme/Renderer/Text.php';
+require_once 'Mutagenesis/Renderer/Text.php';
 
-require_once 'Mutateme/Utility/Diff.php';
+require_once 'Mutagenesis/Utility/Diff.php';
 
-require_once 'Mutateme/Mutation/MutationAbstract.php';
+require_once 'Mutagenesis/Mutation/MutationAbstract.php';
 
-require_once 'Mutateme/Mutation/BooleanTrue.php';
+require_once 'Mutagenesis/Mutation/BooleanTrue.php';
 
-class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
+class Mutagenesis_Renderer_TextTest extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        $this->_renderer = new \Mutateme\Renderer\Text;
+        $this->_renderer = new \Mutagenesis\Renderer\Text;
     }
     
     public function testRendersOpeningMessage()
     {
         $this->assertEquals(
-            'MutateMe 0.5: Mutation Testing for PHP' . PHP_EOL . PHP_EOL,
+            'Mutagenesis 0.5: Mutation Testing for PHP' . PHP_EOL . PHP_EOL,
             $this->_renderer->renderOpening()
         );
     }
@@ -99,7 +99,7 @@ class Mutateme_Renderer_TextTest extends PHPUnit_Framework_TestCase
     public function testRendersFinalReportWithEscapeesFromASingleMutant()
     {
         $escaped = $this->getMock(
-            'Mutateme\\Mutation\\BooleanTrue',
+            'Mutagenesis\\Mutation\\BooleanTrue',
             array('getDiff'),
             array(),
             'MockBooleanTrue',

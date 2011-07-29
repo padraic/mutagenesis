@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,16 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-require_once 'Mutateme/Utility/Job.php';
+require_once 'Mutagenesis/Utility/Job.php';
 
-class Mutateme_JobTest extends PHPUnit_Framework_TestCase
+class Mutagenesis_JobTest extends PHPUnit_Framework_TestCase
 {
 
     public function testGenerateReturnsPHPScriptRenderedWithCurrentRunnersSettingsAndSerialisedMutationArray()
@@ -29,20 +29,20 @@ class Mutateme_JobTest extends PHPUnit_Framework_TestCase
         $root = dirname(dirname(__FILE__)) . '/_files/root/base1';
         $src = $root . '/library';
         $tests = $root . '/tests';
-        $runner = new \Mutateme\Runner\Base;
+        $runner = new \Mutagenesis\Runner\Base;
         $runner->setBaseDirectory($root)
             ->setSourceDirectory($src)
             ->setTestDirectory($tests)
             ->setAdapterName('phpspec')
             ->setAdapterOptions('--foo=bar');
-        $job = new \Mutateme\Utility\Job($runner);
+        $job = new \Mutagenesis\Utility\Job($runner);
         $script = $job->generate(array('a', '1', new stdClass));
         $expected = <<<EXPECTED
 <?php
-require_once 'Mutateme/Loader.php';
-\$loader = new \Mutateme\Loader;
+require_once 'Mutagenesis/Loader.php';
+\$loader = new \Mutagenesis\Loader;
 \$loader->register();
-\$runner = new \Mutateme\Runner\Mutation;
+\$runner = new \Mutagenesis\Runner\Mutation;
 \$runner->setBaseDirectory('{$root}')
     ->setSourceDirectory('{$src}')
     ->setTestDirectory('{$tests}')

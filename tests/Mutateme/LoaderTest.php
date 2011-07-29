@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,25 +12,25 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-class Mutateme_LoaderTest extends PHPUnit_Framework_TestCase
+class Mutagenesis_LoaderTest extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()
     {
-        spl_autoload_unregister('\Mutateme\Loader::loadClass');
+        spl_autoload_unregister('\Mutagenesis\Loader::loadClass');
     }
 
     public function testCallingRegisterRegistersSelfAsSplAutoloaderFunction()
     {
-        require_once 'Mutateme/Loader.php';
-        $loader = new \Mutateme\Loader;
+        require_once 'Mutagenesis/Loader.php';
+        $loader = new \Mutagenesis\Loader;
         $loader->register();
         $expected = array($loader, 'loadClass');
         $this->assertTrue(in_array($expected, spl_autoload_functions()));
@@ -38,7 +38,7 @@ class Mutateme_LoaderTest extends PHPUnit_Framework_TestCase
 
     public function tearDown()
     {
-        $loader = new \Mutateme\Loader;
+        $loader = new \Mutagenesis\Loader;
         $loader->register();
     }
 

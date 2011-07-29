@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,16 +12,16 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-require_once 'Mutateme/Adapter/Phpunit.php';
+require_once 'Mutagenesis/Adapter/Phpunit.php';
 
-class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
+class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
 {
 
     public function setUp()
@@ -31,7 +31,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
 
     public function testAdapterRunsDefaultPhpunitCommand()
     {
-        $adapter = new \Mutateme\Adapter\Phpunit;
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         $options = array(
             'src' => dirname(__FILE__) . '/_files/phpunit',
             'tests' => dirname(__FILE__) . '/_files/phpunit',
@@ -48,7 +48,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
 
     public function testAdapterRunsPhpunitCommandWithAlltestsFileTarget()
     {
-        $adapter = new \Mutateme\Adapter\Phpunit;
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         $options = array(
             'src' => dirname(__FILE__) . '/_files/phpunit2',
             'tests' => dirname(__FILE__) . '/_files/phpunit2',
@@ -69,7 +69,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'tests' => $this->root,
             'options' => 'PassTest'
         );
-        $adapter = new \Mutateme\Adapter\Phpunit;
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
         $adapter->execute($options, true);
         $this->assertTrue($adapter->processOutput(ob_get_clean()));
@@ -81,7 +81,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'tests' => $this->root,
             'options' => 'FailTest'
         );
-        $adapter = new \Mutateme\Adapter\Phpunit;
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
         $adapter->execute($options, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
@@ -93,7 +93,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'tests' => $this->root,
             'options' => 'ExceptionTest'
         );
-        $adapter = new \Mutateme\Adapter\Phpunit;
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
         $adapter->execute($options, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
@@ -105,7 +105,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'tests' => $this->root,
             'options' => 'ErrorTest'
         );
-        $adapter = new \Mutateme\Adapter\Phpunit;
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
         $adapter->execute($options, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
@@ -113,7 +113,7 @@ class Mutateme_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     
     public function testAdapterOutputProcessingDetectsFailOverMultipleLinesWithNoDepOnFinalStatusReport()
     {
-        $adapter = new \Mutateme\Adapter\Phpunit;
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         $output = <<<OUTPUT
 PHPUnit 3.4.12 by Sebastian Bergmann.
 

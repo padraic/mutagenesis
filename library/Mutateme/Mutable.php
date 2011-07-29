@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme;
+namespace Mutagenesis;
 
 class Mutable
 {
@@ -120,7 +120,7 @@ class Mutable
      */
     public function hasMutation($type)
     {
-        $typeClass = '\\Mutateme\\Mutation\\' . $type;
+        $typeClass = '\\Mutagenesis\\Mutation\\' . $type;
         $mutations = array_values(array_values(array_values($this->getMutations())));
         foreach ($mutations as $mutation) {
             if ($mutation instanceof $typeClass) {
@@ -181,7 +181,7 @@ class Mutable
                 break;
         }
         if (!empty($type)) {
-            $mutationClass =  'Mutateme\\Mutation\\' . $type;
+            $mutationClass =  'Mutagenesis\\Mutation\\' . $type;
             if (!class_exists($mutationClass)) {
                 require_once str_replace('\\', '/', ltrim($mutationClass, '\\')) . '.php';
             }
@@ -221,7 +221,7 @@ class Mutable
                 break;
         }
         if (!empty($type)) {
-            $mutationClass =  'Mutateme\\Mutation\\' . $type;
+            $mutationClass =  'Mutagenesis\\Mutation\\' . $type;
             if (!class_exists($mutationClass)) {
                 // todo: given we're autoloading, could we not just kick up an exception here?
                 require_once str_replace('\\', '/', ltrim($mutationClass, '\\')) . '.php';

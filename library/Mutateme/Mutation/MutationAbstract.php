@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme\Mutation;
+namespace Mutagenesis\Mutation;
 
 abstract class MutationAbstract
 {
@@ -90,7 +90,7 @@ abstract class MutationAbstract
     {
         $original = $this->_reconstructFromTokens($this->_tokensOriginal);
         $mutated = $this->_reconstructFromTokens($this->_tokensMutated);
-        $difference = \Mutateme\Utility\Diff::difference($original, $mutated);
+        $difference = \Mutagenesis\Utility\Diff::difference($original, $mutated);
         return $difference;
     }
 

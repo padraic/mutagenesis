@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,14 +12,14 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme\Adapter\Phpunit;
+namespace Mutagenesis\Adapter\Phpunit;
 
 require_once 'PHPUnit/TextUI/Command.php';
 
@@ -33,7 +33,7 @@ class Runner
 
     /**
      * Uses an instance of PHPUnit_TextUI_Command to execute the PHPUnit
-     * tests and simulates any Mutateme supported command line options suitable
+     * tests and simulates any Mutagenesis supported command line options suitable
      * for PHPUnit. At present, we merely dissect a generic 'options' string
      * equivelant to anything typed into a console after a normal 'phpunit'
      * command. The adapter captures the TextUI output for further processing.
@@ -41,7 +41,7 @@ class Runner
      * To prevent duplication of output from stdout, PHPUnit is hard
      * configured to write to stderrm(stdin is used in proc_open call)
      *
-     * @param array $arguments Mutateme arguments to pass to PHPUnit
+     * @param array $arguments Mutagenesis arguments to pass to PHPUnit
      * @return void
      */
     public static function main(array $arguments, $useStdout = false)

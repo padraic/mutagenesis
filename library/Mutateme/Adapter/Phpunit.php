@@ -1,6 +1,6 @@
 <?php
 /**
- * Mutateme
+ * Mutagenesis
  *
  * LICENSE
  *
@@ -12,18 +12,18 @@
  * obtain it through the world-wide-web, please send an email
  * to padraic@php.net so we can send you a copy immediately.
  *
- * @category   Mutateme
- * @package    Mutateme
+ * @category   Mutagenesis
+ * @package    Mutagenesis
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
  */
 
-namespace Mutateme\Adapter;
+namespace Mutagenesis\Adapter;
 
-require_once 'Mutateme/Adapter/AdapterAbstract.php';
+require_once 'Mutagenesis/Adapter/AdapterAbstract.php';
 
-require_once 'Mutateme/Adapter/Phpunit/Runner.php';
+require_once 'Mutagenesis/Adapter/Phpunit/Runner.php';
 
 class Phpunit extends AdapterAbstract
 {
