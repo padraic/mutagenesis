@@ -48,9 +48,15 @@ class Job
      * @param array $mutation Mutation data and objects to be used
      * @return string
      */
-    public function generate(array $mutation = array())
+    public function generate(array $mutation = array(), $firstRun = false)
     {
         $serializedMutation = serialize($mutation);
+        $adapterCliOptions = $this->_runner->getAdapterOptions();
+        if ($firstRun) {
+            $adapterCliOptions .= ' --log-junit '
+                . $this->_runner->getCacheDirectory()
+                . '/mutagenesis.xml';
+        }
         $script = <<<SCRIPT
 <?php
 require_once 'Mutagenesis/Loader.php';
@@ -61,7 +67,7 @@ require_once 'Mutagenesis/Loader.php';
     ->setSourceDirectory('{$this->_runner->getSourceDirectory()}')
     ->setTestDirectory('{$this->_runner->getTestDirectory()}')
     ->setAdapterName('{$this->_runner->getAdapterName()}')
-    ->setAdapterOptions('{$this->_runner->getAdapterOptions()}')
+    ->setAdapterOptions('{$adapterCliOptions}')
     ->setTimeout('{$this->_runner->getTimeout()}')
     ->setBootstrap('{$this->_runner->getBootstrap()}')
     ->setMutation('{$serializedMutation}');

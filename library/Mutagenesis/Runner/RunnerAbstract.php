@@ -46,6 +46,14 @@ abstract class RunnerAbstract
     protected $_testDirectory = '';
 
     /**
+     * Path to a cache directory used by library to store working files
+     * such as PHPUnit logs needed to analyse test case execution times.
+     *
+     * @var string
+     */
+    protected $_cacheDirectory = null;
+
+    /**
      * Name of the test adapter, e.g. phpunit, to utilise
      *
      * @var string
@@ -216,6 +224,34 @@ abstract class RunnerAbstract
     public function getTestDirectory()
     {
         return $this->_testDirectory;
+    }
+
+    /**
+     * Set the cache directory of the project being mutated
+     *
+     * @param string $dir
+     */
+    public function setCacheDirectory($dir)
+    {
+        $dir = rtrim($dir, ' \\/');
+        if (!is_dir($dir) || !is_readable($dir)) {
+            throw new \Exception('Invalid cache directory: "'.$dir.'"');
+        }
+        $this->_cacheDirectory = $dir;
+        return $this;
+    }
+
+    /**
+     * Get the cache directory of the project being mutated
+     *
+     * @return string
+     */
+    public function getCacheDirectory()
+    {
+        if (is_null($this->_cacheDirectory)) {
+            return sys_get_temp_dir();
+        }
+        return $this->_cacheDirectory;
     }
 
     /**

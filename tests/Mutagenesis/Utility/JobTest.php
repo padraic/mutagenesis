@@ -55,5 +55,38 @@ require_once 'Mutagenesis/Loader.php';
 EXPECTED;
         $this->assertEquals($expected, $script);
     }
+
+    public function testGenerateReturnsPHPScriptRenderedWithCurrentRunnersSettingsAndLoggingEnabledIfFirstRun()
+    {
+        $root = dirname(dirname(__FILE__)) . '/_files/root/base1';
+        $src = $root . '/library';
+        $tests = $root . '/tests';
+        $runner = new \Mutagenesis\Runner\Base;
+        $runner->setBaseDirectory($root)
+            ->setSourceDirectory($src)
+            ->setTestDirectory($tests)
+            ->setAdapterName('phpspec')
+            ->setAdapterOptions('--foo=bar');
+        $job = new \Mutagenesis\Utility\Job($runner);
+        $script = $job->generate(array(), true);
+        $tmp = sys_get_temp_dir();
+        $expected = <<<EXPECTED
+<?php
+require_once 'Mutagenesis/Loader.php';
+\$loader = new \Mutagenesis\Loader;
+\$loader->register();
+\$runner = new \Mutagenesis\Runner\Mutation;
+\$runner->setBaseDirectory('{$root}')
+    ->setSourceDirectory('{$src}')
+    ->setTestDirectory('{$tests}')
+    ->setAdapterName('phpspec')
+    ->setAdapterOptions('--foo=bar --log-junit {$tmp}/mutagenesis.xml')
+    ->setTimeout('120')
+    ->setBootstrap('')
+    ->setMutation('a:0:{}');
+\$runner->execute();
+EXPECTED;
+        $this->assertEquals($expected, $script);
+    }
    
 }

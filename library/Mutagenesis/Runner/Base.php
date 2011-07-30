@@ -40,10 +40,24 @@ class Base extends RunnerAbstract
          * mutations are applied. There's no point mutation testing source
          * code which is already failing its tests since we'd simply get
          * false positives for every single mutation applied later.
+         *
+         * This stage also logs the test run to XML/JSON since future runs will
+         * attempt to run the fastest test cases first (and slowest last)
+         * which in all probability should result in faster mutation test runs.
          */
-        $output = \Mutagenesis\Utility\Process::run($job->generate());
+        $output = \Mutagenesis\Utility\Process::run($job->generate(array(), true));
         $result = $this->getAdapter()->processOutput($output['stdout']);
         echo $renderer->renderPretest($result, $output['stdout']);
+
+        /**
+         * Compile an array of test cases ordered by execution time in first run
+         * in ascending order (i.e. fastest first)
+         */
+        //echo $renderer->renderPretestTimeAnalysisInProgress();
+        $timeAnalysis = new \Mutagenesis\Utility\TestTimeAnalyser(
+            $this->getCacheDirectory() . '/mutagenesis.xml'
+        );
+        $orderedTestCases = $timeAnalysis->process();
         
         /**
          * If the underlying test suite is not passing, we can't continue.

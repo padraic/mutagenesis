@@ -120,7 +120,7 @@ class Process
         if (is_readable('/usr/bin/php')) {
             self::$_phpBin = '/usr/bin/php';
         } elseif (PHP_SAPI == 'cli' && isset($_SERVER['_'])
-        && strpos($_SERVER['_'], 'mutateme') !== false) {
+        && strpos($_SERVER['_'], 'mutagenesis') !== false) {
             $file = file($_SERVER['_']);
             $tmp = explode(' ', $file[0]);
             self::$_phpBin = trim($tmp[1]);

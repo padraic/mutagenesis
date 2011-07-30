@@ -182,4 +182,17 @@ class Mutagenesis_RunnerTest extends PHPUnit_Framework_TestCase
         $this->assertTrue($runner->getRunkit() instanceof \Mutagenesis\Utility\Runkit);
     }
 
+    public function testShouldStoreCacheDirectoryValue()
+    {
+        $runner = new \Mutagenesis\Runner\Base;
+        $runner->setCacheDirectory($this->root);
+        $this->assertEquals($this->root, $runner->getCacheDirectory());
+    }
+
+    public function testCacheDirectoryDefaultsToTmpIfNotSet()
+    {
+        $runner = new \Mutagenesis\Runner\Base;
+        $this->assertEquals(sys_get_temp_dir(), $runner->getCacheDirectory());
+    }
+
 }
