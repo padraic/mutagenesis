@@ -4,7 +4,7 @@ class ErrorTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @group disabled
+     * @group PHPUnitRunnerTesting
      */
     public function testSomeError()
     {

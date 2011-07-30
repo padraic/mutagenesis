@@ -4,7 +4,7 @@ class PassTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @group disabled
+     * @group PHPUnitRunnerTesting
      */
     public function testSomePass()
     {

@@ -1,11 +1,11 @@
-<phpunit bootstrap="./Bootstrap.php">
+<phpunit bootstrap="./Bootstrap.php" colors="true">
     <testsuite name="Mutagenesis Test Suite">
         <directory>./</directory>
     </testsuite>
 
     <groups>
         <exclude>
-            <group>disable</group>
+            <group>PHPUnitRunnerTesting</group>
         </exclude>
     </groups>
 

@@ -6,7 +6,7 @@ class MM2_MathTest extends PHPUnit_Framework_TestCase
 {
 
     /**
-     * @group disabled
+     * @group PHPUnitRunnerTesting
      */
     public function testAdds()
     {
