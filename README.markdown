@@ -1,9 +1,9 @@
-MutateMe
+Mutagenesis
 ========
 
 A PHP 5.3+ Mutation Testing framework.
 
-MutateMe is released under a New BSD License.
+Mutagenesis is released under a New BSD License.
 
 Mutation Testing
 ----------------
@@ -24,14 +24,14 @@ According to Wikipedia:
 Prerequisites
 -------------
 
-MutateMe requires PHP 5.3.
+Mutagenesis requires PHP 5.3.
 
-In addition, MutateMe relies on the PECL runkit extension in order to mutate
+In addition, Mutagenesis relies on the PECL runkit extension in order to mutate
 source code already in memory. Unfortunately, the current version of runkit
 in PHP's official subversion repository is in turns incomplete or bugged. However
 an updated runkit is maintained on Github at
 [http://github.com/zenovich/runkit](http://github.com/zenovich/runkit "runkit").
-MutateMe requires that this specific version of runkit is used with PHP 5.3.
+Mutagenesis requires that this specific version of runkit is used with PHP 5.3.
 
 To install the runkit extension, the following commands should be sufficient:
 
@@ -58,26 +58,26 @@ The preferred installation method is via PEAR. At present no PEAR channel
 has been provided but this does not prevent a simple install! The simplest
 method of installation is:
 
-    git clone git://github.com/padraic/mutateme.git mutateme
-    cd mutateme
+    git clone git://github.com/padraic/mutagenesis.git mutagenesis
+    cd mutagenesis
     sudo pear install pear.xml
 
-The above process will install MutateMe as a PEAR library.
+The above process will install Mutagenesis as a PEAR library.
 
 Note: If installing from a git clone, you may need to delete any previous
-MutateMe install via PEAR using:
+Mutagenesis install via PEAR using:
 
-    sudo pear uninstall MutateMe
+    sudo pear uninstall Mutagenesis
     
 While the git repository tracks code in development, I hope to add an official
 PEAR channel in the near future.
 
-Note: MutateMe supports PHPUnit 3.4 by default, the current stable version. If
+Note: Mutagenesis supports PHPUnit 3.4 by default, the current stable version. If
 you are using the unreleased PHPUnit 3.5, you should instead install from the
 phpunit-3.5 branch using:
 
-    git clone git://github.com/padraic/mutateme.git mutateme
-    cd mutateme
+    git clone git://github.com/padraic/mutagenesis.git mutagenesis
+    cd mutagenesis
     git checkout phpunit-3.5
     sudo pear install pear.xml
 
@@ -88,12 +88,12 @@ world of git.
 Operation
 ---------
 
-MutateMe is used from the command line using the installed 'mutateme' script
-or 'mutateme.bat' from Windows. It hooks into the underlying test suite for
+Mutagenesis is used from the command line using the installed 'mutagenesis' script
+or 'mutagenesis.bat' from Windows. It hooks into the underlying test suite for
 a library or application by using an adapter. Currently, a PHPUnit adapter is
 bundled and used by default.
 
-After an initial test run to ensure all unit tests are passing, MutateMe
+After an initial test run to ensure all unit tests are passing, Mutagenesis
 examines the source code of what is being tested. Based on this examination,
 it generates a set of "mutations" (i.e. deliberate errors). For example, it may
 locate the boolean value TRUE and generate a mutation to change it to FALSE.
@@ -113,7 +113,7 @@ deliberate error.
 After all mutations have been tested, a final report is provided with a small
 diff description of each escaped mutant.
 
-It should be noted that, depending on the MutateMe options used, running the
+It should be noted that, depending on the Mutagenesis options used, running the
 test suite (or a subset thereof) for each mutation can be a time consuming
 process (i.e. the time for one test run multiplied by the number of generated
 mutants).
@@ -129,9 +129,9 @@ relevant Mutation Testing reports in the future.
 Command Line Options
 --------------------
 
-A typical mutateme command is issued with:
+A typical mutagenesis command is issued with:
 
-    mutateme --src="/path/project/library" --tests="/path/project/tests"
+    mutagenesis --src="/path/project/library" --tests="/path/project/tests"
     
 The basic parameters let you control the directory depth, i.e. which subset of
 the source code and/or tests will be utilised. Additional options may be passed
@@ -149,7 +149,7 @@ timeout. A reported timeout is not a bad thing, it simply means a mutation
 may have created a noticeable infinite loop in the source code.
 
 Important: The bootstrap option is essential where your source code relies on
-autoloading. MutateMe needs to include class files prior to the test adapter
+autoloading. Mutagenesis needs to include class files prior to the test adapter
 running, so setting a relevant bootstrap prevents include errors. For example,
 PHPUnit test suites often use a TestHelper.php or Bootstrap.php file.
 
@@ -158,25 +158,25 @@ For example, imagine we usually employ the following to run some PHPUnit tests:
     phpunit AllTests.php --exclude-group=disabled
     
 In addition, we use the file TestHelper.php to setup autloading for the tests
-(this would normally be included from within AllTests.php manually but MutateMe
+(this would normally be included from within AllTests.php manually but Mutagenesis
 needs to load it as early as possible).
     
-We can pass this to mutateme as:
+We can pass this to mutagenesis as:
 
-    mutateme --src="/path/project/library" --tests="/path/project/tests" \
+    mutagenesis --src="/path/project/library" --tests="/path/project/tests" \
         --options="AllTests.php --exclude-group=disabled" \
         --bootstrap="TestHelper.php"
         
 Note: "\\" merely marks a line break for this README. The command should be on
 a single line with the \ removed.
 
-This affords a very flexible means of allowing users to use MutateMe on narrower
+This affords a very flexible means of allowing users to use Mutagenesis on narrower
 subsets of their test suites.
 
-Understand MutateMe Output
+Understand Mutagenesis Output
 --------------------------
 
-MutateMe outputs an initial and final report. The initial report is the result
+Mutagenesis outputs an initial and final report. The initial report is the result
 of a pretest, a test run to ensure the test suite is in a passing state before
 attempting any mutations. Tests must be in a non-fail state or else mutation
 testing cannot be performed (i.e. all mutants would escape!).
@@ -186,7 +186,7 @@ method and file mutated, along with a diff of the method code that was
 changed. Here's a quick exerpt of a mutation test run with escaped mutants
 (containing the first escaped example - the remainder are omitted for brevity).
 
-    MutateMe 0.5: Mutation Testing for PHP
+    Mutagenesis 0.5: Mutation Testing for PHP
 
     All initial checks successful! The mutagenic slime has been activated.
 
@@ -228,7 +228,7 @@ The progress output uses the following markers:
 Supported Mutations
 -------------------
 
-Work on MutateMe is ongoing, and more mutations will be added over time. At
+Work on Mutagenesis is ongoing, and more mutations will be added over time. At
 present the following mutations are available (primarily simple operator/value
 reversals):
 
