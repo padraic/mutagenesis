@@ -40,7 +40,7 @@ class Mutagenesis_Renderer_TextTest extends PHPUnit_Framework_TestCase
     public function testRendersOpeningMessage()
     {
         $this->assertEquals(
-            'Mutagenesis 0.5: Mutation Testing for PHP' . PHP_EOL . PHP_EOL,
+            'Mutagenesis: Mutation Testing for PHP' . PHP_EOL . PHP_EOL,
             $this->_renderer->renderOpening()
         );
     }

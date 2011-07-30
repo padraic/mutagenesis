@@ -69,8 +69,8 @@ class Base extends RunnerAbstract
          * to dynamically alter included (in-memory) classes on the fly.
          */
         
-        foreach ($mutables as $mutable) {
-            $mutations = $mutable->getMutations();
+        foreach ($mutables as $i=>$mutable) {
+            $mutations = $mutable->generate()->getMutations();
             foreach ($mutations as $mutation) {
                 $output = \Mutagenesis\Utility\Process::run(
                     $job->generate($mutation), $this->getTimeout()
@@ -97,6 +97,8 @@ class Base extends RunnerAbstract
                 }
                 echo $renderer->renderProgressMark($result);
             }
+            $mutable->cleanup();
+            unset($this->_mutables[$i]);
         }
 
         /**

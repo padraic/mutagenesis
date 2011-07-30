@@ -64,7 +64,6 @@ class Generator
                 $mutable = new $mutableObject;
                 $mutable->setFilename($file);
             }
-            $mutable->generate();
             $this->_mutables[] = $mutable;
         }
     }

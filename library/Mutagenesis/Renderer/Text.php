@@ -31,7 +31,7 @@ class Text implements RendererInterface
      */
     public function renderOpening()
     {
-        $out = 'Mutagenesis 0.5: Mutation Testing for PHP'
+        $out = 'Mutagenesis: Mutation Testing for PHP'
             . PHP_EOL . PHP_EOL;
         return $out;
     }
@@ -143,7 +143,7 @@ class Text implements RendererInterface
                     . PHP_EOL . $this->_indentTestOutput($mutant[1]) . PHP_EOL . PHP_EOL;
                 $i++;
             }
-            $out .= "Check above these capture details to see if any mutants"
+            $out .= "Check above for the capture details to see if any mutants"
              . ' escaped.';
         }
         return $out;

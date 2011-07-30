@@ -64,6 +64,15 @@ class Mutable
     {
         $this->_mutables = $this->_parseMutables();
         $this->_parseTokensToMutations($this->_mutables);
+        return $this;
+    }
+
+    /**
+     * Cleanup routines for memory management
+     */
+    public function cleanup()
+    {
+        unset($this->_mutations, $this->_mutables);
     }
 
     /**
@@ -121,6 +130,7 @@ class Mutable
     public function hasMutation($type)
     {
         $typeClass = '\\Mutagenesis\\Mutation\\' . $type;
+        // I know, wtf?!
         $mutations = array_values(array_values(array_values($this->getMutations())));
         foreach ($mutations as $mutation) {
             if ($mutation instanceof $typeClass) {
