@@ -34,7 +34,7 @@ class Mutagenesis_JobTest extends PHPUnit_Framework_TestCase
             ->setSourceDirectory($src)
             ->setTestDirectory($tests)
             ->setAdapterName('phpspec')
-            ->setAdapterOptions('--foo=bar');
+            ->setAdapterOption('--foo=bar');
         $job = new \Mutagenesis\Utility\Job($runner);
         $script = $job->generate(array('a', '1', new stdClass));
         $expected = <<<EXPECTED
@@ -47,7 +47,7 @@ require_once 'Mutagenesis/Loader.php';
     ->setSourceDirectory('{$src}')
     ->setTestDirectory('{$tests}')
     ->setAdapterName('phpspec')
-    ->setAdapterOptions('--foo=bar')
+    ->setAdapterOption('--foo=bar')
     ->setTimeout('120')
     ->setBootstrap('')
     ->setMutation('a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;O:8:"stdClass":0:{}}');
@@ -66,7 +66,7 @@ EXPECTED;
             ->setSourceDirectory($src)
             ->setTestDirectory($tests)
             ->setAdapterName('phpspec')
-            ->setAdapterOptions('--foo=bar');
+            ->setAdapterOption('--foo=bar');
         $job = new \Mutagenesis\Utility\Job($runner);
         $script = $job->generate(array(), true);
         $tmp = sys_get_temp_dir();
@@ -80,7 +80,7 @@ require_once 'Mutagenesis/Loader.php';
     ->setSourceDirectory('{$src}')
     ->setTestDirectory('{$tests}')
     ->setAdapterName('phpspec')
-    ->setAdapterOptions('--foo=bar --log-junit {$tmp}/mutagenesis.xml')
+    ->setAdapterOption('--foo=bar --log-junit {$tmp}/mutagenesis.xml')
     ->setTimeout('120')
     ->setBootstrap('')
     ->setMutation('a:0:{}');

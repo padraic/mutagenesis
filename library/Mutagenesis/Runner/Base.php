@@ -50,8 +50,16 @@ class Base extends RunnerAbstract
         echo $renderer->renderPretest($result, $output['stdout']);
 
         /**
+         * If the underlying test suite is not passing, we can't continue.
+         */
+        if (!$result) {
+            return;
+        }
+
+        /**
          * Compile an array of test cases ordered by execution time in first run
-         * in ascending order (i.e. fastest first)
+         * in ascending order (i.e. fastest first). Would have been logged to /tmp
+         * or custom cache directory by first run.
          */
         //echo $renderer->renderPretestTimeAnalysisInProgress();
         $timeAnalysis = new \Mutagenesis\Utility\TestTimeAnalyser(
@@ -59,12 +67,7 @@ class Base extends RunnerAbstract
         );
         $orderedTestCases = $timeAnalysis->process();
         
-        /**
-         * If the underlying test suite is not passing, we can't continue.
-         */
-        if (!$result) {
-            return;
-        }
+        
 
         $countMutants = 0;
         $countMutantsKilled = 0;

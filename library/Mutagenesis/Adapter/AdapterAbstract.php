@@ -24,6 +24,8 @@ namespace Mutagenesis\Adapter;
 abstract class AdapterAbstract
 {
 
+    const TIMED_OUT = 'timed out';
+
     /**
      * Output from the test library in use
      *

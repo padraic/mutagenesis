@@ -66,7 +66,7 @@ abstract class RunnerAbstract
      *
      * @var string
      */
-    protected $_adapterOptions = '';
+    protected $_adapterOptions = array();
 
     /**
      * Instance of a suitable renderer used to format results into output
@@ -280,20 +280,20 @@ abstract class RunnerAbstract
      *
      * @param string $optionString
      */
-    public function setAdapterOptions($optionString)
+    public function setAdapterOption($optionString)
     {
-        $this->_adapterOptions = $optionString;
+        $this->_adapterOptions[] = $optionString;
         return $this;
     }
 
     /**
-     * Get name of the test adapter to use
+     * Get a space delimited string of testing tool options
      *
      * @return string
      */
     public function getAdapterOptions()
     {
-        return $this->_adapterOptions;
+        return implode(' ', $this->_adapterOptions);
     }
 
     /**

@@ -67,7 +67,7 @@ require_once 'Mutagenesis/Loader.php';
     ->setSourceDirectory('{$this->_runner->getSourceDirectory()}')
     ->setTestDirectory('{$this->_runner->getTestDirectory()}')
     ->setAdapterName('{$this->_runner->getAdapterName()}')
-    ->setAdapterOptions('{$adapterCliOptions}')
+    ->setAdapterOption('{$adapterCliOptions}')
     ->setTimeout('{$this->_runner->getTimeout()}')
     ->setBootstrap('{$this->_runner->getBootstrap()}')
     ->setMutation('{$serializedMutation}');

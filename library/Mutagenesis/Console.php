@@ -142,7 +142,7 @@ class Console
     protected static function setAdapterOptions(\Mutagenesis\Runner\RunnerAbstract $runner)
     {
         if (isset(self::$_options['options'])) {
-            $runner->setAdapterOptions(self::$_options['options']);
+            $runner->setAdapterOption(self::$_options['options']);
         }
     }
     

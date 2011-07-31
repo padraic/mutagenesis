@@ -21,10 +21,6 @@
 
 namespace Mutagenesis\Adapter;
 
-require_once 'Mutagenesis/Adapter/AdapterAbstract.php';
-
-require_once 'Mutagenesis/Adapter/Phpunit/Runner.php';
-
 class Phpunit extends AdapterAbstract
 {
 
@@ -50,7 +46,7 @@ class Phpunit extends AdapterAbstract
     public function processOutput($output)
     {
         if (substr($output, 0, 21) == 'Your tests timed out.') {
-            return 'timed out';
+            return self::TIMED_OUT;
         }
         $lines = explode("\n", $output);
         $useful = array_slice($lines, 2);
