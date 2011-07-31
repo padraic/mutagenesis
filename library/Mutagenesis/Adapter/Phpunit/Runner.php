@@ -48,6 +48,9 @@ class Runner
         if(!$useStdout) {
             array_unshift($arguments['clioptions'], '--stderr');
         }
+        if (!in_array($arguments['clioptions'], '--stop-on-failure')) {
+            array_unshift($arguments['clioptions'], '--stop-on-failure');
+        }
         array_unshift($arguments['clioptions'], 'phpunit');
         $originalWorkingDirectory = getcwd();
         if (isset($arguments['tests'])) {
