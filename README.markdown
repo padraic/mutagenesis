@@ -24,7 +24,7 @@ According to Wikipedia:
 Prerequisites
 -------------
 
-Mutagenesis requires PHP 5.3.
+Mutagenesis requires PHP 5.3 with PHP Tokenizer support enabled.
 
 In addition, Mutagenesis relies on the PECL runkit extension in order to mutate
 source code already in memory. Unfortunately, the current version of runkit
@@ -47,7 +47,8 @@ php.ini file to add the extension for loading, e.g.
 
     extension=runkit.so
 
-Huge thanks to Dmitry Zenovich (zenovich on Github) for maintaining this runkit
+Huge thanks to [http://github.com/zenovich](http://github.com/zenovich "Dmitry Zenovich") (zenovich 
+on Github) for maintaining this runkit
 copy!
 
 
@@ -69,21 +70,12 @@ Mutagenesis install via PEAR using:
 
     sudo pear uninstall Mutagenesis
     
-While the git repository tracks code in development, I hope to add an official
-PEAR channel in the near future.
+While the git repository tracks code in development, I will add an official
+PEAR channel in the near future once a stable release is made.
 
-Note: Mutagenesis supports PHPUnit 3.4 by default, the current stable version. If
-you are using the unreleased PHPUnit 3.5, you should instead install from the
-phpunit-3.5 branch using:
-
-    git clone git://github.com/padraic/mutagenesis.git mutagenesis
-    cd mutagenesis
-    git checkout phpunit-3.5
-    sudo pear install pear.xml
-
-The checkout operation is not remote (git clones all branches so any clone
-just sticks you on the master branch by default). Welcome to the wonderful
-world of git.
+Note: Mutagenesis supports PHPUnit 3.5 by default, the current stable version.
+Earlier versions of PHPUnit may or not work and it is suggested to ensure
+PHPUnit is updated prior to using Mutagenesis.
 
 Operation
 ---------
@@ -111,12 +103,8 @@ a successful mutant capture. Your test suite was sufficient to detect the
 deliberate error.
 
 After all mutations have been tested, a final report is provided with a small
-diff description of each escaped mutant.
-
-It should be noted that, depending on the Mutagenesis options used, running the
-test suite (or a subset thereof) for each mutation can be a time consuming
-process (i.e. the time for one test run multiplied by the number of generated
-mutants).
+diff description of each escaped mutant to assist in composing any new unit tests
+required.
 
 On a final note, Mutation Testing is a semi-blind process. Not all mutations
 introduce true errors. Changing a TRUE to a FALSE where a variable is being
@@ -138,9 +126,10 @@ the source code and/or tests will be utilised. Additional options may be passed
 to direct the unit test framework adapter:
 
 * --adapter: The name of the unit test adapter to use; defaults to "phpunit"
-* --options: String containing options to pass to the unit test framework's command
+* --options: String containing command line switches to pass to the unit test framework
 * --timeout: Sets the number of seconds after which a test run is considered timout
 * --bootstrap: Sets a bootstrap file to include prior to running tests
+* --constraint: PHPUnit class and/or file path for test execution
 * --detail-captures: Shows mutation diffs and testing reports for captured mutants
 
 Note: The default timeout is 120 seconds. Any test suite exceeding this should
@@ -164,7 +153,7 @@ needs to load it as early as possible).
 We can pass this to mutagenesis as:
 
     mutagenesis --src="/path/project/library" --tests="/path/project/tests" \
-        --options="AllTests.php --exclude-group=disabled" \
+        --options="--exclude-group=disabled" --constraint="AllTests.php" \
         --bootstrap="TestHelper.php"
         
 Note: "\\" merely marks a line break for this README. The command should be on
@@ -228,21 +217,39 @@ The progress output uses the following markers:
 Supported Mutations
 -------------------
 
-Work on Mutagenesis is ongoing, and more mutations will be added over time. At
-present the following mutations are available (primarily simple operator/value
-reversals):
+Work on Mutagenesis is ongoing, and more mutations will be added over time. Please
+refer to the included SupportedMutations file for the current list.
 
-    * BooleanTrue: replace TRUE with FALSE
-    * BooleanFalse: replace FALSE with TRUE
-    * BooleanAnd: replace && with ||
-    * BooleanOr: replace || with &&
-    * OperatorAddition: replace + with -
-    * OperatorSubtraction: replace - with +
-    * OperatorIncrement: replace ++ with --
-    * OperatorDecrement: replace -- with ++
-    
-Obviously, this is just the tip of the iceberg. Mutations will be continually
-added now that we have the core framework in a stable working state.
+Performance
+-----------
+
+Mutation Testing relies on running a test suite repeatedly for each mutation generated.
+It is not a fast process, and is better suited to occassional use or in continuous
+integration. Mutagenesis has implemented a number of heuristics first utilised by the
+Java Jumbler framework in order to speed things up.
+
+1. Exit Early
+
+Mutagenesis only requires a single test in a suite to fail to know when a mutation
+has been detected. Therefore, once any test fails, the test suite run is terminated
+immediately so we're not pointlessly executed whole test suites unnecessarily.
+
+2. Execute Fastest First
+
+During the initial test suite check, Mutagenesis compiles execution times for each
+test case encountered. In subsequent runs, it will execute test cases in order of their
+execution times starting with the fastest. This leaves very slow test cases to the very
+end thus relying on the probability that any mutation detections will often be detected
+earlier by faster tests thus reducing the net time spent in running test suites.
+
+3. Rinse And Repeat
+
+Mutagenesis mutates file by file, meaning that any test case detecting a mutation
+has a better change of detecting other mutations on the same file. Therefore,
+Mutagenesis first executes the last two tests cases to detect a mutation before
+any other test cases to leverage off their probable success.
+
+
 
     
 
