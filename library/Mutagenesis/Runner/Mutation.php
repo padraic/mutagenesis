@@ -30,13 +30,24 @@ class Mutation extends RunnerAbstract
      * @var array
      */
     protected $_mutation = null;
+
+    /**
+     * Test Cases to process in a specific execution order
+     *
+     * @var array
+     */
+    protected $_testCasesInExecutionOrder = array();
     
     /**
-     * Execute the runner
+     * Execute the runner. If the initial test run to check all tests are in
+     * a passing state, should pass TRUE as first parameter. This will attempt
+     * to have the testing framework log execution times of test cases so that
+     * subsequent runs run test cases in their order of execution times ascending
      *
+     * @param bool $firstRun Indicates if first run of tests
      * @return void
      */
-    public function execute()
+    public function execute($firstRun = false)
     {
         $mutation = $this->getMutation();
         if (!empty($mutation)) {
@@ -45,7 +56,7 @@ class Mutation extends RunnerAbstract
             }
             $this->getRunkit()->applyMutation($mutation);
         }
-        $this->getAdapter()->execute($this->getOptions());
+        $this->getAdapter()->execute($this->getOptions(), false, $firstRun, $this->_testCasesInExecutionOrder);
     }
     
     /**
@@ -67,6 +78,16 @@ class Mutation extends RunnerAbstract
     public function getMutation()
     {
         return $this->_mutation;
+    }
+
+    public function setTestCasesInExecutionOrder($testCases)
+    {
+        $this->_testCasesInExecutionOrder = unserlialize($testCases);
+    }
+
+    public function setAdapterOptions($options)
+    {
+        parent::setAdapterOptions(unserialize($options));
     }
 
 }

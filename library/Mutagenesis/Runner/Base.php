@@ -90,7 +90,7 @@ class Base extends RunnerAbstract
             $mutations = $mutable->generate()->getMutations();
             foreach ($mutations as $mutation) {
                 $output = \Mutagenesis\Utility\Process::run(
-                    $job->generate($mutation), $this->getTimeout()
+                    $job->generate($mutation, false, $orderedTestCases), $this->getTimeout()
                 );
                 /* TODO: Store output for per-mutant results */
                 $result = $this->getAdapter()->processOutput($output['stdout']);

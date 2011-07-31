@@ -29,6 +29,13 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         $this->root = dirname(__FILE__) . '/_files';
     }
 
+    public function tearDown()
+    {
+        if (file_exists(sys_get_temp_dir() . '/mutagenesis.xml')) {
+            unlink(sys_get_temp_dir() . '/mutagenesis.xml');
+        }
+    }
+
     public function testAdapterRunsDefaultPhpunitCommand()
     {
         $adapter = new \Mutagenesis\Adapter\Phpunit;
@@ -36,10 +43,12 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'src' => dirname(__FILE__) . '/_files/phpunit',
             'tests' => dirname(__FILE__) . '/_files/phpunit',
             'base' => dirname(__FILE__) . '/_files/phpunit',
-            'options' => 'MM1_MathTest MathTest.php'
+            'cache' => sys_get_temp_dir(),
+            'clioptions' => array(),
+            'constraint' => 'MM1_MathTest MathTest.php'
         );
         ob_start();
-        $adapter->execute($options, true);
+        $adapter->execute($options, true, true);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
             ob_get_clean()
@@ -53,10 +62,12 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'src' => dirname(__FILE__) . '/_files/phpunit2',
             'tests' => dirname(__FILE__) . '/_files/phpunit2',
             'base' => dirname(__FILE__) . '/_files/phpunit2',
-            'options' => 'AllTests.php'
+            'cache' => sys_get_temp_dir(),
+            'clioptions' => array(),
+            'constraint' => 'AllTests.php'
         );
         ob_start();
-        $adapter->execute($options, true);
+        $adapter->execute($options, true, true);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
             ob_get_clean()
@@ -67,11 +78,13 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     {
         $options = array(
             'tests' => $this->root,
-            'options' => 'PassTest'
+            'clioptions' => array(),
+            'cache' => sys_get_temp_dir(),
+            'constraint' => 'PassTest'
         );
         $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options, true);
+        $adapter->execute($options, true, true);
         $this->assertTrue($adapter->processOutput(ob_get_clean()));
     }
 
@@ -79,11 +92,13 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     {
         $options = array(
             'tests' => $this->root,
-            'options' => 'FailTest'
+            'clioptions' => array(),
+            'cache' => sys_get_temp_dir(),
+            'constraint' => 'FailTest'
         );
         $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options, true);
+        $adapter->execute($options, true, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
 
@@ -91,11 +106,13 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     {
         $options = array(
             'tests' => $this->root,
-            'options' => 'ExceptionTest'
+            'clioptions' => array(),
+            'cache' => sys_get_temp_dir(),
+            'constraint' => 'ExceptionTest'
         );
         $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options, true);
+        $adapter->execute($options, true, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
 
@@ -103,11 +120,13 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     {
         $options = array(
             'tests' => $this->root,
-            'options' => 'ErrorTest'
+            'clioptions' => array(),
+            'cache' => sys_get_temp_dir(),
+            'constraint' => 'ErrorTest'
         );
         $adapter = new \Mutagenesis\Adapter\Phpunit;
         ob_start();
-        $adapter->execute($options, true);
+        $adapter->execute($options, true, true);
         $this->assertFalse($adapter->processOutput(ob_get_clean()));
     }
     

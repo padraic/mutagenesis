@@ -69,6 +69,16 @@ abstract class RunnerAbstract
     protected $_adapterOptions = array();
 
     /**
+     * Adapter constraint. Used in initial run to analyse what tests/cases/suites
+     * are to be executed. For example, calling "phpunit MyTests MyTests.php" sets
+     * a constraint of "MyTests MyTests.php". Used to narrow the focus of the current
+     * mutation testing run if needed (e.g. spreading testing over time)
+     *
+     * @var string
+     */
+    protected $_adapterConstraint = '';
+
+    /**
      * Instance of a suitable renderer used to format results into output
      *
      * @var \Mutagenesis\Renderer\Text
@@ -259,6 +269,27 @@ abstract class RunnerAbstract
      *
      * @param string $adapter
      */
+    public function setAdapterConstraint($constraint)
+    {
+        $this->_adapterConstraint = $constraint;
+        return $this;
+    }
+
+    /**
+     * Get name of the test adapter to use
+     *
+     * @return string
+     */
+    public function getAdapterConstraint()
+    {
+        return $this->_adapterConstraint;
+    }
+
+    /**
+     * Set name of the test adapter to use
+     *
+     * @param string $adapter
+     */
     public function setAdapterName($adapter)
     {
         $this->_adapterName = $adapter;
@@ -282,7 +313,23 @@ abstract class RunnerAbstract
      */
     public function setAdapterOption($optionString)
     {
-        $this->_adapterOptions[] = $optionString;
+        $this->_adapterOptions = array_merge(
+            $this->_adapterOptions,
+            explode(' ', $optionString)
+        );
+        return $this;
+    }
+
+    /**
+     * Set many options for adapter's underlying cli command
+     * @param array $options
+     * @return self
+     */
+    public function setAdapterOptions(array $options)
+    {
+        foreach ($options as $value) {
+            $this->setAdapterOption($value);
+        }
         return $this;
     }
 
@@ -293,7 +340,7 @@ abstract class RunnerAbstract
      */
     public function getAdapterOptions()
     {
-        return implode(' ', $this->_adapterOptions);
+        return $this->_adapterOptions;
     }
 
     /**
@@ -448,7 +495,9 @@ abstract class RunnerAbstract
             'src' => $this->getSourceDirectory(),
             'tests' => $this->getTestDirectory(),
             'base' => $this->getBaseDirectory(),
-            'options' => $this->getAdapterOptions()
+            'cache' => $this->getCacheDirectory(),
+            'clioptions' => $this->getAdapterOptions(),
+            'constraint' => $this->getAdapterConstraint()
         );
         $options = $options + $this->_options;
         return $options;

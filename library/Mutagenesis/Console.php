@@ -52,7 +52,8 @@ class Console
                     'bootstrap::',
                     'options::',
                     'timeout::',
-                    'detail-captures::'
+                    'detail-captures::',
+                    'constraint::'
                 )
             );
         } else {
@@ -71,6 +72,7 @@ class Console
         self::setAdapterOptions($runner);
         self::setTimeout($runner);
         self::setDetailCaptures($runner);
+        self::setAdapterConstraint($runner);
 
         $result = $runner->execute();
         echo $result;
@@ -183,6 +185,19 @@ class Console
     {
         if (isset(self::$_options['detail-captures'])) {
             $runner->setDetailCaptures(true);
+        }
+    }
+
+    /**
+     * Set Adapter Constraint. For example, you can constrain PHPUnit by passing the Test Case/Suite
+     * Class and/or Name to execute. e.g. phpunit AllTests.php (constraint is "AllTests.php")
+     *
+     * @param \Mutagenesis\Runner\RunnerAbstract $runner
+     */
+    protected static function setAdapterConstraint(\Mutagenesis\Runner\RunnerAbstract $runner)
+    {
+        if (isset(self::$_options['constraint'])) {
+            $runner->setAdapterConstraint(self::$_options['constraint']);
         }
     }
     

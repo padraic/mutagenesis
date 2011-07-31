@@ -195,11 +195,11 @@ class Mutagenesis_RunnerTest extends PHPUnit_Framework_TestCase
         $this->assertEquals(sys_get_temp_dir(), $runner->getCacheDirectory());
     }
 
-    public function testShouldStoreCliOptionsAndSpaceConcatenateOnRetrieval()
+    public function testShouldStoreCliOptions()
     {
         $runner = new \Mutagenesis\Runner\Base;
         $runner->setAdapterOption('foo')->setAdapterOption('bar');
-        $this->assertEquals('foo bar', $runner->getAdapterOptions());
+        $this->assertEquals(array('foo', 'bar'), $runner->getAdapterOptions());
     }
 
 }

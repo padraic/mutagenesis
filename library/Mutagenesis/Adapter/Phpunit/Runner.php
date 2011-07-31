@@ -45,22 +45,16 @@ class Runner
      */
     public static function main(array $arguments, $useStdout = false)
     {
-        $optionString = 'phpunit';
-        if($useStdout) {
-            $optionString .= '';
-        } else {
-            $optionString = ' --stderr';
+        if(!$useStdout) {
+            array_unshift($arguments['clioptions'], '--stderr');
         }
-        if (isset($arguments['options'])) {
-            $optionString .= ' ' . $arguments['options'];
-        }
-        $options = explode(' ', $optionString);
+        array_unshift($arguments['clioptions'], 'phpunit');
         $originalWorkingDirectory = getcwd();
         if (isset($arguments['tests'])) {
             chdir($arguments['tests']);
         }
         $command = new \PHPUnit_TextUI_Command;
-        $command->run($options, false);
+        $command->run($arguments['clioptions'], false);
         chdir($originalWorkingDirectory);
     }
 

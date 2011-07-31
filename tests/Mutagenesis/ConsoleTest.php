@@ -59,7 +59,7 @@ class Mutagenesis_ConsoleTest extends PHPUnit_Framework_TestCase
     {
         $runner = $this->getMock('Mutagenesis\Runner\Base', array('execute'));
         \Mutagenesis\Console::main(array('options'=>'foobar'), $runner);
-        $this->assertEquals('foobar', $runner->getAdapterOptions());
+        $this->assertEquals(array('foobar'), $runner->getAdapterOptions());
     }
 
     public function testConsoleSetsRunnerAdapterToPhpunitByDefault()
@@ -73,7 +73,7 @@ class Mutagenesis_ConsoleTest extends PHPUnit_Framework_TestCase
     {
         $runner = $this->getMock('Mutagenesis\Runner\Base', array('execute'));
         \Mutagenesis\Console::main(array(), $runner);
-        $this->assertEquals('', $runner->getAdapterOptions());
+        $this->assertEquals(array(), $runner->getAdapterOptions());
     }
 
     public function testConsoleExecutesRunnerAndEchosOutput()

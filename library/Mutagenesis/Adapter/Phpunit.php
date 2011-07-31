@@ -30,9 +30,25 @@ class Phpunit extends AdapterAbstract
      * @param array $options Options to be used when called the test suite runner
      * @return bool Boolean indicating whether test suite failed or passed
      */
-    public function execute(array $options, $useStdout = false)
+    public function execute(array $options, $useStdout = false, $firstRun = false, array $testCases = array())
     {
-        Phpunit\Runner::main($options, $useStdout);
+        if ($firstRun) {
+            $options['clioptions'] = array_merge(
+                $options['clioptions'],
+                array('--log-junit', $options['cache'] . '/mutagenesis.xml'),
+                explode(' ', $options['constraint'])
+            );
+        }
+        if (count($testCases) > 0) {
+            foreach ($testCases as $case) {
+                $args = $options;
+                $args['clioptions'][] = $case['class'];
+                $args['clioptions'][] = $case['file'];
+                Phpunit\Runner::main($args, $useStdout);
+            }
+        } else {
+            Phpunit\Runner::main($options, $useStdout);
+        }
     }
 
     /**
@@ -45,7 +61,7 @@ class Phpunit extends AdapterAbstract
      */
     public function processOutput($output)
     {
-        if (substr($output, 0, 21) == 'Your tests timed out.') {
+        if (substr($output, 0, 21) == 'Your tests timed out.') { //TODO: Multiple instances
             return self::TIMED_OUT;
         }
         $lines = explode("\n", $output);

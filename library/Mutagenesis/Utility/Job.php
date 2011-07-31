@@ -48,15 +48,11 @@ class Job
      * @param array $mutation Mutation data and objects to be used
      * @return string
      */
-    public function generate(array $mutation = array(), $firstRun = false)
+    public function generate(array $mutation = array(), $firstRun = false, $testCasesInExecutionOrder = array())
     {
         $serializedMutation = serialize($mutation);
-        $adapterCliOptions = $this->_runner->getAdapterOptions();
-        if ($firstRun) {
-            $adapterCliOptions .= ' --log-junit '
-                . $this->_runner->getCacheDirectory()
-                . '/mutagenesis.xml';
-        }
+        $serializedTestCases = serialize($testCasesInExecutionOrder);
+        $serializedOptions = serialize($this->_runner->getAdapterOptions());
         $script = <<<SCRIPT
 <?php
 require_once 'Mutagenesis/Loader.php';
@@ -66,12 +62,15 @@ require_once 'Mutagenesis/Loader.php';
 \$runner->setBaseDirectory('{$this->_runner->getBaseDirectory()}')
     ->setSourceDirectory('{$this->_runner->getSourceDirectory()}')
     ->setTestDirectory('{$this->_runner->getTestDirectory()}')
+    ->setCacheDirectory('{$this->_runner->getCacheDirectory()}')
     ->setAdapterName('{$this->_runner->getAdapterName()}')
-    ->setAdapterOption('{$adapterCliOptions}')
+    ->setAdapterOptions('{$serializedOptions}')
     ->setTimeout('{$this->_runner->getTimeout()}')
     ->setBootstrap('{$this->_runner->getBootstrap()}')
-    ->setMutation('{$serializedMutation}');
-\$runner->execute();
+    ->setAdapterConstraint('{$this->_runner->getAdapterConstraint()}')
+    ->setMutation('{$serializedMutation}')
+    ->setTestCasesInExecutionOrder({$serializedTestCases});
+\$runner->execute({$firstRun});
 SCRIPT;
         return $script;
     }

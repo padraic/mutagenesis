@@ -46,11 +46,14 @@ require_once 'Mutagenesis/Loader.php';
 \$runner->setBaseDirectory('{$root}')
     ->setSourceDirectory('{$src}')
     ->setTestDirectory('{$tests}')
+    ->setCacheDirectory('/tmp')
     ->setAdapterName('phpspec')
-    ->setAdapterOption('--foo=bar')
+    ->setAdapterOptions('a:1:{i:0;s:9:"--foo=bar";}')
     ->setTimeout('120')
     ->setBootstrap('')
-    ->setMutation('a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;O:8:"stdClass":0:{}}');
+    ->setAdapterConstraint('')
+    ->setMutation('a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;O:8:"stdClass":0:{}}')
+    ->setTestCasesInExecutionOrder(a:0:{});
 \$runner->execute();
 EXPECTED;
         $this->assertEquals($expected, $script);
@@ -79,12 +82,15 @@ require_once 'Mutagenesis/Loader.php';
 \$runner->setBaseDirectory('{$root}')
     ->setSourceDirectory('{$src}')
     ->setTestDirectory('{$tests}')
+    ->setCacheDirectory('/tmp')
     ->setAdapterName('phpspec')
-    ->setAdapterOption('--foo=bar --log-junit {$tmp}/mutagenesis.xml')
+    ->setAdapterOptions('a:1:{i:0;s:9:"--foo=bar";}')
     ->setTimeout('120')
     ->setBootstrap('')
-    ->setMutation('a:0:{}');
-\$runner->execute();
+    ->setAdapterConstraint('')
+    ->setMutation('a:0:{}')
+    ->setTestCasesInExecutionOrder(a:0:{});
+\$runner->execute(1);
 EXPECTED;
         $this->assertEquals($expected, $script);
     }
