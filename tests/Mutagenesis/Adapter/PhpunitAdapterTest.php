@@ -60,13 +60,13 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'getBootstrap' => null,
             'getTimeout' =>120
         ));
-        //ob_start();
+        ob_start();
         $result = $adapter->runTests(
             $this->runner,
             false,
             true
         );
-        var_dump($result); exit("\nend:".__FILE__.__LINE__);
+        //var_dump($result); exit("\nend:".__FILE__.__LINE__);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
             ob_get_clean()

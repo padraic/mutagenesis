@@ -17,13 +17,10 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
- * @deprecated
  */
 
 namespace Mutagenesis\Runner;
-/**
- * @deprecated
- */
+
 class Mutation extends RunnerAbstract
 {
 
@@ -59,8 +56,7 @@ class Mutation extends RunnerAbstract
             }
             $this->getRunkit()->applyMutation($mutation);
         }
-        // TODO
-
+        $this->getAdapter()->execute($this->getOptions(), false, $firstRun, $this->_testCasesInExecutionOrder);
     }
     
     /**
@@ -89,11 +85,6 @@ class Mutation extends RunnerAbstract
         $this->_testCasesInExecutionOrder = unserlialize($testCases);
     }
 
-    /**
-     * Set array of adapter options parsed from string. These are
-     * passed to the testing framework's cli command
-     * @param string $options Serialized array of options to pass
-     */
     public function setAdapterOptions($options)
     {
         parent::setAdapterOptions(unserialize($options));
