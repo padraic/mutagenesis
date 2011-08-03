@@ -144,7 +144,7 @@ PHPUnit test suites often use a TestHelper.php or Bootstrap.php file.
 
 For example, imagine we usually employ the following to run some PHPUnit tests:
 
-    phpunit AllTests.php --exclude-group=disabled
+    phpunit AllTests.php --exclude-group disabled
     
 In addition, we use the file TestHelper.php to setup autloading for the tests
 (this would normally be included from within AllTests.php manually but Mutagenesis
@@ -153,7 +153,7 @@ needs to load it as early as possible).
 We can pass this to mutagenesis as:
 
     mutagenesis --src="/path/project/library" --tests="/path/project/tests" \
-        --options="--exclude-group=disabled" --constraint="AllTests.php" \
+        --options="--exclude-group disabled" --constraint="AllTests.php" \
         --bootstrap="TestHelper.php"
         
 Note: "\\" merely marks a line break for this README. The command should be on

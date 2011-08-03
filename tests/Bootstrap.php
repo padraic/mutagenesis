@@ -70,6 +70,10 @@ require_once 'Mutagenesis/Loader.php';
 $loader = new \Mutagenesis\Loader;
 $loader->register();
 
+require_once 'Mockery/Loader.php';
+$loader = new \Mockery\Loader;
+$loader->register();
+
 /*
  * Unset global variables that are no longer needed.
  */

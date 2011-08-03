@@ -32,24 +32,23 @@ abstract class AdapterAbstract
      * @var string
      */
     protected $_output = '';
-
-    /**
-     * Execute the Adapter to run the test suite and parse the results
-     *
-     * @param array $options Options to be used when called the test suite runner
-     * @return bool Boolean indicating whether test suite failed or passed
-     */
-    abstract public function execute(array $options);
     
     /**
-     * Parse the result output text to see if there were any failures.
-     * In the context of mutation testing, a test failure is good (i.e. the
-     * mutation was detected by the test suite).
+     * Runs the tests suite according to Runner set options and the execution
+     * order of test case (if any). It then returns an array of two elements.
+     * First element is a boolean result value indicating if tests passed or not.
+     * Second element is an array containing the key "stdout" which stores the
+     * output from the last test run.
      *
-     * @param string $output
-     * @return bool
+     * @param \Mutagenesis\Runner\RunnerAbstract $baseRunner
+     * @param bool $useStdout
+     * @param bool $firstRun
+     * @param array $mutation
+     * @param array $testCases
+     * @return array
      */
-    abstract public function processOutput($output);
+    abstract public function runTests(\Mutagenesis\Runner\Base $runner, $useStdout = false,
+    $firstRun = false, array $mutation = array(), array $testCases = array());
 
     /**
      * Set the test library output so it can be used later

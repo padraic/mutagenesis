@@ -17,6 +17,7 @@
  * @subpackage UnitTests
  * @copyright  Copyright (c) 2010 Pádraic Brady (http://blog.astrumfutura.com)
  * @license    http://github.com/padraic/mutateme/blob/rewrite/LICENSE New BSD License
+ * @deprecated
  */
 
 namespace Mutagenesis\Adapter\Phpunit;
@@ -27,6 +28,9 @@ if (class_exists('PHP_CodeCoverage_Filter', true)) {
     \PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'PHPUNIT');
 }
 
+/**
+ * @deprecated
+ */
 class Runner
 {
 
@@ -48,7 +52,7 @@ class Runner
         if(!$useStdout) {
             array_unshift($arguments['clioptions'], '--stderr');
         }
-        if (!in_array($arguments['clioptions'], '--stop-on-failure')) {
+        if (!in_array('--stop-on-failure', $arguments['clioptions'])) {
             array_unshift($arguments['clioptions'], '--stop-on-failure');
         }
         array_unshift($arguments['clioptions'], 'phpunit');

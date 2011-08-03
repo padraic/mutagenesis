@@ -33,7 +33,7 @@ class Base extends RunnerAbstract
     {
         $renderer = $this->getRenderer();
         echo $renderer->renderOpening();
-        $job = new \Mutagenesis\Utility\Job($this);
+        
 
         /**
          * Run the test suite once to verify it is in a passing state before
@@ -45,14 +45,13 @@ class Base extends RunnerAbstract
          * attempt to run the fastest test cases first (and slowest last)
          * which in all probability should result in faster mutation test runs.
          */
-        $output = \Mutagenesis\Utility\Process::run($job->generate(array(), true));
-        $result = $this->getAdapter()->processOutput($output['stdout']);
-        echo $renderer->renderPretest($result, $output['stdout']);
+        $result = $this->getAdapter()->runTests($this, false, true);
+        echo $renderer->renderPretest($result[0], $result[1]['stdout']);
 
         /**
          * If the underlying test suite is not passing, we can't continue.
          */
-        if (!$result) {
+        if ($result[0] === 'timed out' || !$result[0]) {
             return;
         }
 
@@ -89,22 +88,33 @@ class Base extends RunnerAbstract
         foreach ($mutables as $i=>$mutable) {
             $mutations = $mutable->generate()->getMutations();
             foreach ($mutations as $mutation) {
+
+                $result = $this->getAdapter()->runTests(
+                    $this,
+                    false,
+                    false,
+                    $mutation,
+                    $orderedTestCases
+                );
+
                 $output = \Mutagenesis\Utility\Process::run(
                     $job->generate($mutation, false, $orderedTestCases), $this->getTimeout()
                 );
                 /* TODO: Store output for per-mutant results */
                 $result = $this->getAdapter()->processOutput($output['stdout']);
+                
+
                 $countMutants++;
-                if ($result === 'timed out' || !$result) {
+                if ($result[0] === 'timed out' || !$result[0]) {
                     $countMutantsKilled++;
                     if ($this->getDetailCaptures()) {
                         $mutation['mutation']->mutate(
                             $mutation['tokens'],
                             $mutation['index']
                         );
-                        $mutantsCaptured[] = array($mutation, $output['stdout']);
+                        $mutantsCaptured[] = array($mutation, $result['stdout']);
                     }
-                } elseif ($result) {
+                } else {
                     $countMutantsEscaped++;
                     $mutation['mutation']->mutate(
                         $mutation['tokens'],
@@ -112,7 +122,7 @@ class Base extends RunnerAbstract
                     );
                     $mutantsEscaped[] = $mutation;
                 }
-                echo $renderer->renderProgressMark($result);
+                echo $renderer->renderProgressMark($result[0]);
             }
             $mutable->cleanup();
             unset($this->_mutables[$i]);

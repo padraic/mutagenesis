@@ -42,19 +42,11 @@ class Mutagenesis_JobTest extends PHPUnit_Framework_TestCase
 require_once 'Mutagenesis/Loader.php';
 \$loader = new \Mutagenesis\Loader;
 \$loader->register();
-\$runner = new \Mutagenesis\Runner\Mutation;
-\$runner->setBaseDirectory('{$root}')
-    ->setSourceDirectory('{$src}')
-    ->setTestDirectory('{$tests}')
-    ->setCacheDirectory('/tmp')
-    ->setAdapterName('phpspec')
-    ->setAdapterOptions('a:1:{i:0;s:9:"--foo=bar";}')
-    ->setTimeout('120')
-    ->setBootstrap('')
-    ->setAdapterConstraint('')
-    ->setMutation('a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;O:8:"stdClass":0:{}}')
-    ->setTestCasesInExecutionOrder(a:0:{});
-\$runner->execute();
+\Mutagenesis\Adapter\PHPUnit::main(
+    a:0:{},
+    a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;O:8:"stdClass":0:{}},
+    null
+);
 EXPECTED;
         $this->assertEquals($expected, $script);
     }
