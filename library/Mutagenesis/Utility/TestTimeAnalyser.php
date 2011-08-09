@@ -29,7 +29,7 @@ class TestTimeAnalyser
     public function __construct($logFile)
     {
         if (!file_exists($logFile) || !is_readable($logFile)) {
-            throw new Exception('Log file could not be read');
+            throw new \Exception('Log file could not be read');
         }
         $this->log = file_get_contents($logFile);
     }
@@ -58,5 +58,5 @@ class TestTimeAnalyser
         array_multisort($time, SORT_ASC, $testCases);
         return $testCases;
     }
-    
+
 }
