@@ -4,10 +4,10 @@ if (strpos('@php_bin@', '@php_bin') === 0) {
     set_include_path(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'library' . PATH_SEPARATOR . get_include_path());
 }
 
-require_once 'Mutateme/Loader.php';
+require_once 'Mutagenesis/Loader.php';
 
-$loader = new \Mutateme\Loader;
+$loader = new \Mutagenesis\Loader;
 $loader->register();
 
-require 'Mutateme/Console.php';
-\Mutateme\Console::main();
+require 'Mutagenesis/Console.php';
+\Mutagenesis\Console::main();
