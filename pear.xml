@@ -25,13 +25,13 @@
   <contents>
     <dir name="/" baseinstalldir="">
       <dir name="bin">
-        <file name="mutagenesis" role="script" baseinstalldir="/" md5sum="55fcc54ea47fcd16d1a2d1555d19bce1">
+        <file name="mutagenesis" role="script" baseinstalldir="/" md5sum="dde590c0b424f9b56c41494ee4a69f6b">
           <tasks:replace type="pear-config" from="/usr/bin/env php" to="php_bin"/>
           <tasks:replace type="pear-config" from="@php_bin@" to="php_bin"/>
           <tasks:replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
           <tasks:replace type="pear-config" from="@pear_directory@" to="php_dir"/>
         </file>
-        <file name="mutagenesis.bat" role="script" baseinstalldir="/" md5sum="5b99e0948dc278922b8c525dd552d998">
+        <file name="mutagenesis.bat" role="script" baseinstalldir="/" md5sum="1ddf5ebcf8af446d69f28afb7f0b7bab">
           <tasks:replace type="pear-config" from="@php_bin@" to="php_bin"/>
           <tasks:replace type="pear-config" from="@bin_dir@" to="bin_dir"/>
         </file>
@@ -39,41 +39,42 @@
       <dir name="library">
         <dir name="Mutagenesis">
           <dir name="Adapter">
-            <file name="AdapterAbstract.php" role="php" md5sum="6d988d27299aac546bb3052e2a367dfe"/>
-            <file name="Phpunit.php" role="php" md5sum="9a8553fc461d1e680d83cd98652781c5"/>
+            <file name="AdapterAbstract.php" role="php" md5sum="e6ff23d21c40b835b7943fd449dbf359"/>
+            <file name="Phpunit.php" role="php" md5sum="ae1ad2c3556bf3dc6a4d19995c65aaad"/>
             <dir name="Phpunit">
-              <file name="Runner.php" role="php" md5sum="12e8b1a868a802d271015196a4091b1c"/>
+              <file name="Runner.php" role="php" md5sum="de01dfde948bf205bf48f53d97e21f97"/>
             </dir>
           </dir>
-          <file name="Console.php" role="php" md5sum="ad90a0dd60e10a5c5912e9908a6cb825"/>
-          <file name="Generator.php" role="php" md5sum="929891dc149e9975b731cef182466512"/>
-          <file name="Loader.php" role="php" md5sum="92dae8dfa1c88ff594401504d7993575"/>
-          <file name="Mutable.php" role="php" md5sum="4c24ca9df945c348319b3fc800e1e02f"/>
+          <file name="Console.php" role="php" md5sum="74d0dbc16c45226c3b61a37f2efa0bbb"/>
+          <file name="Generator.php" role="php" md5sum="cb2d260591bda9e74b85abef81487fff"/>
+          <file name="Loader.php" role="php" md5sum="cf91c3aeaa57813a869fa2615618769e"/>
+          <file name="Mutable.php" role="php" md5sum="1968e9cb624b7290935473f1fde4d36c"/>
           <dir name="Mutation">
-            <file name="BooleanAnd.php" role="php" md5sum="18151f181d40aa9a43bd87c5a126da64"/>
-            <file name="BooleanFalse.php" role="php" md5sum="7860903e117b7461ac5d45c5755afa71"/>
-            <file name="BooleanOr.php" role="php" md5sum="3066068ff0d0b89654efd05ca122fd9f"/>
-            <file name="BooleanTrue.php" role="php" md5sum="4c5c95a5376732d3c465b76f79cc4b41"/>
-            <file name="MutationAbstract.php" role="php" md5sum="cf253b5d00ef7a07541b7bf6d69e53e8"/>
-            <file name="OperatorAddition.php" role="php" md5sum="7a8843edaec8ae8855a0568b2f5c5c48"/>
-            <file name="OperatorDecrement.php" role="php" md5sum="08a9ce73dd9146b8206d1a97de220da8"/>
-            <file name="OperatorIncrement.php" role="php" md5sum="493679eff18660a6a5b75ec1a14e0d09"/>
-            <file name="OperatorSubtraction.php" role="php" md5sum="94f5668809a264096957f83cd19ff52d"/>
+            <file name="BooleanAnd.php" role="php" md5sum="21eb4fd773aa4d98825ff75e3d6a4e7b"/>
+            <file name="BooleanFalse.php" role="php" md5sum="dd7f2d8d5db9b8da18bcdff5ff304ca3"/>
+            <file name="BooleanOr.php" role="php" md5sum="c312a3aea8fbe57251b27ae534991317"/>
+            <file name="BooleanTrue.php" role="php" md5sum="77dda36cc59e25cd80af68cf5fba4b73"/>
+            <file name="MutationAbstract.php" role="php" md5sum="13bdf0906712f5f45301c24a59490088"/>
+            <file name="OperatorAddition.php" role="php" md5sum="b53d21e75390655f3e126dcb165c2595"/>
+            <file name="OperatorDecrement.php" role="php" md5sum="50fc5016204714077dd4daa147df373f"/>
+            <file name="OperatorIncrement.php" role="php" md5sum="4e5a2ddb6614cd04983e3fe7a60b6bec"/>
+            <file name="OperatorSubtraction.php" role="php" md5sum="0de5f6d60c98d113e84ab85b4c4fa94d"/>
           </dir>
           <dir name="Renderer">
-            <file name="RendererInterface.php" role="php" md5sum="0afd088e6228fee56d4cfda659faad62"/>
-            <file name="Text.php" role="php" md5sum="aec4cc96ec0b3c60d8530411b1821d81"/>
+            <file name="RendererInterface.php" role="php" md5sum="452e954d3e8752793b2577879cb5c886"/>
+            <file name="Text.php" role="php" md5sum="e445dd3f058826ce8c858e28a0d69238"/>
           </dir>
           <dir name="Runner">
-            <file name="Base.php" role="php" md5sum="637e45978dda44fd94a42b9d0ae14e0c"/>
-            <file name="Mutation.php" role="php" md5sum="d745e2293ebceda50a58ca30d56c6e83"/>
-            <file name="RunnerAbstract.php" role="php" md5sum="119eec83d4f8578f8df9847e57f1e0c5"/>
+            <file name="Base.php" role="php" md5sum="724838dac663ade9254e369178308f8e"/>
+            <file name="Mutation.php" role="php" md5sum="dd9a72dbc250e5401410df20fa979502"/>
+            <file name="RunnerAbstract.php" role="php" md5sum="46b452db7eb63fe0df6cbb026177caac"/>
           </dir>
           <dir name="Utility">
-            <file name="Diff.php" role="php" md5sum="513ca4ca0e2535e6f20ad50dfaa123a3"/>
-            <file name="Job.php" role="php" md5sum="2d349efed24d6878ced7a02ea22ccc4d"/>
-            <file name="Process.php" role="php" md5sum="3b87cbcef8a9bdd043c71354f9b70323"/>
-            <file name="Runkit.php" role="php" md5sum="a70dae8a89d8e09f17b31b555b26f1ae"/>
+            <file name="Diff.php" role="php" md5sum="57619e868cdc8a33aa0bf53db97b1897"/>
+            <file name="Job.php" role="php" md5sum="7451672e6a7474a18c7942086f4866a0"/>
+            <file name="Process.php" role="php" md5sum="2c214fc37dcc2f0630f4a24595de8d9d"/>
+            <file name="Runkit.php" role="php" md5sum="5533b2a654c3ea0223d35191d5bab387"/>
+            <file name="TestTimeAnalyser.php" role="php" md5sum="699010cc14df2c9f9763e11143adcccb"/>
           </dir>
         </dir>
       </dir>
@@ -118,6 +119,7 @@
       <install name="library/Mutagenesis/Utility/Job.php" as="Mutagenesis/Utility/Job.php"/>
       <install name="library/Mutagenesis/Utility/Process.php" as="Mutagenesis/Utility/Process.php"/>
       <install name="library/Mutagenesis/Utility/Runkit.php" as="Mutagenesis/Utility/Runkit.php"/>
+      <install name="library/Mutagenesis/Utility/TestTimeAnalyser.php" as="Mutagenesis/Utility/TestTimeAnalyser.php"/>
     </filelist>
   </phprelease>
 </package>
