@@ -32,10 +32,12 @@ class Job
      */
     public function generate(array $mutation = array(), array $args = array(), $bootstrap = null)
     {
-        $serializedArgs = serialize($args);
-        $serializedMutation = serialize($mutation);
+        $serializedArgs = addslashes(serialize($args));
+        $serializedMutation = addslashes(serialize($mutation));
         if (is_null($bootstrap)) {
             $bootstrap = 'null';
+        } else {
+            addslashes($bootstrap);
         }
         $script = <<<SCRIPT
 <?php
@@ -43,9 +45,9 @@ require_once 'Mutagenesis/Loader.php';
 \$loader = new \Mutagenesis\Loader;
 \$loader->register();
 \Mutagenesis\Adapter\PHPUnit::main(
-    {$serializedArgs},
-    {$serializedMutation},
-    {$bootstrap}
+    "{$serializedArgs}",
+    "{$serializedMutation}",
+    "{$bootstrap}"
 );
 SCRIPT;
         return $script;

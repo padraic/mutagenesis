@@ -29,7 +29,6 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->root = dirname(__FILE__) . '/_files';
-        $this->runner = m::mock('\Mutagenesis\Runner\Base');
     }
 
     public function tearDown()
@@ -46,7 +45,8 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     public function testAdapterRunsDefaultPhpunitCommand()
     {
         $adapter = new \Mutagenesis\Adapter\Phpunit;
-        $this->runner->shouldReceive('getOptions')->andReturn(
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
             array(
                 'src' => dirname(__FILE__) . '/_files/phpunit',
                 'tests' => dirname(__FILE__) . '/_files/phpunit',
@@ -56,17 +56,16 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
                 'constraint' => 'MM1_MathTest MathTest.php'
             )
         );
-        $this->runner->shouldReceive(array(
+        $runner->shouldReceive(array(
             'getBootstrap' => null,
-            'getTimeout' =>120
+            'getTimeout' => 1200
         ));
         ob_start();
         $result = $adapter->runTests(
-            $this->runner,
+            $runner,
             false,
             true
         );
-        //var_dump($result); exit("\nend:".__FILE__.__LINE__);
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
             ob_get_clean()

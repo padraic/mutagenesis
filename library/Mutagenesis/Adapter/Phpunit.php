@@ -105,6 +105,7 @@ class Phpunit extends AdapterAbstract
     public static function execute($jobScript, $timeout = 120)
     {
         $output = \Mutagenesis\Utility\Process::run($jobScript, $timeout);
+        var_dump($output); exit;
         return $output;
     }
 
@@ -146,8 +147,6 @@ class Phpunit extends AdapterAbstract
                 $runkit->applyMutation($mutation);
             }
         }
-
-        //var_dump($arguments); exit;
 
         /**
          * Switch working directory to tests and execute the test suite
