@@ -26,9 +26,12 @@ require_once 'Mutagenesis/Adapter/Phpunit.php';
 class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
 {
 
+    protected $bootstrap = null;
+
     public function setUp()
     {
         $this->root = dirname(__FILE__) . '/_files';
+        $this->bootstrap = __DIR__ . '/_files/Bootstrap.php';
     }
 
     public function tearDown()
@@ -60,15 +63,16 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'getBootstrap' => null,
             'getTimeout' => 1200
         ));
-        ob_start();
+        //ob_start();
         $result = $adapter->runTests(
             $runner,
-            false,
+            false, 
             true
         );
+        //var_dump($result); var_dump(ob_get_clean()); exit;
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
-            ob_get_clean()
+            $result[1]['stderr'] //ob_get_clean()
         );
     }
 

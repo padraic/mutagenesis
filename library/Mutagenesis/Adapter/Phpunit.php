@@ -23,7 +23,7 @@ namespace Mutagenesis\Adapter;
 
 require_once 'PHPUnit/TextUI/Command.php';
 
-if (class_exists('PHP_CodeCoverage_Filter', true)) {
+if (class_exists('PHP_CodeCoverage_Filter', true) && method_exists('PHP_CodeCoverage_Filter', 'getInstance')) {
     \PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'PHPUNIT');
 }
 
@@ -105,7 +105,6 @@ class Phpunit extends AdapterAbstract
     public static function execute($jobScript, $timeout = 120)
     {
         $output = \Mutagenesis\Utility\Process::run($jobScript, $timeout);
-        var_dump($output); exit;
         return $output;
     }
 

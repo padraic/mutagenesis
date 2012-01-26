@@ -37,17 +37,18 @@ class Job
         if (is_null($bootstrap)) {
             $bootstrap = 'null';
         } else {
-            addslashes($bootstrap);
+            $bootstrap = '"' . addslashes($bootstrap) . '"';
         }
         $script = <<<SCRIPT
 <?php
+require_once 'PHPUnit/Autoload.php';
 require_once 'Mutagenesis/Loader.php';
 \$loader = new \Mutagenesis\Loader;
 \$loader->register();
-\Mutagenesis\Adapter\PHPUnit::main(
+\Mutagenesis\Adapter\Phpunit::main(
     "{$serializedArgs}",
     "{$serializedMutation}",
-    "{$bootstrap}"
+    {$bootstrap}
 );
 SCRIPT;
         return $script;

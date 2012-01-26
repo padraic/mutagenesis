@@ -30,12 +30,13 @@ class Mutagenesis_JobTest extends PHPUnit_Framework_TestCase
         $script = $job->generate(array('a', '1', new stdClass));
         $expected = <<<EXPECTED
 <?php
+require_once 'PHPUnit/Autoload.php';
 require_once 'Mutagenesis/Loader.php';
 \$loader = new \Mutagenesis\Loader;
 \$loader->register();
-\Mutagenesis\Adapter\PHPUnit::main(
-    a:0:{},
-    a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;O:8:"stdClass":0:{}},
+\Mutagenesis\Adapter\Phpunit::main(
+    "a:0:{}",
+    "a:3:{i:0;s:1:\"a\";i:1;s:1:\"1\";i:2;O:8:\"stdClass\":0:{}}",
     null
 );
 EXPECTED;
