@@ -31,7 +31,7 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->root = dirname(__FILE__) . '/_files';
-        $this->bootstrap = __DIR__ . '/_files/Bootstrap.php';
+        //$this->bootstrap = __DIR__ . '/_files/Bootstrap.php';
     }
 
     public function tearDown()
@@ -66,13 +66,13 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
         //ob_start();
         $result = $adapter->runTests(
             $runner,
-            false, 
+            true, 
             true
         );
         //var_dump($result); var_dump(ob_get_clean()); exit;
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
-            $result[1]['stderr'] //ob_get_clean()
+            $result[1]['stdout'] //ob_get_clean()
         );
     }
 

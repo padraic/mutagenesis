@@ -24,6 +24,26 @@
  */
 error_reporting(E_ALL | E_STRICT);
 
+/**
+ * Check unit test deps are in place (this also requires Mutagenesis to be available from
+ * the php.ini include path for all processes opened during testing)
+ */
+if (stream_resolve_include_path('Mutagenesis/Loader.php') === false) {
+    throw new Exception(
+        'Please install Mutagenesis prior to running the unit tests. Since '
+        . 'Mutagenesis operates across multiple processes using sample unit tests, '
+        . 'it must be installed to ensure all processes can easily access it.'
+    );
+}
+if (stream_resolve_include_path('Mockery/Loader.php') === false) {
+    throw new Exception(
+        'Mutagenesis unit tests rely on the Mockery test double framework. See '
+        . 'https://github.com/padraic/mockery for instructions on how to install '
+        . 'using PEAR or Composer.'
+    );
+}
+
+
 /*
  * Determine the root, library, and tests directories of the framework
  * distribution.
@@ -66,13 +86,16 @@ if (defined('TESTS_GENERATE_REPORT') && TESTS_GENERATE_REPORT === true &&
     PHPUnit_Util_Filter::addDirectoryToFilter(PHP_LIBDIR);
 }
 
+/**
+ * Setup autoloaders!
+ */
 require_once 'Mutagenesis/Loader.php';
 $loader = new \Mutagenesis\Loader;
 $loader->register();
 
 require_once 'Mockery/Loader.php';
 $loader = new \Mockery\Loader;
-$loader->register();
+$loader->register(true);
 
 /*
  * Unset global variables that are no longer needed.

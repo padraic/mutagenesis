@@ -44,7 +44,7 @@ class Phpunit extends AdapterAbstract
      * @param array $testCases
      * @return array
      */
-    public function runTests(\Mutagenesis\Runner\Base $runner, $useStdout = false,
+    public function runTests(\Mutagenesis\Runner\Base $runner, $useStdout = true,
     $firstRun = false, array $mutation = array(), array $testCases = array())
     {
         $options = $runner->getOptions();

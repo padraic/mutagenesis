@@ -43,9 +43,10 @@ class Base extends RunnerAbstract
          *
          * This stage also logs the test run to XML/JSON since future runs will
          * attempt to run the fastest test cases first (and slowest last)
-         * which in all probability should result in faster mutation test runs.
+         * which in all probability should result in faster mutation test runs
+         * going forward.
          */
-        $result = $this->getAdapter()->runTests($this, false, true);
+        $result = $this->getAdapter()->runTests($this, true, true);
         echo $renderer->renderPretest($result[0], $result[1]['stdout']);
 
         /**
@@ -60,7 +61,7 @@ class Base extends RunnerAbstract
          * in ascending order (i.e. fastest first). Would have been logged to /tmp
          * or custom cache directory by first run.
          */
-        //echo $renderer->renderPretestTimeAnalysisInProgress();
+        //echo $renderer->renderPretestTimeAnalysisInProgress(); // TODO
         $timeAnalysis = new \Mutagenesis\Utility\TestTimeAnalyser(
             $this->getCacheDirectory() . '/mutagenesis.xml'
         );
