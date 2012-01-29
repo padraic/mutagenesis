@@ -41,15 +41,33 @@ class Job
         }
         $script = <<<SCRIPT
 <?php
+namespace MutagenesisEnv;
+declare(ticks = 1);
 require_once 'PHPUnit/Autoload.php';
 require_once 'Mutagenesis/Loader.php';
 \$loader = new \Mutagenesis\Loader;
 \$loader->register();
-\Mutagenesis\Adapter\Phpunit::main(
-    "{$serializedArgs}",
-    "{$serializedMutation}",
-    {$bootstrap}
-);
+class Job {
+    static function main () {
+        \Mutagenesis\Adapter\Phpunit::main(
+            "{$serializedArgs}",
+            "{$serializedMutation}",
+            {$bootstrap}
+        );
+    }
+    static function timeout() {
+        throw new \\Exception('Timed Out');
+    }
+}
+pcntl_signal(SIGALRM, array('\\MutagenesisEnv\\Job', 'timeout'), TRUE);
+pcntl_alarm(120);
+try {
+    Job::main();
+} catch (\\Exception \$e) {
+    pcntl_alarm(0);
+    throw \$e;
+}
+pcntl_alarm(0);
 SCRIPT;
         return $script;
     }

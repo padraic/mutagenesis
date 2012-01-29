@@ -71,12 +71,13 @@ class Process
     
     /**
      * Opens a new process to execute PHP on the source code passed
-     * to the method
+     * to the method. If you're looking for how this process can be timed
+     * out - check the Utility/Job class which sets it internally in the
+     * source code to be executed.
      *
      * @param string $source
-     * @param integer $timeout Time allowed for the process to run before we assume it timed out
      */
-    public static function run($source, $timeout = 120)
+    public static function run($source)
     {
         $process = proc_open(
             self::_getPhpBinary(),
@@ -91,10 +92,11 @@ class Process
             $stderr = stream_get_contents($pipes[2]);
             fclose($pipes[2]);
             proc_close($process);
-            return array(
+            $return = array(
                 'stdout' => $stdout,
                 'stderr' => $stderr
             );
+            return $return;
         } else {
             throw new \Mutagenesis\FUTException('Unable to open a new process');
         }

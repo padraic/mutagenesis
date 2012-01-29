@@ -86,5 +86,3 @@ class Mutation extends RunnerAbstract
     }
 
 }
-
-

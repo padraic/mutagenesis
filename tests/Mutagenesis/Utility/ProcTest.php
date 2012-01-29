@@ -39,15 +39,114 @@ class Mutagenesis_ProcTest extends PHPUnit_Framework_TestCase
     /**
      * @group separateprocess
      */
-    public function testSeparateProcessTimesOut()
+    public function testSeparateProcessCompletesPreTimeout()
     {
-        $this->markTestIncomplete();
         $process = new \Mutagenesis\Utility\Process;
-        $return = $process->run(
-            "<?php sleep(5);",
-            1
-        );
-        $this->assertEquals('It\'s alive!', $return['stdout']);
+        $timeout = 120;
+        $job = <<<JOB
+<?php
+namespace MutagenesisEnv;
+declare(ticks = 1);
+require_once 'PHPUnit/Autoload.php';
+require_once 'Mutagenesis/Loader.php';
+\$loader = new \Mutagenesis\Loader;
+\$loader->register();
+class Job {
+    static function main () {
+        sleep(1);
+        echo "MUTAGENESIS-COMPLETE";
+    }
+    static function timeout() {
+        echo "MUTAGENESIS-TIMEOUT";
+    }
+}
+pcntl_signal(SIGALRM, array('\\MutagenesisEnv\\Job', 'timeout'), TRUE);
+pcntl_alarm({$timeout});
+try {
+    Job::main();
+} catch (\\Exception \$e) {
+    pcntl_alarm(0);
+    echo "MUTAGENESIS-TIMEOUT-EXCEPTION";
+}
+pcntl_alarm(0);
+JOB;
+        $return = $process->run($job);
+        $this->assertEquals('MUTAGENESIS-COMPLETE', $return['stdout']);
+    }
+
+    /**
+     * @group separateprocess
+     */
+    public function testSeparateProcessCanTimeout()
+    {
+        $process = new \Mutagenesis\Utility\Process;
+        $timeout = 1;
+        $job = <<<JOB
+<?php
+namespace MutagenesisEnv;
+declare(ticks = 1);
+require_once 'PHPUnit/Autoload.php';
+require_once 'Mutagenesis/Loader.php';
+\$loader = new \Mutagenesis\Loader;
+\$loader->register();
+class Job {
+    static function main () {
+        sleep(2);
+        return true;
+    }
+    static function timeout() {
+        echo 'MUTAGENESIS-TIMEOUT';
+    }
+}
+pcntl_signal(SIGALRM, array('\\MutagenesisEnv\\Job', 'timeout'), TRUE);
+pcntl_alarm(1);
+try {
+    Job::main();
+} catch (\\Exception \$e) {
+    pcntl_alarm(0);
+    echo "MUTAGENESIS-TIMEOUT-EXCEPTION";
+}
+pcntl_alarm(0);
+JOB;
+        $return = $process->run($job);
+        $this->assertEquals('MUTAGENESIS-TIMEOUT', $return['stdout']);
+    }
+
+    /**
+     * @group separateprocess
+     */
+    public function testSeparateProcessCanThrowExceptions()
+    {
+        $process = new \Mutagenesis\Utility\Process;
+        $timeout = 120;
+        $job = <<<JOB
+<?php
+namespace MutagenesisEnv;
+declare(ticks = 1);
+require_once 'PHPUnit/Autoload.php';
+require_once 'Mutagenesis/Loader.php';
+\$loader = new \Mutagenesis\Loader;
+\$loader->register();
+class Job {
+    static function main () {
+        throw new \\Exception();
+    }
+    static function timeout() {
+        echo "MUTAGENESIS-TIMEOUT";
+    }
+}
+pcntl_signal(SIGALRM, array('\\MutagenesisEnv\\Job', 'timeout'), TRUE);
+pcntl_alarm({$timeout});
+try {
+    Job::main();
+} catch (\\Exception \$e) {
+    pcntl_alarm(0);
+    echo "MUTAGENESIS-TIMEOUT-EXCEPTION";
+}
+pcntl_alarm(0);
+JOB;
+        $return = $process->run($job);
+        $this->assertEquals('MUTAGENESIS-TIMEOUT-EXCEPTION', $return['stdout']);
     }
    
 }
