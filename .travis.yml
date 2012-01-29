@@ -12,6 +12,13 @@ before_script:
   - pyrus package genesis/pear.xml
   - pyrus install -f Mutagenesis-0.5.0.tgz
   - phpenv rehash
+  - git clone http://github.com/zenovich/runkit.git runkit
+  - cd runkit
+  - phpize
+  - ./configure
+  - make
+  - sudo make install
+  - cd ..
 script: phpunit --coverage-text --configuration ./tests/phpunit.xml
 notifications:
     email:
