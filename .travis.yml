@@ -1,0 +1,18 @@
+language: php
+php:
+  - 5.3
+  - 5.4
+before_script:
+  - pyrus channel-discover pear.survivethedeepend.com
+  - pyrus install http://pear.survivethedeepend.com/get/Mockery-0.7.2.tgz
+  - phpenv rehash
+  - git clone git://github.com/padraic/mutagenesis.git genesis
+  - pyrus install -p PEAR2_Pyrus_Developer-0.4.0
+  - phpenv rehash
+  - pyrus package genesis/pear.xml
+  - pyrus install -f Mutagenesis-0.5.0.tgz
+  - phpenv rehash
+script: phpunit --coverage-text --configuration ./tests/phpunit.xml
+notifications:
+    email:
+        - padraic.brady@gmail.com
