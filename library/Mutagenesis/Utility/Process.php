@@ -96,7 +96,7 @@ class Process
                 'stderr' => $stderr
             );
         } else {
-            throw new \Exception('Unable to open a new process');
+            throw new \Mutagenesis\FUTException('Unable to open a new process');
         }
     }
     

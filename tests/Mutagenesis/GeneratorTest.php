@@ -19,7 +19,7 @@ class Mutagenesis_GeneratorTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Mutagenesis\FUTException
      */
     public function testShouldThrowExceptionOnNonexistingDirectory()
     {

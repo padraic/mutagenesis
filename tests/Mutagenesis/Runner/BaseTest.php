@@ -44,7 +44,7 @@ class Mutagenesis_RunnerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Mutagenesis\FUTException
      */
     public function testShouldThrowExceptionOnNonexistingDirectoryWhenSettingSourceDirectory()
     {
@@ -60,7 +60,7 @@ class Mutagenesis_RunnerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Mutagenesis\FUTException
      */
     public function testShouldThrowExceptionOnNonexistingDirectoryWhenSettingTestDirectory()
     {
@@ -166,7 +166,7 @@ class Mutagenesis_RunnerTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @expectedException Exception
+     * @expectedException \Mutagenesis\FUTException
      */
     public function testShouldThrowExceptionIfAdapterNameGivenIsNotSupported()
     {

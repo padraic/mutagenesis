@@ -86,7 +86,7 @@ class Generator
     public function setSourceDirectory($sourceDirectory)
     {
         if (!is_dir($sourceDirectory) || !is_readable($sourceDirectory)) {
-            throw new \Exception('Invalid source directory: "'.$sourceDirectory.'"');
+            throw new \Mutagenesis\FUTException('Invalid source directory: "'.$sourceDirectory.'"');
         }
         $this->_sourceDirectory = $sourceDirectory;
     }
