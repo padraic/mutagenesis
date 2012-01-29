@@ -31,14 +31,15 @@ error_reporting(E_ALL | E_STRICT);
 if (stream_resolve_include_path('Mutagenesis/Loader.php') === false) {
     throw new Exception(
         'Please install Mutagenesis prior to running the unit tests. Since '
-        . 'Mutagenesis operates across multiple processes using sample unit tests, '
-        . 'it must be installed to ensure all processes can easily access it.'
+        . 'Mutagenesis operates across multiple PHP processes under testing, '
+        . 'it must be installed or accessible from your php.ini defined include_path '
+        . 'so that any PHP process can easily locate it.'
     );
 }
 if (stream_resolve_include_path('Mockery/Loader.php') === false) {
     throw new Exception(
         'Mutagenesis unit tests rely on the Mockery test double framework. See '
-        . 'https://github.com/padraic/mockery for instructions on how to install '
+        . 'https://github.com/padraic/mockery for instructions on how to install it '
         . 'using PEAR or Composer.'
     );
 }

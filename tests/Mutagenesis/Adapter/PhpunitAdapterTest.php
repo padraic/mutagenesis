@@ -31,7 +31,6 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
     public function setUp()
     {
         $this->root = dirname(__FILE__) . '/_files';
-        //$this->bootstrap = __DIR__ . '/_files/Bootstrap.php';
     }
 
     public function tearDown()
@@ -47,7 +46,6 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
      */
     public function testAdapterRunsDefaultPhpunitCommand()
     {
-        $adapter = new \Mutagenesis\Adapter\Phpunit;
         $runner = m::mock('\Mutagenesis\Runner\Base');
         $runner->shouldReceive('getOptions')->andReturn(
             array(
@@ -63,92 +61,141 @@ class Mutagenesis_Adapter_PhpunitAdapterTest extends PHPUnit_Framework_TestCase
             'getBootstrap' => null,
             'getTimeout' => 1200
         ));
-        //ob_start();
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
         $result = $adapter->runTests(
             $runner,
             true, 
             true
         );
-        //var_dump($result); var_dump(ob_get_clean()); exit;
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
-            $result[1]['stdout'] //ob_get_clean()
+            $result[1]['stdout']
         );
     }
 
     public function testAdapterRunsPhpunitCommandWithAlltestsFileTarget()
     {
-        $adapter = new \Mutagenesis\Adapter\Phpunit;
-        $options = array(
-            'src' => dirname(__FILE__) . '/_files/phpunit2',
-            'tests' => dirname(__FILE__) . '/_files/phpunit2',
-            'base' => dirname(__FILE__) . '/_files/phpunit2',
-            'cache' => sys_get_temp_dir(),
-            'clioptions' => array(),
-            'constraint' => 'AllTests.php'
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
+            array(
+                'src' => dirname(__FILE__) . '/_files/phpunit2',
+                'tests' => dirname(__FILE__) . '/_files/phpunit2',
+                'base' => dirname(__FILE__) . '/_files/phpunit2',
+                'cache' => sys_get_temp_dir(),
+                'clioptions' => array(),
+                'constraint' => 'AllTests.php'
+            )
         );
-        ob_start();
-        $adapter->execute($options, true, true);
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
+        ));
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true
+        );
         $this->assertStringStartsWith(
             \PHPUnit_Runner_Version::getVersionString(),
-            ob_get_clean()
+            $result[1]['stdout']
         );
     }
 
     public function testAdapterDetectsTestsPassing()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => 'PassTest'
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
+            array(
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => 'PassTest'
+            )
         );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
+        ));
         $adapter = new \Mutagenesis\Adapter\Phpunit;
-        ob_start();
-        $adapter->execute($options, true, true);
-        $this->assertTrue($adapter->processOutput(ob_get_clean()));
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true
+        );
+        $this->assertTrue($adapter->processOutput($result[1]['stdout']));
     }
 
     public function testAdapterDetectsTestsFailingFromTestFail()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => 'FailTest'
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
+            array(
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => 'FailTest'
+            )
         );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
+        ));
         $adapter = new \Mutagenesis\Adapter\Phpunit;
-        ob_start();
-        $adapter->execute($options, true, true);
-        $this->assertFalse($adapter->processOutput(ob_get_clean()));
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true
+        );
+        $this->assertFalse($adapter->processOutput($result[1]['stdout']));
     }
 
     public function testAdapterDetectsTestsFailingFromException()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => 'ExceptionTest'
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
+            array(
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => 'ExceptionTest'
+            )
         );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
+        ));
         $adapter = new \Mutagenesis\Adapter\Phpunit;
-        ob_start();
-        $adapter->execute($options, true, true);
-        $this->assertFalse($adapter->processOutput(ob_get_clean()));
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true
+        );
+        $this->assertFalse($adapter->processOutput($result[1]['stdout']));
     }
 
     public function testAdapterDetectsTestsFailingFromError()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => 'ErrorTest'
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
+            array(
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => 'ErrorTest'
+            )
         );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
+        ));
         $adapter = new \Mutagenesis\Adapter\Phpunit;
-        ob_start();
-        $adapter->execute($options, true, true);
-        $this->assertFalse($adapter->processOutput(ob_get_clean()));
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true
+        );
+        $this->assertFalse($adapter->processOutput($result[1]['stdout']));
     }
     
     public function testAdapterOutputProcessingDetectsFailOverMultipleLinesWithNoDepOnFinalStatusReport()
@@ -172,93 +219,142 @@ OUTPUT;
 
     public function testAdapterDetectsFailOverMultipleTestCaseRuns()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => ''
-        );
-        $adapter = new \Mutagenesis\Adapter\Phpunit;
-        ob_start();
-        $adapter->execute($options, true, true, array(
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
             array(
-                'class' => 'PassTest',
-                'file' => 'PassTest.php'
-            ),
-            array(
-                'class' => 'FailTest',
-                'file' => 'FailTest.php'
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => ''
             )
+        );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
         ));
-        $this->assertFalse($adapter->processOutput(ob_get_clean()));
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true,
+            array(),
+            array(
+                array(
+                    'class' => 'PassTest',
+                    'file' => 'PassTest.php'
+                ),
+                array(
+                    'class' => 'FailTest',
+                    'file' => 'FailTest.php'
+                )
+            )
+        );
+        $this->assertFalse($adapter->processOutput($result[1]['stdout']));
     }
 
     public function testAdapterDetectsErrorOverMultipleTestCaseRuns()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => ''
-        );
-        $adapter = new \Mutagenesis\Adapter\Phpunit;
-        ob_start();
-        $adapter->execute($options, true, true, array(
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
             array(
-                'class' => 'PassTest',
-                'file' => 'PassTest.php'
-            ),
-            array(
-                'class' => 'ErrorTest',
-                'file' => 'ErrorTest.php'
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => ''
             )
+        );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
         ));
-        $this->assertFalse($adapter->processOutput(ob_get_clean()));
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true,
+            array(),
+            array(
+                array(
+                    'class' => 'PassTest',
+                    'file' => 'PassTest.php'
+                ),
+                array(
+                    'class' => 'ErrorTest',
+                    'file' => 'ErrorTest.php'
+                )
+            )
+        );
+        $this->assertFalse($adapter->processOutput($result[1]['stdout']));
     }
 
     public function testAdapterDetectsExceptionOverMultipleTestCaseRuns()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => ''
-        );
-        $adapter = new \Mutagenesis\Adapter\Phpunit;
-        $adapter->execute($options, true, true, array(
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
             array(
-                'class' => 'PassTest',
-                'file' => 'PassTest.php'
-            ),
-            array(
-                'class' => 'ExceptionTest',
-                'file' => 'ExceptionTest.php'
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => ''
             )
+        );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
         ));
-        $this->assertFalse($adapter->processOutput(ob_get_clean()));
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true,
+            array(),
+            array(
+                array(
+                    'class' => 'PassTest',
+                    'file' => 'PassTest.php'
+                ),
+                array(
+                    'class' => 'ExceptionTest',
+                    'file' => 'ExceptionTest.php'
+                )
+            )
+        );
+        $this->assertFalse($adapter->processOutput($result[1]['stdout']));
     }
 
     public function testAdapterDetectsPassOverMultipleTestCaseRuns()
     {
-        $options = array(
-            'tests' => $this->root,
-            'clioptions' => array(),
-            'cache' => sys_get_temp_dir(),
-            'constraint' => ''
-        );
-        $adapter = new \Mutagenesis\Adapter\Phpunit;
-        ob_start();
-        $adapter->execute($options, true, true, array(
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
             array(
-                'class' => 'PassTest',
-                'file' => 'PassTest.php'
-            ),
-            array(
-                'class' => 'PassTest',
-                'file' => 'PassTest.php'
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => ''
             )
+        );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
         ));
-        $this->assertTrue($adapter->processOutput(ob_get_clean()));
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true,
+            array(),
+            array(
+                array(
+                    'class' => 'PassTest',
+                    'file' => 'PassTest.php'
+                ),
+                array(
+                    'class' => 'PassTest',
+                    'file' => 'PassTest.php'
+                )
+            )
+        );
+        $this->assertTrue($adapter->processOutput($result[1]['stdout']));
     }
 
 }
