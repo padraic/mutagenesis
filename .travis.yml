@@ -18,6 +18,7 @@ before_script:
   - ./configure
   - make
   - sudo make install
+  - echo "extension=runkit.so" >> `php --ini | grep "Loaded Configuration" | sed -e "s|.*:\s*||"`
   - cd ..
 script: phpunit --coverage-text --configuration ./tests/phpunit.xml
 notifications:
