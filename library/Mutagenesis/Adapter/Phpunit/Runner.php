@@ -24,7 +24,7 @@ namespace Mutagenesis\Adapter\Phpunit;
 
 require_once 'PHPUnit/TextUI/Command.php';
 
-if (class_exists('PHP_CodeCoverage_Filter', true)) {
+if (class_exists('PHP_CodeCoverage_Filter', true) && method_exists('PHP_CodeCoverage_Filter', 'getInstance')) {
     \PHP_CodeCoverage_Filter::getInstance()->addFileToBlacklist(__FILE__, 'PHPUNIT');
 }
 
