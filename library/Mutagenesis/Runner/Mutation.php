@@ -85,11 +85,6 @@ class Mutation extends RunnerAbstract
         $this->_testCasesInExecutionOrder = unserlialize($testCases);
     }
 
-    public function setAdapterOptions($options)
-    {
-        parent::setAdapterOptions(unserialize($options));
-    }
-
 }
 
 

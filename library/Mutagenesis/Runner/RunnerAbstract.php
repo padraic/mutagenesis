@@ -322,11 +322,14 @@ abstract class RunnerAbstract
 
     /**
      * Set many options for adapter's underlying cli command
-     * @param array $options
+     * @param array|string $options Array or serialized array of options
      * @return self
      */
-    public function setAdapterOptions(array $options)
+    public function setAdapterOptions($options)
     {
+        if (!is_array($options)) {
+            $options = unserialize($options);
+        }
         foreach ($options as $value) {
             $this->setAdapterOption($value);
         }
