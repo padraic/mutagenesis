@@ -72,9 +72,9 @@ class Phpunit extends AdapterAbstract
                     $job->generate(
                         $mutation,
                         $args,
+                        $runner->getTimeout(),
                         $runner->getBootstrap()
-                    ),
-                    $runner->getTimeout()
+                    )
                 );
                 if (!$this->processOutput($output['stdout'])) {
                     return array(false, $output);
@@ -85,9 +85,14 @@ class Phpunit extends AdapterAbstract
                 $job->generate(
                     $mutation,
                     $options,
+                    /**
+                     * We don't want the initial test run to time out because it
+                     * executes all tests in a single process for PHPUnit (though
+                     * PHPUnit may use parallel processes internally).
+                     */
+                    0,
                     $runner->getBootstrap()
-                ),
-                $runner->getTimeout()
+                )
             );
             if (!$this->processOutput($output['stdout'])) {
                 return array(false, $output);
@@ -102,9 +107,9 @@ class Phpunit extends AdapterAbstract
      * @param string $jobScript
      * @return string $output
      */
-    public static function execute($jobScript, $timeout = 120)
+    public static function execute($jobScript)
     {
-        $output = \Mutagenesis\Utility\Process::run($jobScript, $timeout);
+        $output = \Mutagenesis\Utility\Process::run($jobScript);
         return $output;
     }
 

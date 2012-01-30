@@ -49,7 +49,7 @@ class Job {
     }
 }
 pcntl_signal(SIGALRM, array('\\MutagenesisEnv\\Job', 'timeout'), TRUE);
-pcntl_alarm(120);
+pcntl_alarm(60);
 try {
     Job::main();
 } catch (\\Exception \$e) {

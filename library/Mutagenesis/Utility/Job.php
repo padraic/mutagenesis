@@ -30,7 +30,7 @@ class Job
      * @param array $mutation Mutation data and objects to be used
      * @return string
      */
-    public function generate(array $mutation = array(), array $args = array(), $bootstrap = null)
+    public function generate(array $mutation = array(), array $args = array(), $timeout = 60, $bootstrap = null)
     {
         $serializedArgs = addslashes(serialize($args));
         $serializedMutation = addslashes(serialize($mutation));
@@ -60,7 +60,7 @@ class Job {
     }
 }
 pcntl_signal(SIGALRM, array('\\MutagenesisEnv\\Job', 'timeout'), TRUE);
-pcntl_alarm(120);
+pcntl_alarm({$timeout});
 try {
     Job::main();
 } catch (\\Exception \$e) {

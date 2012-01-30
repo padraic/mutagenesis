@@ -133,11 +133,11 @@ abstract class RunnerAbstract
     protected $_options = array();
     
     /**
-     * Timeout in seconds allowed per test execution
+     * Timeout in seconds allowed per test execution.
      *
      * @var int
      */
-    protected $_timeout = 120;
+    protected $_timeout = 60;
     
     /**
      * Test framework bootstrap
