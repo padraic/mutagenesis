@@ -33,7 +33,7 @@ class Job
     public function generate(array $mutation = array(), array $args = array(), $timeout = 60, $bootstrap = null)
     {
         $serializedArgs = addslashes(serialize($args));
-        $serializedMutation = addslashes(serialize($mutation));
+        $serializedMutation = addcslashes(serialize($mutation), "'\\");
         if (is_null($bootstrap)) {
             $bootstrap = 'null';
         } else {
@@ -51,7 +51,7 @@ class Job {
     static function main () {
         \Mutagenesis\Adapter\Phpunit::main(
             "{$serializedArgs}",
-            "{$serializedMutation}",
+            '{$serializedMutation}',
             {$bootstrap}
         );
     }

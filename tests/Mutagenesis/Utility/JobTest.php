@@ -27,7 +27,13 @@ class Mutagenesis_JobTest extends PHPUnit_Framework_TestCase
     public function testGenerateReturnsPHPScriptRenderedWithCurrentRunnersSettingsAndSerialisedMutationArray()
     {
         $job = new \Mutagenesis\Utility\Job;
-        $script = $job->generate(array('a', '1', new stdClass));
+        $source = '
+        $obj = new stdClass;
+        $obj->dave = function() {
+            return $dave = 123;
+        };
+        ';
+        $script = $job->generate(array('a', '1', $source));
         $expected = <<<EXPECTED
 <?php
 namespace MutagenesisEnv;
@@ -40,7 +46,12 @@ class Job {
     static function main () {
         \Mutagenesis\Adapter\Phpunit::main(
             "a:0:{}",
-            "a:3:{i:0;s:1:\"a\";i:1;s:1:\"1\";i:2;O:8:\"stdClass\":0:{}}",
+            'a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;s:115:"
+        \$obj = new stdClass;
+        \$obj->dave = function() {
+            return \$dave = 123;
+        };
+        ";}',
             null
         );
     }
