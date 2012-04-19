@@ -87,7 +87,7 @@ class Mutagenesis_MutableTest extends PHPUnit_Framework_TestCase
         $file = new \Mutagenesis\Mutable($this->root . '/mathx2.php');
         $file->generate();
         $return = $file->getMutables();
-        $this->assertEquals('Math2', $return[1]['class']);
+        $this->assertEquals('\\Math2', $return[1]['class']);
     }
 
     public function testShouldDetectMutationsForClassesInSameFileSeparately()
@@ -95,7 +95,7 @@ class Mutagenesis_MutableTest extends PHPUnit_Framework_TestCase
         $file = new \Mutagenesis\Mutable($this->root . '/mathx2.php');
         $file->generate();
         $return = $file->getMutations();
-        $this->assertEquals('Math2', $return[1]['class']);
+        $this->assertEquals('\\Math2', $return[1]['class']);
     }
 
 
@@ -164,7 +164,7 @@ class Mutagenesis_MutableTest extends PHPUnit_Framework_TestCase
         $mutations = $file->getMutations();
         $mutation = $mutations[0];
         $this->assertEquals(dirname(__FILE__) . '/_files/IfClause.php', $mutation['file']);
-        $this->assertEquals('Some_Class_With_If_Clause_In_Method', $mutation['class']);
+        $this->assertEquals('\\Some_Class_With_If_Clause_In_Method', $mutation['class']);
         $this->assertEquals('_getSession', $mutation['method']);
         $this->assertEquals('', $mutation['args']);
         $block = <<<BLOCK
@@ -175,6 +175,66 @@ class Mutagenesis_MutableTest extends PHPUnit_Framework_TestCase
                 \$this->getSessionNamespace(), true
             );
         }
+    
+BLOCK;
+        $this->assertEquals($block, $this->_reconstructFromTokens($mutation['tokens']));
+    }
+
+    public function testCreatesFullyNamespacedClassNames()
+    {
+        $file = new \Mutagenesis\Mutable(dirname(__FILE__) . '/_files/SomeNamespacedClassName.php');
+        $file->generate();
+        $mutations = $file->getMutations();
+        $mutation = $mutations[0];
+        $this->assertEquals(dirname(__FILE__) . '/_files/SomeNamespacedClassName.php', $mutation['file']);
+        $this->assertEquals('\\Some\\Namespaced\\ClassName', $mutation['class']);
+    }
+
+    public function testCreatesAccurateMapOfBracesWithComplexStringInterning()
+    {
+        $file = new \Mutagenesis\Mutable(dirname(__FILE__) . '/_files/ComplexInternString.php');
+        $file->generate();
+        $mutations = $file->getMutations();
+        $mutation = $mutations[0];
+        $this->assertEquals(dirname(__FILE__) . '/_files/ComplexInternString.php', $mutation['file']);
+        $this->assertEquals('\\Some_Class_With_ComplexInternString', $mutation['class']);
+        $this->assertEquals('_getSession', $mutation['method']);
+        $this->assertEquals('', $mutation['args']);
+        $block = <<<BLOCK
+
+        static \$session = null;
+        if (\$session === null) {
+            \$dave = "{\$session['dave']}";
+            return true;
+        }
+
+        return false;
+    
+BLOCK;
+        $this->assertEquals($block, $this->_reconstructFromTokens($mutation['tokens']));
+    }
+    
+    public function testCreatesLeavesClosuresIntact()
+    {
+        $file = new \Mutagenesis\Mutable(dirname(__FILE__) . '/_files/Closure.php');
+        $file->generate();
+        $mutations = $file->getMutations();
+        $mutation = $mutations[0];
+        $this->assertEquals(dirname(__FILE__) . '/_files/Closure.php', $mutation['file']);
+        $this->assertEquals('\\Some_Class_With_Closure', $mutation['class']);
+        $this->assertEquals('_getSession', $mutation['method']);
+        $this->assertEquals('', $mutation['args']);
+        $block = <<<BLOCK
+
+        static \$session = null;
+        if (\$session === null) {
+            \$dave = function(Closure \$func, array \$d) use (\$session) {
+                \$d = \$session;
+            });
+            return true;
+        }
+
+        return false;
     
 BLOCK;
         $this->assertEquals($block, $this->_reconstructFromTokens($mutation['tokens']));
