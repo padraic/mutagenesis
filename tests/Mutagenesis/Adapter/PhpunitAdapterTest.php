@@ -381,7 +381,7 @@ OUTPUT;
             array(
                 array(
                     'class' => 'PassTest',
-                    'file' => 'SyntaxErrorTest.php'
+                    'file' => 'SyntaxError.php'
                 ),
             )
         );
