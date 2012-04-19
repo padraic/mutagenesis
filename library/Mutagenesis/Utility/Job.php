@@ -39,14 +39,28 @@ class Job
         } else {
             $bootstrap = '"' . addslashes($bootstrap) . '"';
         }
-        $script = <<<SCRIPT
-<?php
-namespace MutagenesisEnv;
-declare(ticks = 1);
-require_once 'PHPUnit/Autoload.php';
+
+        if (file_exists(__DIR__.'/../../../vendor/.composer/autoload.php')) {
+            $autoload =  'include "'.realpath(__DIR__.'/../../../vendor/.composer/autoload.php').'";';
+        } else if (file_exists(__DIR__.'/../../../../../.composer/autoload.php')) {
+            $autoload = 'include "'.realpath(__DIR__.'/../../../../../.composer/autoload.php').'";';
+        } else { 
+            $mutagenesisPath = realpath(__DIR__ . '/../../');
+            $autoload = <<<EOS
 require_once 'Mutagenesis/Loader.php';
 \$loader = new \Mutagenesis\Loader;
 \$loader->register();
+EOS;
+        }
+
+        $script = <<<SCRIPT
+<?php
+
+namespace MutagenesisEnv;
+
+declare(ticks = 1);
+require_once 'PHPUnit/Autoload.php';
+$autoload
 class Job {
     static function main () {
         \Mutagenesis\Adapter\Phpunit::main(

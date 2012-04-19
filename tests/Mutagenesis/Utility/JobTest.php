@@ -34,14 +34,15 @@ class Mutagenesis_JobTest extends PHPUnit_Framework_TestCase
         };
         ';
         $script = $job->generate(array('a', '1', $source));
+        $autoload = realpath(__DIR__."/../../../vendor/.composer/autoload.php");
         $expected = <<<EXPECTED
 <?php
+
 namespace MutagenesisEnv;
+
 declare(ticks = 1);
 require_once 'PHPUnit/Autoload.php';
-require_once 'Mutagenesis/Loader.php';
-\$loader = new \Mutagenesis\Loader;
-\$loader->register();
+include "$autoload";
 class Job {
     static function main () {
         \Mutagenesis\Adapter\Phpunit::main(

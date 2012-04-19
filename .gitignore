@@ -2,3 +2,5 @@
 pearfarm.spec
 package.xml
 *.sublime-project
+composer.lock
+vendor
