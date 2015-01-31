@@ -1,0 +1,24 @@
+{
+    "name": "mutagenesis/mutagenesis",
+    "description": "Mutation testing framework for PHP",
+    "keywords": ["testing", "quality"],
+    "homepage": "http://github.com/padraicb/mutagenesis",
+    "type": "library",
+    "license": "BSD",
+    "authors": [
+        {
+            "name": "Padraic Brady",
+            "email": "padraic.brady@yahoo.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.2"
+    },
+    "require-dev": {
+        "mockery/mockery": "*"
+    },
+    "autoload": {
+        "psr-0": { "Mutagenesis": "library/" }
+    },
+    "bin": ["bin/mutagenesis"]
+}

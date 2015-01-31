@@ -98,12 +98,11 @@ class Base extends RunnerAbstract
                     $orderedTestCases
                 );
 
+                $job = new \Mutagenesis\Utility\Job;
                 $output = \Mutagenesis\Utility\Process::run(
-                    $job->generate($mutation, false, $orderedTestCases), $this->getTimeout()
+                    $job->generate($mutation, $orderedTestCases), $this->getTimeout()
                 );
                 /* TODO: Store output for per-mutant results */
-                $result = $this->getAdapter()->processOutput($output['stdout']);
-                
 
                 $countMutants++;
                 if ($result[0] === 'timed out' || !$result[0]) {
@@ -113,9 +112,9 @@ class Base extends RunnerAbstract
                             $mutation['tokens'],
                             $mutation['index']
                         );
-                        $mutantsCaptured[] = array($mutation, $result['stdout']);
+                        $mutantsCaptured[] = array($mutation, $result['stderr']);
                     }
-                } else {
+                } else if ($result[0] !== 'process failure') {
                     $countMutantsEscaped++;
                     $mutation['mutation']->mutate(
                         $mutation['tokens'],

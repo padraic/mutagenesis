@@ -1,13 +1,17 @@
 #!/usr/bin/env php
 <?php
-if (strpos('@php_bin@', '@php_bin') === 0) {
-    set_include_path(dirname(dirname(__FILE__)) . DIRECTORY_SEPARATOR . 'library' . PATH_SEPARATOR . get_include_path());
+
+if (file_exists(__DIR__.'/../vendor/.composer/autoload.php')) {
+    include __DIR__.'/../vendor/.composer/autoload.php';
+} else if (file_exists(__DIR__.'/../../../.composer/autoload.php')) {
+    include __DIR__.'/../../../.composer/autoload.php';
+} else {
+
+    require_once 'Mutagenesis/Loader.php';
+
+    $loader = new \Mutagenesis\Loader;
+    $loader->register();
+    require 'Mutagenesis/Console.php';
 }
 
-require_once 'Mutagenesis/Loader.php';
-
-$loader = new \Mutagenesis\Loader;
-$loader->register();
-
-require 'Mutagenesis/Console.php';
 \Mutagenesis\Console::main();

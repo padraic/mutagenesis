@@ -27,20 +27,32 @@ class Mutagenesis_JobTest extends PHPUnit_Framework_TestCase
     public function testGenerateReturnsPHPScriptRenderedWithCurrentRunnersSettingsAndSerialisedMutationArray()
     {
         $job = new \Mutagenesis\Utility\Job;
-        $script = $job->generate(array('a', '1', new stdClass));
+        $source = '
+        $obj = new stdClass;
+        $obj->dave = function() {
+            return $dave = 123;
+        };
+        ';
+        $script = $job->generate(array('a', '1', $source));
+        $autoload = realpath(__DIR__."/../../../vendor/.composer/autoload.php");
         $expected = <<<EXPECTED
 <?php
+
 namespace MutagenesisEnv;
+
 declare(ticks = 1);
 require_once 'PHPUnit/Autoload.php';
-require_once 'Mutagenesis/Loader.php';
-\$loader = new \Mutagenesis\Loader;
-\$loader->register();
+include "$autoload";
 class Job {
     static function main () {
         \Mutagenesis\Adapter\Phpunit::main(
             "a:0:{}",
-            "a:3:{i:0;s:1:\"a\";i:1;s:1:\"1\";i:2;O:8:\"stdClass\":0:{}}",
+            'a:3:{i:0;s:1:"a";i:1;s:1:"1";i:2;s:115:"
+        \$obj = new stdClass;
+        \$obj->dave = function() {
+            return \$dave = 123;
+        };
+        ";}',
             null
         );
     }

@@ -42,15 +42,14 @@ class Mutagenesis_ProcTest extends PHPUnit_Framework_TestCase
     public function testSeparateProcessCompletesPreTimeout()
     {
         $process = new \Mutagenesis\Utility\Process;
+        $autoload = realpath(__DIR__."/../../../vendor/.composer/autoload.php");
         $timeout = 120;
         $job = <<<JOB
 <?php
 namespace MutagenesisEnv;
 declare(ticks = 1);
 require_once 'PHPUnit/Autoload.php';
-require_once 'Mutagenesis/Loader.php';
-\$loader = new \Mutagenesis\Loader;
-\$loader->register();
+include "$autoload";
 class Job {
     static function main () {
         sleep(1);
@@ -81,14 +80,13 @@ JOB;
     {
         $process = new \Mutagenesis\Utility\Process;
         $timeout = 1;
+        $autoload = realpath(__DIR__."/../../../vendor/.composer/autoload.php");
         $job = <<<JOB
 <?php
 namespace MutagenesisEnv;
 declare(ticks = 1);
 require_once 'PHPUnit/Autoload.php';
-require_once 'Mutagenesis/Loader.php';
-\$loader = new \Mutagenesis\Loader;
-\$loader->register();
+include "$autoload";
 class Job {
     static function main () {
         sleep(2);
@@ -119,14 +117,13 @@ JOB;
     {
         $process = new \Mutagenesis\Utility\Process;
         $timeout = 120;
+        $autoload = realpath(__DIR__."/../../../vendor/.composer/autoload.php");
         $job = <<<JOB
 <?php
 namespace MutagenesisEnv;
 declare(ticks = 1);
 require_once 'PHPUnit/Autoload.php';
-require_once 'Mutagenesis/Loader.php';
-\$loader = new \Mutagenesis\Loader;
-\$loader->register();
+include "$autoload";
 class Job {
     static function main () {
         throw new \\Exception();

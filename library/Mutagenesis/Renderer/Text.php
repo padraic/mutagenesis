@@ -76,6 +76,8 @@ class Text implements RendererInterface
     {
         if ($result === 'timed out') {
             return 'T';
+        } elseif ($result === 'process failure') {
+            return 'F';
         } elseif ($result) {
             return 'E';
         } else {

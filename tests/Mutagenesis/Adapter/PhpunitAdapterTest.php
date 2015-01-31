@@ -357,4 +357,34 @@ OUTPUT;
         $this->assertTrue($adapter->processOutput($result[1]['stdout']));
     }
 
+    public function testAdapterDetectsFailedRun()
+    {
+        $runner = m::mock('\Mutagenesis\Runner\Base');
+        $runner->shouldReceive('getOptions')->andReturn(
+            array(
+                'tests' => $this->root,
+                'clioptions' => array(),
+                'cache' => sys_get_temp_dir(),
+                'constraint' => ''
+            )
+        );
+        $runner->shouldReceive(array(
+            'getBootstrap' => null,
+            'getTimeout' => 1200
+        ));
+        $adapter = new \Mutagenesis\Adapter\Phpunit;
+        $result = $adapter->runTests(
+            $runner,
+            true, 
+            true,
+            array(),
+            array(
+                array(
+                    'class' => 'PassTest',
+                    'file' => 'SyntaxError.php'
+                ),
+            )
+        );
+        $this->assertEquals(\Mutagenesis\Adapter\Phpunit::PROCESS_FAILURE, $adapter->processOutput($result[1]['stdout']));
+    }
 }
